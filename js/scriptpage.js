@@ -134,6 +134,20 @@
                 email:    'mailto:rafael.aschoff@recife.ifpe.edu.br',
             }
         },
+
+          
+        Hilson: {
+            name: 'Prof. Hilson Andrade',
+            role: 'Diretor de extenção do IFPE',
+            initials: 'HI',
+            bio: 'Professor e pesquisador do IFPE Campus Recife que, há mais de vinte anos, utiliza a ciência e a tecnologia para resolver problemas. Doutorando em Engenharia da Computação, Mestre em Ciências da Computação, Engenheiro Eletrônico e técnico em Eletrotécnica, coordena a Liga de Engenharia de Software, promovendo a formação prática e o desenvolvimento de soluções tecnológicas com impacto real na comunidade.',
+            links: {
+               
+                linkedin: 'https://www.linkedin.com/in/hilson-andrade-36719344/',
+                email:    'mailto:yuriprodeveloper@gmail.com',
+                instagram: 'https://www.instagram.com/hilson_gva/',
+            }
+        },
         ilian: {
             name: 'Ilian Solano Bezerra da Silva',
             role: 'Presidente',
