@@ -144,7 +144,7 @@
             links: {
                
                 linkedin: 'https://www.linkedin.com/in/hilson-andrade-36719344/',
-                email:    'mailto:yuriprodeveloper@gmail.com',
+                email:    'hilsonvilar@recife.ifpe.edu.br',
                 instagram: 'https://www.instagram.com/hilson_gva/',
             }
         },
