@@ -136,7 +136,7 @@
         },
 
           
-        Hilson: {
+        hilson: {
             name: 'Prof. Hilson Andrade',
             role: 'Diretor de extenção do IFPE',
             initials: 'HI',
@@ -145,7 +145,7 @@
                
                 linkedin: 'https://www.linkedin.com/in/hilson-andrade-36719344/',
                 email:    'hilsonvilar@recife.ifpe.edu.br',
-                instagram: 'https://www.instagram.com/hilson_gva/',
+               
             }
         },
         ilian: {
