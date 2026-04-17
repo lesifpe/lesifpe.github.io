@@ -1280,7 +1280,8 @@ main > section > p {
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 12px;
   width: 100%;
-  max-width: 560px;
+  height: 560px;
+  max-width: 800px;
   position: relative;
   transform: translateY(30px) scale(0.97);
   transition: transform 0.35s var(--ease-smooth);
@@ -1607,4 +1608,338 @@ main > section > p {
   .cta-group { flex-direction: column; align-items: center; }
   .project-card { flex: 0 0 calc(92% - 0.75rem); }
   .slide-dots { display: none; }
+}
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVIDADE — LES IFPE
+   Breakpoints:
+     Desktop  → ≥ 1201px  (base, sem media query)
+     Netbook  → ≤ 1200px
+     Tablet   → ≤ 900px
+     Mobile L → ≤ 700px
+     Mobile S → ≤ 480px
+   ══════════════════════════════════════════════════════════════ */
+
+
+/* ── NETBOOK / LAPTOP PEQUENO (≤ 1200px) ──────────────────── */
+@media (max-width: 1200px) {
+  .pilares-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .project-card {
+    flex: 0 0 calc(72% - 0.75rem);
+  }
+
+  .historia .container {
+    gap: 3rem;
+  }
+}
+
+
+/* ── TABLET (≤ 900px) ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Layout geral */
+  main > section {
+    padding: 5rem 2rem;
+  }
+
+  /* História */
+  .historia .container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  /* Pilares — 1 coluna em tablet pequeno */
+  .pilares-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  /* Equipe — 1 coluna */
+  .direction-grid,
+  .dev-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Carrossel */
+  .project-card {
+    flex: 0 0 calc(85% - 0.75rem);
+  }
+
+  /* Eventos */
+  .eventos1,
+  .eventos2 {
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+  }
+
+  .eventos1 p:last-child,
+  .eventos2 p:last-child {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  /* Footer */
+  .footer {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1.25rem;
+  }
+
+  .copyright {
+    text-align: center;
+  }
+
+  .social-links,
+  .footer-links {
+    justify-content: center;
+  }
+}
+
+
+/* ── MOBILE LARGO (≤ 700px) ───────────────────────────────── */
+@media (max-width: 700px) {
+  /* ── Header ── */
+  .header {
+    padding: 0 1.25rem;
+    height: 64px;
+  }
+
+  .header > div img {
+    height: 46px;
+  }
+
+  /* Esconde nav desktop, mostra hamburger */
+  .header nav {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* ── MENU MOBILE — CORREÇÃO PRINCIPAL ──
+     left/right: 0 garante 100% da largura independente
+     do overflow do pai. position: fixed para sair do fluxo
+     e cobrir toda a viewport.
+  ── */
+  .mobile-nav {
+    display: block;
+    position: fixed;
+    top: 64px;        /* altura exata do header */
+    left: 0;
+    right: 0;
+    width: 100%;      /* garante 100vw */
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 166, 81, 0.2);
+    padding: 1.25rem 1.25rem 1.75rem;
+    z-index: 999;
+    /* Animação */
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease;
+    /* Sem max-height para não cortar */
+    overflow-y: auto;
+  }
+
+  .mobile-nav.open {
+    height: 100%;
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .mobile-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .mobile-menu li a {
+    display: block;
+    padding: 0.9rem 1rem;
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245, 245, 240, 0.75);
+    text-decoration: none;
+    border-radius: 4px;
+    border-left: 3px solid transparent;
+    transition: color 0.25s, border-color 0.25s, background 0.25s;
+  }
+
+  .mobile-menu li a:hover,
+  .mobile-menu li a:active {
+    color: var(--white);
+    border-left-color: var(--green);
+    background: rgba(0, 166, 81, 0.07);
+  }
+
+  .mobile-menu li:last-child a {
+    margin-top: 0.75rem;
+    color: var(--black);
+    background: var(--green);
+    border-left: none;
+    text-align: center;
+    border-radius: 4px;
+  }
+
+  .mobile-menu li:last-child a:hover {
+    background: var(--green-l);
+  }
+
+  /* ── Hero ── */
+  .LIGA {
+    padding: 0 1.25rem;
+    margin-top: 64px;
+  }
+
+  main > section {
+    padding: 4rem 1.25rem;
+  }
+
+  /* ── Pilares ── */
+  .pilares-grid {
+    grid-template-columns: 1fr;
+    margin-top: 2rem;
+  }
+
+  .pilar-card {
+    padding: 2rem 1.5rem 1.75rem;
+  }
+
+  /* ── Eventos ── */
+  .eventos1 img,
+  .eventos2 img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .eventos1,
+  .eventos2 {
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+  }
+
+  /* ── Carrossel ── */
+  .project-card {
+    flex: 0 0 calc(92% - 0.75rem);
+  }
+
+  /* ── Modal evento ── */
+  .event-modal-body {
+    padding: 1.5rem 1.25rem 2rem;
+  }
+
+  /* ── CTA ── */
+  .cta-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+
+  /* ── Slide dots ── */
+  .slide-dots {
+    display: none;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    padding: 2rem 1.25rem 1.5rem;
+  }
+
+  .social-links,
+  .footer-links {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+
+/* ── MOBILE PEQUENO (≤ 480px) ─────────────────────────────── */
+@media (max-width: 480px) {
+  /* Header */
+  .header {
+    padding: 0 1rem;
+    height: 60px;
+  }
+
+  .header > div img {
+    height: 42px;
+  }
+
+  /* Ajusta posição do menu para altura do header menor */
+  .mobile-nav {
+    top: 60px;
+  }
+
+  .mobile-menu li a {
+    font-size: 1rem;
+    padding: 0.85rem 0.75rem;
+  }
+
+  /* Hero */
+  .LIGA {
+    padding: 0 1rem;
+    margin-top: 60px;
+  }
+
+  main > section {
+    padding: 3.5rem 1rem;
+  }
+
+  /* Eventos — empilha verticalmente em telas muito pequenas */
+  .eventos1,
+  .eventos2 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .eventos1 img,
+  .eventos2 img {
+    width: 100%;
+    height: 120px;
+    border-radius: 4px;
+  }
+
+  .eventos1 p:last-child,
+  .eventos2 p:last-child {
+    text-align: left;
+  }
+
+  /* Modal de membro */
+  .modal-box {
+    padding: 2rem 1.25rem;
+  }
+
+  /* Carrossel */
+  .project-card {
+    flex: 0 0 calc(96% - 0.75rem);
+  }
+
+  /* Timeline */
+  .timeline-item {
+    padding: 1.25rem 1rem 1.25rem 2.5rem;
+  }
+
+  /* Footer */
+  .social-links,
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
 }
