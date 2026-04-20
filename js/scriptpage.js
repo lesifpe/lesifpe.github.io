@@ -26,9 +26,9 @@
        incluir novos slides no hero.
     ════════════════════════════════════════════════════════ */
    const heroImages = [
-    { src: '/assets/imagens/capa/fachadacampusrecife.jpg', alt: 'IFPE Campus Recife — Fachada' },
-    { src: '/assets/imagens/capa/CAPA.jpeg', alt: 'Workshop LES' },
-    { src: '/assets/imagens/capa/1.jpeg', alt: 'Workshop LES' },
+    { src: './assets/imagens/capa/fachadacampusrecife.jpg', alt: 'IFPE Campus Recife — Fachada' },
+    { src: './assets/imagens/capa/CAPA.jpeg', alt: 'Workshop LES' },
+    { src: './assets/imagens/capa/1.jpeg', alt: 'Workshop LES' },
 ];
 
     const slideshowEl  = document.getElementById('heroSlideshow');
