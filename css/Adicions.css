@@ -1,0 +1,676 @@
+/* ============================================================
+   LES – LIGA DE ENGENHARIA DE SOFTWARE | IFPE Recife
+   additions.css — Estilos para os novos componentes
+
+   CONTEÚDO:
+     1.  Seção Equipe — hero com botão central e avatares flutuantes
+     2.  Pílulas de categoria na seção equipe
+     3.  Modal visão geral da equipe (#team-overview-modal)
+     4.  Animações de entrada do modal (stagger dos cards)
+     5.  Colaboradores (avatar âmbar)
+     6.  Contagem regressiva do Ingresso
+     7.  Imagem de processo semestral (Fase 4)
+     8.  Toast de feedback ("processo não disponível")
+     9.  Responsividade
+   ============================================================ */
+
+
+/* ─────────────────────────────────────────────────────────────
+   1.  SEÇÃO EQUIPE — HERO
+───────────────────────────────────────────────────────────── */
+.equipe-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 380px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    margin-top: 2rem;
+}
+
+.equipe-hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 166, 81, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.equipe-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 166, 81, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 166, 81, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+/* Avatares flutuantes */
+.equipe-hero-avatars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.equipe-avatar-float {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green-d), var(--green));
+    color: var(--black);
+    font-family: var(--font-head);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(0, 166, 81, 0.25);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    opacity: 0.55;
+    animation: avatarFloat 6s ease-in-out infinite;
+    transition: opacity 0.3s;
+}
+
+.equipe-hero:hover .equipe-avatar-float { opacity: 0.75; }
+
+.equipe-avatar-float--1 { top: 12%;   left: 6%;   animation-delay: 0s;   animation-duration: 6.2s; }
+.equipe-avatar-float--2 { top: 8%;    left: 28%;  animation-delay: 0.7s; animation-duration: 5.8s; }
+.equipe-avatar-float--3 { top: 15%;   right: 10%; animation-delay: 1.4s; animation-duration: 6.5s; }
+.equipe-avatar-float--4 { bottom: 14%;left: 8%;   animation-delay: 2.1s; animation-duration: 5.5s; }
+.equipe-avatar-float--5 { bottom: 10%;left: 30%;  animation-delay: 0.3s; animation-duration: 6.8s; }
+.equipe-avatar-float--6 { bottom: 18%;right: 8%;  animation-delay: 1.8s; animation-duration: 5.9s; }
+.equipe-avatar-float--7 { top: 40%;   left: 3%;   animation-delay: 1.1s; animation-duration: 6.3s; }
+.equipe-avatar-float--8 { top: 35%;   right: 4%;  animation-delay: 2.5s; animation-duration: 5.7s; }
+
+.equipe-avatar-float--3,
+.equipe-avatar-float--6 {
+    background: linear-gradient(135deg, #1a3a2a, var(--green-d));
+    color: var(--white);
+}
+
+.equipe-avatar-float--5,
+.equipe-avatar-float--7 {
+    background: linear-gradient(135deg, #3a1a00, #7a4000);
+    color: var(--white);
+    border-color: rgba(192, 120, 0, 0.25);
+}
+
+@keyframes avatarFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33%       { transform: translateY(-10px) rotate(2deg); }
+    66%       { transform: translateY(6px) rotate(-1.5deg); }
+}
+
+/* Conteúdo central */
+.equipe-hero-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    text-align: center;
+    padding: 2.5rem 2rem;
+}
+
+.equipe-hero-label {
+    font-family: var(--font-head);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin: 0;
+}
+
+.equipe-hero-count {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+    line-height: 1;
+}
+
+.equipe-hero-count > span:first-child {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    color: var(--white);
+    line-height: 1;
+}
+
+.equipe-hero-count-label {
+    font-family: var(--font-head);
+    font-size: 0.85rem;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0.1em;
+    color: var(--gray-lt);
+}
+
+/* Botão principal */
+.equipe-hero-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 4px;
+    position: relative;
+}
+
+.equipe-hero-btn-text {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.85rem 1.75rem;
+    font-family: var(--font-head);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--green);
+    transition: background 0.3s, color 0.3s;
+    position: relative;
+    z-index: 1;
+}
+
+.equipe-hero-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 100%;
+    padding: 0.85rem 0;
+    background: var(--green-d);
+    color: var(--white);
+    position: relative;
+    z-index: 1;
+    transition: background 0.3s, transform 0.3s var(--ease-bounce);
+}
+
+.equipe-hero-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s var(--ease-smooth);
+    z-index: 0;
+}
+
+.equipe-hero-btn:hover::before   { transform: scaleX(1); transform-origin: left; }
+.equipe-hero-btn:hover .equipe-hero-btn-text { color: var(--white); background: transparent; }
+.equipe-hero-btn:hover .equipe-hero-btn-icon { background: rgba(0,0,0,0.2); transform: translateX(4px); }
+.equipe-hero-btn:hover           { box-shadow: 0 8px 40px rgba(204, 0, 0, 0.35); }
+
+
+/* ─────────────────────────────────────────────────────────────
+   2.  PÍLULAS DE CATEGORIA
+───────────────────────────────────────────────────────────── */
+.equipe-hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.equipe-tag {
+    font-family: var(--font-head);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.65rem;
+    border-radius: 2px;
+}
+
+.equipe-tag--green  { color: var(--green); background: rgba(0,166,81,0.1);    border: 1px solid rgba(0,166,81,0.2); }
+.equipe-tag--red    { color: #ff6666;       background: rgba(204,0,0,0.1);     border: 1px solid rgba(204,0,0,0.2); }
+.equipe-tag--amber  { color: #c09030;       background: rgba(192,120,0,0.1);   border: 1px solid rgba(192,120,0,0.2); }
+/* Nova categoria: .equipe-tag--white { color: rgba(245,245,240,0.6); background: rgba(245,245,240,0.05); border: 1px solid rgba(245,245,240,0.1); } */
+
+
+/* ─────────────────────────────────────────────────────────────
+   3.  MODAL VISÃO GERAL DA EQUIPE
+───────────────────────────────────────────────────────────── */
+.team-overview-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 8800;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s var(--ease-smooth);
+    overflow-y: auto;
+}
+
+.team-overview-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.team-overview-modal-box {
+    background: #0f0f0f;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 3px solid var(--green);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 2.5rem;
+    position: relative;
+    transform: translateY(50px) scale(0.96);
+    transition: transform 0.45s var(--ease-smooth);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.75);
+    margin: auto;
+}
+
+.team-overview-overlay.open .team-overview-modal-box {
+    transform: translateY(0) scale(1);
+}
+
+.team-overview-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.team-overview-modal-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1;
+}
+
+.team-overview-modal-subtitle {
+    font-family: var(--font-head);
+    font-size: 0.85rem;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0.1em;
+    color: var(--gray-lt);
+    margin-top: 0.4rem;
+}
+
+.team-overview-close {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    color: var(--gray-lt);
+    font-size: 1.6rem;
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: color 0.2s, transform 0.2s, border-color 0.2s;
+    padding: 0;
+}
+
+.team-overview-close:hover {
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: rotate(90deg);
+}
+
+.team-overview-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.team-filter-btn {
+    font-family: var(--font-head);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: transparent;
+    color: var(--gray-lt);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.team-filter-btn:hover {
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.team-filter-btn.active {
+    background: rgba(0, 166, 81, 0.12);
+    border-color: var(--green);
+    color: var(--green);
+}
+
+.team-overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.75rem;
+}
+
+.team-overview-group-header {
+    grid-column: 1 / -1;
+    font-family: var(--font-head);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green);
+    padding: 0.5rem 0 0.25rem;
+    border-bottom: 1px solid rgba(0, 166, 81, 0.15);
+    margin-top: 0.75rem;
+}
+
+.team-overview-group-header:first-child { margin-top: 0; }
+
+.team-overview-grid .member-card { cursor: pointer; }
+
+
+/* ─────────────────────────────────────────────────────────────
+   4.  ANIMAÇÕES STAGGER DOS CARDS NO MODAL
+   JS adiciona class .animated e style="--i: N" em cada card.
+───────────────────────────────────────────────────────────── */
+@keyframes cardSlideIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.team-overview-grid .member-card.animated,
+.team-overview-grid .team-overview-group-header.animated {
+    animation: cardSlideIn 0.4s var(--ease-smooth) both;
+    animation-delay: calc(var(--i, 0) * 0.045s);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   5.  COLABORADORES
+───────────────────────────────────────────────────────────── */
+.colaborador-avatar {
+    background: linear-gradient(135deg, #7a4a00, #c07800);
+    color: var(--white);
+}
+
+.colaborador-role { color: #c09030; }
+
+.member-card[data-group="colaborador"]:hover {
+    background: rgba(192, 120, 0, 0.07);
+    border-color: rgba(192, 120, 0, 0.3);
+}
+
+.member-card[data-group="colaborador"]:hover::before { background: #c07800; }
+
+
+/* ─────────────────────────────────────────────────────────────
+   6.  CONTAGEM REGRESSIVA DO INGRESSO
+───────────────────────────────────────────────────────────── */
+.ingresso-countdown-wrapper { margin-bottom: 1.75rem; }
+
+.ingresso-countdown-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.ingresso-countdown-label {
+    font-family: var(--font-head);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gray-lt);
+    margin: 0;
+}
+
+.ingresso-countdown-digits {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    min-width: 54px;
+}
+
+.countdown-num {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--white);
+    line-height: 1;
+    transition: transform 0.15s var(--ease-bounce);
+}
+
+.countdown-num.tick { transform: scale(1.12); }
+
+.countdown-lbl {
+    font-family: var(--font-head);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-lt);
+}
+
+.countdown-sep {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: rgba(245, 245, 240, 0.25);
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+
+.ingresso-countdown-block[data-fase="2"] .countdown-num {
+    color: var(--green);
+    text-shadow: 0 0 20px rgba(0, 166, 81, 0.4);
+}
+
+.ingresso-countdown-block[data-fase="3"] .countdown-num {
+    color: var(--red);
+    text-shadow: 0 0 20px rgba(204, 0, 0, 0.4);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   7.  FASE 4 — IMAGEM PROCESSO SEMESTRAL
+───────────────────────────────────────────────────────────── */
+.ingresso-semestral-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.ingresso-semestral-img {
+    max-width: 480px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    opacity: 0.9;
+    transition: opacity 0.3s;
+}
+
+.ingresso-semestral-img:hover { opacity: 1; }
+
+.ingresso-semestral-fallback {
+    text-align: center;
+    padding: 2rem;
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    max-width: 480px;
+    width: 100%;
+}
+
+.ingresso-semestral-fallback-title {
+    font-family: var(--font-head);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+}
+
+.ingresso-semestral-fallback-sub {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--gray-lt);
+}
+
+.ingresso-semestral-fallback-sub strong { color: var(--green); }
+
+
+/* ─────────────────────────────────────────────────────────────
+   8.  TOAST "PROCESSO NÃO DISPONÍVEL"
+   Sobe da base ao clicar no botão fora do período (fases 1 e 3).
+   Nunca intercepta cliques (pointer-events: none sempre).
+───────────────────────────────────────────────────────────── */
+#ingresso-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    z-index: 9999;
+    background: #1a1a1a;
+    border: 1px solid rgba(204, 0, 0, 0.45);
+    border-left: 3px solid var(--red);
+    border-radius: 6px;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 280px;
+    max-width: 90vw;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        opacity 0.3s var(--ease-smooth),
+        transform 0.3s var(--ease-bounce);
+}
+
+#ingresso-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.ingresso-toast-icon {
+    flex-shrink: 0;
+    color: var(--red);
+    display: flex;
+    align-items: center;
+}
+
+.ingresso-toast-body { flex: 1; }
+
+.ingresso-toast-title {
+    font-family: var(--font-head);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    display: block;
+    margin-bottom: 0.15rem;
+}
+
+.ingresso-toast-sub {
+    font-family: var(--font-head);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: var(--gray-lt);
+    display: block;
+}
+
+/* Shake no botão ao clicar fora do período */
+@keyframes btnShake {
+    0%, 100% { transform: translateX(0) translateY(-3px); }
+    20%       { transform: translateX(-6px) translateY(-3px); }
+    40%       { transform: translateX(6px) translateY(-3px); }
+    60%       { transform: translateX(-4px) translateY(-3px); }
+    80%       { transform: translateX(4px) translateY(-3px); }
+}
+
+.cta-btn.shake {
+    animation: btnShake 0.4s var(--ease-smooth);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   9.  RESPONSIVIDADE
+───────────────────────────────────────────────────────────── */
+@media (max-width: 1200px) {
+    .team-overview-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+}
+
+@media (max-width: 900px) {
+    .equipe-hero { min-height: 300px; }
+    .equipe-avatar-float--7, .equipe-avatar-float--8 { display: none; }
+    .team-overview-modal-box { padding: 2rem 1.5rem; }
+    .team-overview-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+}
+
+@media (max-width: 700px) {
+    .equipe-hero { min-height: 280px; }
+    .equipe-avatar-float--5,
+    .equipe-avatar-float--6,
+    .equipe-avatar-float--7,
+    .equipe-avatar-float--8 { display: none; }
+    .equipe-hero-count > span:first-child { font-size: 3.5rem; }
+    .team-overview-overlay { padding: 1rem 0.75rem; }
+    .team-overview-modal-box { padding: 1.5rem 1.25rem; border-radius: 8px; }
+    .team-overview-modal-title { font-size: 1.6rem; }
+    .team-overview-grid { grid-template-columns: 1fr; }
+    .ingresso-countdown-digits { gap: 0.3rem; }
+    .countdown-unit { min-width: 44px; }
+    .countdown-num { font-size: 2rem; }
+    .countdown-sep { font-size: 1.5rem; }
+    #ingresso-toast { bottom: 1.25rem; min-width: 0; width: calc(100vw - 2rem); }
+}
+
+@media (max-width: 480px) {
+    .equipe-hero { min-height: 260px; }
+    .equipe-avatar-float { width: 38px; height: 38px; font-size: 0.65rem; }
+    .team-overview-modal-box { padding: 1.25rem 1rem; }
+    .countdown-num { font-size: 1.6rem; }
+}

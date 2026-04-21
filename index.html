@@ -14,6 +14,7 @@
     <title>Les-IFPE</title>
     <link rel="icon" href="assets/imagens/logos/LOGO.png" type="image/png">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/Adicions.css">
 </head>
 
 <body>
@@ -54,6 +55,7 @@
     </div>
 
     <main class="main">
+
         <!-- ══ HERO COM SLIDESHOW ══════════════════════════════ -->
         <section>
             <div class="LIGA">
@@ -65,21 +67,105 @@
             </div>
 
             <div class="ifpe_img" id="heroSlideshow">
-                <!-- Os slides são injetados via JS -->
+                <!-- Os slides são injetados via JS (scriptpage.js) -->
             </div>
 
             <!-- Dots de navegação do slideshow -->
             <div class="slide-dots" id="slideDots"></div>
         </section>
 
-  <!-- ══ INGRESSO ════════════════════════════════════════ -->
+
+        <!-- ══════════════════════════════════════════════════════
+             SEÇÃO: INGRESSO
+             ──────────────────────────────────────────────────────
+             LÓGICA DA CONTAGEM REGRESSIVA (gerenciada em scriptpage.js):
+             
+             FASE 1 → Antes de 23/04/2026:
+               Exibe contagem regressiva até 23/04/2026 (abertura das inscrições)
+               Texto: "Inscrições abrem em"
+             
+             FASE 2 → Entre 23/04/2026 e 25/04/2026 (inclusive):
+               Inscrições ABERTAS — exibe contagem regressiva até 25/04/2026 (encerramento)
+               Botão leva ao formulário Google Forms
+               Texto: "Inscrições encerram em"
+             
+             FASE 3 → Entre 26/04/2026 e 08/09/2026:
+               Inscrições encerradas — exibe contagem regressiva até 09/09/2026 (próxima turma)
+               Texto: "Próxima turma em"
+             
+             FASE 4 → A partir de 09/09/2026:
+               Processo encerrado — exibe imagem informativa de que o processo é semestral
+               A imagem deve ser colocada em: assets/imagens/ingresso/processo-semestral.png
+               O botão é ocultado
+             
+             PARA MANUTENÇÃO — altere as datas no objeto INGRESSO_CONFIG em scriptpage.js
+        ══════════════════════════════════════════════════════ -->
         <section>
             <div id="parte_nossa_equipe">
                 <H2>INGRESSO</H2>
                 <h3>faça parte da nossa equipe</h3>
+
+                <!-- Bloco da contagem regressiva — preenchido via JS -->
+                <div id="ingresso-countdown-wrapper" class="ingresso-countdown-wrapper">
+                    <!-- Fase 1 e 3: Contagem regressiva -->
+                    <div id="ingresso-countdown-block" class="ingresso-countdown-block" style="display:none">
+                        <p id="ingresso-countdown-label" class="ingresso-countdown-label">Inscrições abrem em</p>
+                        <div class="ingresso-countdown-digits" id="ingresso-countdown-digits">
+                            <div class="countdown-unit">
+                                <span class="countdown-num" id="cd-days">00</span>
+                                <span class="countdown-lbl">Dias</span>
+                            </div>
+                            <span class="countdown-sep">:</span>
+                            <div class="countdown-unit">
+                                <span class="countdown-num" id="cd-hours">00</span>
+                                <span class="countdown-lbl">Horas</span>
+                            </div>
+                            <span class="countdown-sep">:</span>
+                            <div class="countdown-unit">
+                                <span class="countdown-num" id="cd-mins">00</span>
+                                <span class="countdown-lbl">Min</span>
+                            </div>
+                            <span class="countdown-sep">:</span>
+                            <div class="countdown-unit">
+                                <span class="countdown-num" id="cd-secs">00</span>
+                                <span class="countdown-lbl">Seg</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fase 4: Imagem processo semestral -->
+                    <!--
+                        Para trocar a imagem desta fase, substitua o arquivo em:
+                        assets/imagens/ingresso/processo-semestral.png
+                        O texto alt e o src podem ser ajustados aqui.
+                    -->
+                    <div id="ingresso-semestral-block" class="ingresso-semestral-block" style="display:none">
+                        <img
+                            src="assets/imagens/ingresso/processo-semestral.png"
+                            alt="Processo Seletivo Semestral — LES IFPE"
+                            class="ingresso-semestral-img"
+                            onerror="this.style.display='none'; document.getElementById('ingresso-semestral-fallback').style.display='block'"
+                        >
+                        <!-- Fallback caso a imagem não exista ainda -->
+                        <div id="ingresso-semestral-fallback" class="ingresso-semestral-fallback" style="display:none">
+                            <p class="ingresso-semestral-fallback-title">Processo Seletivo Semestral</p>
+                            <p class="ingresso-semestral-fallback-sub">
+                                O ingresso na LES ocorre a cada semestre ou em casos específicos.<br>
+                                Acompanhe nosso Instagram <strong>@les.ifpe</strong> para novidades.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botão de inscrição — visível/oculto conforme a fase (controlado via JS) -->
                 <div class="cta-group">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfbTDmrQTLmwpWn_vNgo0tGHQ27Bfm2fE39ottHrm0671m9Mw/viewform?usp=publish-editor"
-                        class="cta-btn cta-primary">
+                    <a
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfbTDmrQTLmwpWn_vNgo0tGHQ27Bfm2fE39ottHrm0671m9Mw/viewform?usp=publish-editor"
+                        class="cta-btn cta-primary"
+                        id="ingresso-cta-btn"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         <span>Processo</span>
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -90,7 +176,6 @@
                 <span class="cta-sub">Seleção aberta · IFPE Campus Recife</span>
             </div>
         </section>
-
 
 
         <!-- ══ PROJETOS — CARROSSEL ════════════════════════════
@@ -234,7 +319,7 @@
         </section>
 
 
-  <!-- ══ CALENDÁRIO ══════════════════════════════════════
+        <!-- ══ CALENDÁRIO ══════════════════════════════════════
              Para abrir o modal de cada evento, o JS lê os
              atributos data-* de cada .eventos1 / .eventos2.
              Basta preencher os atributos para configurar o modal.
@@ -328,11 +413,6 @@
         </section>
 
 
-
-
-
-
-
         <!-- ══ PILARES ═════════════════════════════════════════ -->
         <section id="pilares">
             <div class="pilares-header">
@@ -380,182 +460,121 @@
         </section>
 
 
-      
+        <!-- ══════════════════════════════════════════════════════
+             SEÇÃO: NOSSA EQUIPE
+             ──────────────────────────────────────────────────────
+             A seção exibe apenas o botão "Conheça nossa equipe".
+             Todos os membros vivem dentro do modal #team-overview-modal
+             que é aberto ao clicar no botão.
 
+             OS DADOS DOS MEMBROS ficam em scriptpage.js → membersData.
+             O modal é renderizado dinamicamente via JS.
 
-
-        <!-- ══ EQUIPE ══════════════════════════════════════════ -->
+             GRUPOS DISPONÍVEIS (configurados em scriptpage.js):
+               "diretoria"    → Coordenação e Diretoria
+               "dev"          → Membros Desenvolvedores
+               "colaborador"  → Colaboradores
+               (adicione novos grupos em GROUP_LABELS no scriptpage.js)
+        ══════════════════════════════════════════════════════ -->
         <section id="equipe">
             <h2>Nossa Equipe</h2>
             <p>Conheça as pessoas que impulsionam a tecnologia e a inovação na LES.</p>
 
-            <!-- Coordenação -->
-            <div class="team-section">
-                <h3>Coordenação e Diretoria</h3>
-                <div class="team-grid direction-grid">
+            <!-- ── Área central do botão ──
+                 Toda a lógica de abertura do modal está em scriptpage.js
+                 A contagem de membros é preenchida via JS automaticamente
+            -->
+            <div class="equipe-hero">
 
-                    <div class="member-card" data-member="hilson">
-                        <div class="member-avatar">HI</div>
-                        <div class="member-info">
-                            <span class="team-role">Diretor de extenção do IFPE-Recife</span>
-                            <strong>Prof. Hilson Andrade </strong>
-                        </div>
-                        <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
-
-                    <div class="member-card" data-member="rafael">
-                        <div class="member-avatar">RA</div>
-                        <div class="member-info">
-                            <span class="team-role">Coordenador do Projeto</span>
-                            <strong>Prof. Dr. Rafael Roque Aschoff</strong>
-                        </div>
-                        <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
-
-
-                    <div class="member-card" data-member="ilian">
-                        <div class="member-avatar">IS</div>
-                        <div class="member-info">
-                            <span class="team-role">Presidente LES</span>
-                            <strong>Ilian Solano Bezerra da Silva</strong>
-                        </div>
-                        <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
-
-                    <div class="member-card" data-member="yuri">
-                        <div class="member-avatar">YO</div>
-                        <div class="member-info">
-                            <span class="team-role">Vice-presidente LES</span>
-                            <strong>Yuri Santos de Oliveira</strong>
-                        </div>
-                        <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
-
-                    <div class="member-card" data-member="christoph">
-                        <div class="member-avatar">CD</div>
-                        <div class="member-info">
-                            <span class="team-role">Diretor de Projetos LES</span>
-                            <strong>Christoph Soares Diehl</strong>
-                        </div>
-                        <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
-
-                    <div class="member-card" data-member="alane">
-                        <div class="member-avatar">MA</div>
-                        <div class="member-info">
-                            <span class="team-role">Diretora de Desenvolvimento LES</span>
-                            <strong>Maria Alane Oliveira de Arruda Camara</strong>
-                        </div>
-                        <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
-
-                    <div class="member-card" data-member="francisco">
-                        <div class="member-avatar">FA</div>
-                        <div class="member-info">
-                            <span class="team-role">Diretor de Administração LES</span>
-                            <strong>Francisco de Assis O. dos S. Correia</strong>
-                        </div>
-                        <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
-
+                <!-- Avatares flutuantes decorativos — animados via CSS -->
+                <div class="equipe-hero-avatars" aria-hidden="true">
+                    <div class="equipe-avatar-float equipe-avatar-float--1">HI</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--2">IS</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--3">YO</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--4">MA</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--5">LF</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--6">GN</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--7">BL</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--8">PT</div>
                 </div>
+
+                <!-- Conteúdo central -->
+                <div class="equipe-hero-inner">
+                    <p class="equipe-hero-label">Liga de Engenharia de Software</p>
+                    <div class="equipe-hero-count">
+                        <!-- Preenchido via JS com o total de membros -->
+                        <span id="equipe-member-count">11</span>
+                        <span class="equipe-hero-count-label">pessoas constroem a LES</span>
+                    </div>
+
+                    <button class="equipe-hero-btn" id="btn-team-overview" aria-label="Ver todos os membros da equipe">
+                        <span class="equipe-hero-btn-text">Conheça nossa equipe</span>
+                        <span class="equipe-hero-btn-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <!-- Pílulas das categorias — decorativas -->
+                    <div class="equipe-hero-tags">
+                        <span class="equipe-tag equipe-tag--green">Coordenação</span>
+                        <span class="equipe-tag equipe-tag--red">Desenvolvedores</span>
+                        <span class="equipe-tag equipe-tag--amber">Colaboradores</span>
+                        <!-- Para adicionar uma nova categoria aqui:
+                             <span class="equipe-tag equipe-tag--white">Nova Categoria</span>
+                        -->
+                    </div>
+                </div>
+
             </div>
 
-            <!-- Desenvolvedores -->
-            <div class="team-section" style="margin-top:1.5rem">
-                <h3>Membros Desenvolvedores</h3>
-                <div class="team-grid dev-grid">
+            <!-- ══ DADOS DOS MEMBROS (hidden — lidos pelo JS para o modal) ══
+                 Estes cards são invisíveis na página mas alimentam o modal.
+                 Para adicionar/remover membros, edite aqui E em membersData
+                 no scriptpage.js.
 
-                    <div class="member-card" data-member="lucas">
-                        <div class="member-avatar dev-avatar">LF</div>
-                        <div class="member-info">
-                            <span class="team-role dev-role">Desenvolvedor</span>
-                            <strong>Lucas Furtado de Matos</strong>
-                        </div>
-                        <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
+                 GRUPOS:
+                   data-group="diretoria"   → Coordenação e Diretoria
+                   data-group="dev"         → Membros Desenvolvedores
+                   data-group="colaborador" → Colaboradores
 
-                    <div class="member-card" data-member="cristiano">
-                        <div class="member-avatar dev-avatar">CV</div>
-                        <div class="member-info">
-                            <span class="team-role dev-role">Desenvolvedor</span>
-                            <strong>Cristiano Veras de Souza</strong>
-                        </div>
-                        <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
+                 PARA NOVA CATEGORIA:
+                   1. Adicione o data-group desejado aqui
+                   2. Adicione a entrada em GROUP_LABELS (scriptpage.js)
+                   3. Adicione os dados em membersData (scriptpage.js)
+                   4. Adicione a pílula .equipe-tag acima (opcional)
+            ══ -->
+            <div class="equipe-data-source" aria-hidden="true" style="display:none">
 
-                    <div class="member-card" data-member="guilherme">
-                        <div class="member-avatar dev-avatar">GN</div>
-                        <div class="member-info">
-                            <span class="team-role dev-role">Desenvolvedor</span>
-                            <strong>Guilherme Nascimento F. de Barros Moraes</strong>
-                        </div>
-                        <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
+                <!-- Coordenação e Diretoria -->
+                <div class="member-card" data-member="hilson"    data-group="diretoria"></div>
+                <div class="member-card" data-member="rafael"    data-group="diretoria"></div>
+                <div class="member-card" data-member="ilian"     data-group="diretoria"></div>
+                <div class="member-card" data-member="yuri"      data-group="diretoria"></div>
+                <div class="member-card" data-member="christoph" data-group="diretoria"></div>
+                <div class="member-card" data-member="alane"     data-group="diretoria"></div>
+                <div class="member-card" data-member="francisco" data-group="diretoria"></div>
 
-                    <div class="member-card" data-member="paulo">
-                        <div class="member-avatar dev-avatar">PT</div>
-                        <div class="member-info">
-                            <span class="team-role dev-role">Desenvolvedor</span>
-                            <strong>Paulo de Tarso Olímpio Gomes da Silva</strong>
-                        </div>
-                        <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
+                <!-- Membros Desenvolvedores -->
+                <div class="member-card" data-member="lucas"     data-group="dev"></div>
+                <div class="member-card" data-member="cristiano" data-group="dev"></div>
+                <div class="member-card" data-member="guilherme" data-group="dev"></div>
+                <div class="member-card" data-member="paulo"     data-group="dev"></div>
+                <div class="member-card" data-member="bruno"     data-group="dev"></div>
 
-                    <div class="member-card" data-member="bruno">
-                        <div class="member-avatar dev-avatar">BL</div>
-                        <div class="member-info">
-                            <span class="team-role dev-role">Desenvolvedor</span>
-                            <strong>Bruno Luiz da Silva</strong>
-                        </div>
-                        <svg class="member-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </div>
+                <!-- Colaboradores
+                     Para ativar: descomente e adicione os dados em membersData
+                <div class="member-card" data-member="ID_COLABORADOR" data-group="colaborador"></div>
+                -->
 
-                </div>
+                <!-- Nova Categoria (reservado)
+                <div class="member-card" data-member="ID_MEMBRO" data-group="nova-categoria"></div>
+                -->
             </div>
+
         </section>
-
-
-
-
-
-  
 
     </main>
 
@@ -577,7 +596,13 @@
     </footer>
 
 
-    <!-- ══ MODAL MEMBRO ═══════════════════════════════════════ -->
+    <!-- ══════════════════════════════════════════════════════════
+         MODAL: PERFIL INDIVIDUAL DO MEMBRO
+         ──────────────────────────────────────────────────────────
+         Preenchido dinamicamente via openMemberModal(id) em scriptpage.js
+         Pode ser aberto pelo clique direto no .member-card
+         OU pelo clique em um card dentro do #team-overview-modal
+    ══════════════════════════════════════════════════════════ -->
     <div id="member-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Perfil do membro">
         <div class="modal-box">
             <button class="modal-close" id="modal-close" aria-label="Fechar">&times;</button>
@@ -592,6 +617,62 @@
             <div class="modal-links" id="modal-links"></div>
         </div>
     </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         MODAL: VISÃO GERAL DA EQUIPE (abre via botão "Conheça nossa equipe")
+         ──────────────────────────────────────────────────────────
+         Este modal exibe TODOS os membros em uma grade larga,
+         organizados por grupo, com filtros no topo.
+         
+         Ao clicar em um card aqui, o #member-modal se abre por cima
+         (z-index maior), permitindo ver o perfil completo.
+         
+         ESTRUTURA:
+           - #team-overview-modal      → overlay (fundo)
+           - .team-overview-modal-box  → caixa do modal
+           - #team-overview-filters    → botões de filtro por grupo
+           - #team-overview-grid       → grade gerada via JS
+         
+         O conteúdo da grade é gerado dinamicamente por
+         renderTeamOverviewGrid() em scriptpage.js,
+         lendo todos os .member-card da página.
+    ══════════════════════════════════════════════════════════ -->
+    <div id="team-overview-modal" class="team-overview-overlay" role="dialog" aria-modal="true"
+        aria-label="Nossa equipe completa">
+        <div class="team-overview-modal-box">
+
+            <!-- Header do modal -->
+            <div class="team-overview-modal-header">
+                <div>
+                    <h2 class="team-overview-modal-title">Nossa Equipe</h2>
+                    <p class="team-overview-modal-subtitle">Conheça todos que constroem a LES-IFPE</p>
+                </div>
+                <button class="team-overview-close" id="team-overview-close" aria-label="Fechar">&times;</button>
+            </div>
+
+            <!-- Filtros por grupo -->
+            <!--
+                Os filtros são gerados automaticamente via JS (renderTeamOverviewFilters)
+                com base nos data-group dos .member-card existentes na página.
+                Não é necessário editar este bloco manualmente.
+            -->
+            <div class="team-overview-filters" id="team-overview-filters">
+                <!-- Preenchido via JS -->
+            </div>
+
+            <!-- Grade de membros -->
+            <!--
+                A grade é gerada automaticamente via JS (renderTeamOverviewGrid)
+                lendo todos os .member-card presentes na página.
+                Não é necessário editar este bloco manualmente.
+            -->
+            <div class="team-overview-grid" id="team-overview-grid">
+                <!-- Preenchido via JS -->
+            </div>
+
+        </div>
+    </div>
+
 
     <!-- ══ MODAL EVENTO ═══════════════════════════════════════ -->
     <div id="event-modal" class="event-modal-overlay" role="dialog" aria-modal="true" aria-label="Detalhes do evento">
