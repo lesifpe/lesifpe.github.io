@@ -173,48 +173,9 @@
                         </svg>
                     </a>
                 </div>
-                <span class="cta-sub" id="ingresso-status-sub">Seleção aberta · IFPE Campus Recife</span>
+                <span class="cta-sub">Seleção semestral · IFPE Campus Recife</span>
             </div>
         </section>
-
-        <!-- Modal das Etapas do Processo Seletivo -->
-        <div id="etapasModal" class="etapas-modal">
-            <div class="etapas-modal-content">
-                <div class="etapas-modal-header">
-                    <h2>Processo<br>Seletivo</h2>
-                    <button class="etapas-modal-close" id="closeModalBtn">×</button>
-                </div>
-                <div class="etapas-modal-body" id="etapasModalBody">
-                    <div class="etapa-card">
-                        <div class="etapa-titulo">
-                            <span class="etapa-numero">1</span>
-                            1ª Etapa — Teste de Nivelamento
-                        </div>
-                        <div class="etapa-descricao">
-                            Avaliação não eliminatória, com o objetivo de identificar seu nível atual de conhecimento em programação.
-                        </div>
-                        <div class="etapa-detalhe">
-                            💡 Não é necessário saber tudo — queremos apenas compreender seu ponto de partida.
-                        </div>
-                    </div>
-
-                    <div class="etapa-card">
-                        <div class="etapa-titulo">
-                            <span class="etapa-numero">2</span>
-                            2ª Etapa — Entrevista
-                        </div>
-                        <div class="etapa-descricao">
-                            Conversa individual para conhecer melhor você, suas motivações e seu perfil. O objetivo é avaliar sua afinidade com a área de Engenharia de Software e com a Liga.
-                        </div>
-                    </div>
-                </div>
-                <div class="etapas-modal-footer" id="etapasModalFooter">
-                    <button class="etapas-modal-btn" id="closeModalFooterBtn">
-                        Entendi, fechar
-                    </button>
-                </div>
-            </div>
-        </div>
 
         <!-- ══ PROJETOS — CARROSSEL ════════════════════════════
              Para adicionar um novo projeto, copie um bloco
@@ -726,6 +687,13 @@
         </div>
     </div>
 
+<!-- ══ MODAL DE INGRESSO (fases 1, 2 e 3) ═══════════════════ -->
+<div id="ingresso-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Processo Seletivo">
+    <div class="modal-box" style="max-width:560px">
+        <button class="modal-close" id="ingresso-modal-close" aria-label="Fechar">&times;</button>
+        <div id="ingresso-modal-content"></div>
+    </div>
+</div>
 
     <script src="script.js"></script>
     <script src="js/scriptpage.js"></script>

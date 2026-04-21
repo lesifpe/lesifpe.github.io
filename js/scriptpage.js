@@ -10,7 +10,7 @@
      §5  MODAL DE PERFIL INDIVIDUAL (#member-modal)
      §6  MODAL DE VISÃO GERAL DA EQUIPE (#team-overview-modal)
      §7  MODAL DE EVENTOS
-     §8  CONTAGEM REGRESSIVA DO INGRESSO + TOAST
+     §8  CONTAGEM REGRESSIVA DO INGRESSO + MODAL DE ETAPAS
    ============================================================ */
 
 
@@ -603,29 +603,22 @@ eventModal.addEventListener('click', e => { if (e.target === eventModal) closeEv
 
 
 /* ════════════════════════════════════════════════════════════
-   §8  CONTAGEM REGRESSIVA DO INGRESSO + TOAST
+   §8  CONTAGEM REGRESSIVA DO INGRESSO + MODAL DE FASES
    ────────────────────────────────────────────────────────────
    CONFIGURAÇÃO — edite apenas INGRESSO_CONFIG para ajustar datas.
 
    FASES:
      1 → Antes de dataAberturaInscricoes
-         Botão visível MAS bloqueia clique com toast + shake
-         Contagem: "Inscrições abrem em" → dataAberturaInscricoes
+         Botão abre modal com informações sobre a seleção futura
 
      2 → Entre dataAberturaInscricoes e dataEncerramentoInscricoes
-         Botão funciona normalmente (abre formulário)
-         Contagem: "Inscrições encerram em" → dataEncerramentoInscricoes
+         Botão abre modal com link do formulário + informações
 
      3 → Entre dataEncerramentoInscricoes+1 e dataProximaTurma-1
-         Botão visível MAS bloqueia clique com toast + shake
-         Contagem: "Próxima turma em" → dataProximaTurma
+         Botão abre modal avisando que o processo encerrou
 
      4 → A partir de dataProximaTurma
          Mostra imagem semestral, botão oculto, sem contagem
-
-   TOAST:
-     O toast (#ingresso-toast) é injetado no DOM via JS.
-     Mensagens configuráveis em INGRESSO_CONFIG.toastMsg*.
 
    FORMATO DAS DATAS: new Date(ano, mês-1, dia)
 ════════════════════════════════════════════════════════════ */
@@ -640,11 +633,8 @@ const INGRESSO_CONFIG = {
     textoFase2: 'Inscrições encerram em',
     textoFase3: 'Próxima turma em',
 
-    /* ── Mensagens do toast (fases 1 e 3) ── */
-    toastTituloFase1: 'Processo ainda não disponível',
-    toastSubFase1:    'As inscrições ainda não abriram. Aguarde!',
-    toastTituloFase3: 'Inscrições encerradas',
-    toastSubFase3:    'O próximo processo acontece em setembro.',
+    /* ── Link do formulário (Fase 2) ── */
+    linkFormulario: 'https://forms.gle/SEU_LINK_AQUI',  /* SUBSTITUA pelo link real do Google Forms */
 };
 
 /* ── Elementos do DOM ── */
@@ -656,45 +646,95 @@ const $cdDays         = document.getElementById('cd-days');
 const $cdHours        = document.getElementById('cd-hours');
 const $cdMins         = document.getElementById('cd-mins');
 const $cdSecs         = document.getElementById('cd-secs');
-const $statusSub      = document.getElementById('ingresso-status-sub');
 
-/* ── Cria o toast e injeta no body ── */
-const toast = document.createElement('div');
-toast.id = 'ingresso-toast';
-toast.innerHTML = `
-    <span class="ingresso-toast-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </span>
-    <span class="ingresso-toast-body">
-        <span class="ingresso-toast-title" id="toast-title"></span>
-        <span class="ingresso-toast-sub"   id="toast-sub"></span>
-    </span>`;
-document.body.appendChild(toast);
+/* ── Modal de ingresso ── */
+const $ingressoModal        = document.getElementById('ingresso-modal');
+const $ingressoModalContent = document.getElementById('ingresso-modal-content');
+const $ingressoModalClose   = document.getElementById('ingresso-modal-close');
 
-let toastTimer = null;
+function openIngressoModal(html) {
+    $ingressoModalContent.innerHTML = html;
+    $ingressoModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
 
-/**
- * Exibe o toast com título e subtítulo por `duracao` ms.
- * Também aplica o shake no botão.
- */
-function showIngressoToast(titulo, sub, duracao = 3200) {
-    document.getElementById('toast-title').textContent = titulo;
-    document.getElementById('toast-sub').textContent   = sub;
+function closeIngressoModal() {
+    $ingressoModal.classList.remove('open');
+    document.body.style.overflow = '';
+}
 
-    /* Shake no botão */
-    $ctaBtn.classList.remove('shake');
-    void $ctaBtn.offsetWidth; /* reflow para reiniciar animação */
-    $ctaBtn.classList.add('shake');
+$ingressoModalClose.addEventListener('click', closeIngressoModal);
+$ingressoModal.addEventListener('click', e => { if (e.target === $ingressoModal) closeIngressoModal(); });
 
-    /* Exibe toast */
-    clearTimeout(toastTimer);
-    toast.classList.add('show');
-    toastTimer = setTimeout(() => toast.classList.remove('show'), duracao);
+/* ── Conteúdo dos modais por fase ── */
+function getModalFase1() {
+    return `
+        <div style="margin-bottom:1.25rem">
+            <span style="font-family:var(--font-head);font-size:0.7rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--green)">Processo Seletivo Semestral</span>
+            <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.2rem);color:var(--white);line-height:1.1;margin-top:0.4rem">Ingresso LES-IFPE</h2>
+            <p style="font-size:0.88rem;color:var(--gray-lt);margin-top:0.5rem">O ingresso na Liga de Engenharia de Software é <strong style="color:var(--white)">semestral</strong>. As inscrições abrirão em breve. Confira as etapas do processo:</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem">
+            <div style="border:1px solid rgba(0,166,81,0.2);border-left:3px solid var(--green);border-radius:6px;padding:1rem 1.25rem;background:rgba(0,166,81,0.04)">
+                <p style="font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin:0 0 0.4rem">1ª Etapa — Teste de Nivelamento</p>
+                <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.65;margin:0">Avaliação <strong style="color:var(--white)">não eliminatória</strong> com o objetivo de identificar seu nível atual de conhecimento em programação. Não é necessário saber tudo — queremos apenas compreender seu ponto de partida.</p>
+            </div>
+            <div style="border:1px solid rgba(255,255,255,0.08);border-left:3px solid rgba(255,255,255,0.2);border-radius:6px;padding:1rem 1.25rem;background:rgba(255,255,255,0.02)">
+                <p style="font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,245,240,0.6);margin:0 0 0.4rem">2ª Etapa — Entrevista</p>
+                <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.65;margin:0">Conversa individual para conhecer melhor você, suas motivações e seu perfil. O objetivo é avaliar sua afinidade com a área de Engenharia de Software e com a Liga.</p>
+            </div>
+        </div>
+        <p style="font-size:0.8rem;color:rgba(245,245,240,0.35);margin-top:1.25rem;text-align:center">Acompanhe nosso Instagram <strong style="color:rgba(245,245,240,0.55)">@les.ifpe</strong> para ser avisado quando as inscrições abrirem.</p>
+    `;
+}
+
+function getModalFase2() {
+    return `
+        <div style="margin-bottom:1.25rem">
+            <span style="font-family:var(--font-head);font-size:0.7rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--green)">Inscrições Abertas · Seleção Semestral</span>
+            <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.2rem);color:var(--white);line-height:1.1;margin-top:0.4rem">Ingresso LES-IFPE</h2>
+            <p style="font-size:0.88rem;color:var(--gray-lt);margin-top:0.5rem">As inscrições estão abertas! O processo é <strong style="color:var(--white)">semestral</strong>. Inscreva-se pelo formulário e confira as etapas:</p>
+        </div>
+        <a href="${INGRESSO_CONFIG.linkFormulario}" target="_blank" rel="noopener noreferrer"
+            style="display:flex;align-items:center;justify-content:center;gap:0.6rem;width:100%;padding:0.9rem 1.5rem;background:var(--green);color:var(--black);font-family:var(--font-head);font-size:0.9rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-radius:4px;text-decoration:none;margin-bottom:1.25rem;transition:background 0.2s"
+            onmouseover="this.style.background='var(--green-d)';this.style.color='var(--white)'"
+            onmouseout="this.style.background='var(--green)';this.style.color='var(--black)'">
+            Acessar Formulário de Inscrição
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <div style="display:flex;flex-direction:column;gap:1rem">
+            <div style="border:1px solid rgba(0,166,81,0.2);border-left:3px solid var(--green);border-radius:6px;padding:1rem 1.25rem;background:rgba(0,166,81,0.04)">
+                <p style="font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin:0 0 0.4rem">1ª Etapa — Teste de Nivelamento</p>
+                <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.65;margin:0">Avaliação <strong style="color:var(--white)">não eliminatória</strong> com o objetivo de identificar seu nível atual de conhecimento em programação. Não é necessário saber tudo — queremos apenas compreender seu ponto de partida.</p>
+            </div>
+            <div style="border:1px solid rgba(255,255,255,0.08);border-left:3px solid rgba(255,255,255,0.2);border-radius:6px;padding:1rem 1.25rem;background:rgba(255,255,255,0.02)">
+                <p style="font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,245,240,0.6);margin:0 0 0.4rem">2ª Etapa — Entrevista</p>
+                <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.65;margin:0">Conversa individual para conhecer melhor você, suas motivações e seu perfil. O objetivo é avaliar sua afinidade com a área de Engenharia de Software e com a Liga.</p>
+            </div>
+        </div>
+    `;
+}
+
+function getModalFase3() {
+    return `
+        <div style="text-align:center;padding:0.5rem 0 1.5rem">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:1rem"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span style="font-family:var(--font-head);font-size:0.7rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:0.5rem">Inscrições Encerradas</span>
+            <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.2rem);color:var(--white);line-height:1.1;margin-bottom:0.75rem">Processo encerrado</h2>
+            <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.7;max-width:400px;margin:0 auto">O cadastro para esta edição foi encerrado. O ingresso na LES é <strong style="color:var(--white)">semestral</strong> — a próxima turma abrirá inscrições em breve.</p>
+        </div>
+        <p style="font-size:0.8rem;color:rgba(245,245,240,0.35);text-align:center;margin-top:0.5rem">Fique de olho no Instagram <strong style="color:rgba(245,245,240,0.55)">@les.ifpe</strong> para não perder a próxima edição.</p>
+    `;
+}
+
+function getModalFase4() {
+    return `
+        <div style="text-align:center;padding:0.5rem 0 1rem">
+            <span style="font-family:var(--font-head);font-size:0.7rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--gray-lt);display:block;margin-bottom:0.5rem">Processo Seletivo</span>
+            <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.2rem);color:var(--white);line-height:1.1;margin-bottom:0.75rem">Seleção Semestral</h2>
+            <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.7;max-width:400px;margin:0 auto">O ingresso na LES-IFPE acontece <strong style="color:var(--white)">a cada semestre</strong>. Acompanhe nosso Instagram <strong style="color:var(--white)">@les.ifpe</strong> para ser avisado sobre as próximas inscrições.</p>
+        </div>
+    `;
 }
 
 /* Fase atual da lógica (atualizada pelo timer) */
@@ -739,9 +779,6 @@ function updateIngressoCountdown() {
             $semestralBlock.style.display = 'flex';
             $ctaBtn.style.display         = 'none';
             clearInterval(ingressoTimer);
-
-            // NOVO: atualiza texto do subtítulo
-            if ($statusSub) $statusSub.textContent = 'Processo seletivo semestral · IFPE Campus Recife';
         }
         return;
     }
@@ -757,9 +794,6 @@ function updateIngressoCountdown() {
         $ctaBtn.style.display            = '';
         $countdownBlock.dataset.fase     = '3';
         $countdownLabel.textContent      = cfg.textoFase3;
-
-        // NOVO: atualiza texto do subtítulo
-        if ($statusSub) $statusSub.textContent = 'Inscrições encerradas · IFPE Campus Recife';
 
         const d = calcDiff(cfg.dataProximaTurma);
         $cdDays.textContent  = pad(d.days);
@@ -778,9 +812,6 @@ function updateIngressoCountdown() {
         $ctaBtn.style.display         = '';
         $countdownBlock.dataset.fase  = '2';
         $countdownLabel.textContent   = cfg.textoFase2;
-
-        // NOVO: atualiza texto do subtítulo
-        if ($statusSub) $statusSub.textContent = 'Seleção aberta · IFPE Campus Recife';
 
         const target = new Date(cfg.dataEncerramentoInscricoes);
         target.setHours(23, 59, 59, 999);
@@ -801,9 +832,6 @@ function updateIngressoCountdown() {
     $countdownBlock.dataset.fase  = '1';
     $countdownLabel.textContent   = cfg.textoFase1;
 
-    // NOVO: atualiza texto do subtítulo
-    if ($statusSub) $statusSub.textContent = 'Em breve · IFPE Campus Recife';
-
     const d = calcDiff(cfg.dataAberturaInscricoes);
     $cdDays.textContent  = pad(d.days);
     $cdHours.textContent = pad(d.hours);
@@ -816,89 +844,16 @@ updateIngressoCountdown();
 const ingressoTimer = setInterval(updateIngressoCountdown, 1000);
 
 /*
-   ABRE O MODAL COM AS ETAPAS DO PROCESSO
-   - Fases 1, 3, 4: mostra apenas as informações
-   - Fase 2 (inscrições abertas): mostra informações + botão do Forms
+   INTERCEPTA O CLIQUE NO BOTÃO DE INGRESSO
+   Todas as fases abrem o modal com conteúdo adequado.
+   Fase 2: também há link direto para o formulário dentro do modal.
 */
-const etapasModal = document.getElementById('etapasModal');
-const modalBody = document.getElementById('etapasModalBody');
-const modalFooter = document.getElementById('etapasModalFooter');
-const formsLink = 'https://docs.google.com/forms/d/e/1FAIpQLSfbTDmrQTLmwpWn_vNgo0tGHQ27Bfm2fE39ottHrm0671m9Mw/viewform';
-
-function openEtapasModal() {
-    if (etapasModal) {
-        // Atualiza o conteúdo do modal conforme a fase atual
-        updateModalContentByFase();
-        etapasModal.classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function updateModalContentByFase() {
-    // Verifica qual é a fase atual (variável global ingressoFaseAtual)
-    const isFase2 = (ingressoFaseAtual === 2);
-    
-    if (isFase2) {
-        // FASE 2: Mostra botão do Forms no footer
-        modalFooter.innerHTML = `
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-                <a href="${formsLink}" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   class="etapas-modal-btn etapas-modal-btn-primary"
-                   id="formsRedirectBtn">
-                    <span>Ir para o formulário</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
-                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                </a>
-                <button class="etapas-modal-btn-secondary" id="closeModalFooterBtn">
-                    Entendi, fechar
-                </button>
-            </div>
-        `;
-        // Reatribuir evento do botão fechar
-        document.getElementById('closeModalFooterBtn')?.addEventListener('click', closeEtapasModal);
-    } else {
-        // OUTRAS FASES: Mostra apenas botão de fechar
-        modalFooter.innerHTML = `
-            <button class="etapas-modal-btn" id="closeModalFooterBtn">
-                Entendi, fechar
-            </button>
-        `;
-        document.getElementById('closeModalFooterBtn')?.addEventListener('click', closeEtapasModal);
-    }
-}
-
-function closeEtapasModal() {
-    if (etapasModal) {
-        etapasModal.classList.remove('open');
-        document.body.style.overflow = '';
-    }
-}
-
-// Substitui o comportamento do botão "Processo"
 $ctaBtn.addEventListener('click', function(e) {
-    e.preventDefault();  // Impede qualquer navegação
-    openEtapasModal();
-});
-
-// Fechar modal pelo X
-document.getElementById('closeModalBtn')?.addEventListener('click', closeEtapasModal);
-
-// Fechar ao clicar fora do conteúdo
-etapasModal?.addEventListener('click', function(e) {
-    if (e.target === etapasModal) {
-        closeEtapasModal();
-    }
-});
-
-// Fechar com tecla ESC
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && etapasModal?.classList.contains('open')) {
-        closeEtapasModal();
-    }
+    e.preventDefault();
+    if      (ingressoFaseAtual === 1) openIngressoModal(getModalFase1());
+    else if (ingressoFaseAtual === 2) openIngressoModal(getModalFase2());
+    else if (ingressoFaseAtual === 3) openIngressoModal(getModalFase3());
+    else if (ingressoFaseAtual === 4) openIngressoModal(getModalFase4());
 });
 
 
@@ -910,4 +865,5 @@ document.addEventListener('keydown', e => {
     if (memberModal.classList.contains('open'))            closeMemberModal();
     else if (eventModal.classList.contains('open'))        closeEventModal();
     else if (teamOverviewModal.classList.contains('open')) closeTeamOverviewModal();
+    else if ($ingressoModal.classList.contains('open'))    closeIngressoModal();
 });
