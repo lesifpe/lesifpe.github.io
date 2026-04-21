@@ -201,3 +201,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 });
+/* ── 11. ocultador de link do forms no canto inferior esquerdo ─────────────────── */
+function abrirFormulario() {
+    window.open(
+        "https://docs.google.com/forms/d/e/1FAIpQLSfbTDmrQTLmwpWn_vNgo0tGHQ27Bfm2fE39ottHrm0671m9Mw/viewform?usp=publish-editor",
+        "_blank"
+    );
+}
