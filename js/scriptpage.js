@@ -625,7 +625,7 @@ eventModal.addEventListener('click', e => { if (e.target === eventModal) closeEv
 const INGRESSO_CONFIG = {
     /* ── Datas do processo ── */
     dataAberturaInscricoes:     new Date(2026, 3, 23),   /* 23/04/2026 */
-    dataEncerramentoInscricoes: new Date(2026, 3, 25),   /* 25/04/2026 */
+    dataEncerramentoInscricoes: new Date(2026, 3, 26),   /* 26/04/2026 */
     dataProximaTurma:           new Date(2026, 8,  9),   /* 09/09/2026 */
 
     /* ── Textos da contagem ── */
