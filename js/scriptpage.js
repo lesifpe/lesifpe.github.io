@@ -634,7 +634,7 @@ const INGRESSO_CONFIG = {
     textoFase3: 'Próxima turma em',
 
     /* ── Link do formulário (Fase 2) ── */
-    linkFormulario: 'https://forms.gle/j5fYk6yR4D4mCH9j7',  /* SUBSTITUA pelo link real do Google Forms */
+    linkFormulario: 'https://forms.gle/j5fYk6yR4D4mCH9j7',  
 };
 
 /* ── Elementos do DOM ── */
