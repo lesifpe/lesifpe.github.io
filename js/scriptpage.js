@@ -614,24 +614,19 @@ eventModal.addEventListener('click', e => { if (e.target === eventModal) closeEv
      2 → Entre dataAberturaInscricoes e dataEncerramentoInscricoes
          Botão abre modal com link do formulário + informações
 
-     3 → Entre dataEncerramentoInscricoes+1 e dataProximaTurma-1
-         Botão abre modal avisando que o processo encerrou
-
-     4 → A partir de dataProximaTurma
-         Mostra imagem semestral, botão oculto, sem contagem
-
+     3 → A partir de dataEncerramentoInscricoes
+         Avisa que a inscrição é semestral.
+         
    FORMATO DAS DATAS: new Date(ano, mês-1, dia)
 ════════════════════════════════════════════════════════════ */
 const INGRESSO_CONFIG = {
     /* ── Datas do processo ── */
     dataAberturaInscricoes:     new Date(2026, 3, 23),   /* 23/04/2026 */
     dataEncerramentoInscricoes: new Date(2026, 3, 26),   /* 26/04/2026 */
-    dataProximaTurma:           new Date(2026, 8,  9),   /* 09/09/2026 */
 
     /* ── Textos da contagem ── */
     textoFase1: 'Inscrições abrem em',
     textoFase2: 'Inscrições encerram em',
-    textoFase3: 'Próxima turma em',
 
     /* ── Link do formulário (Fase 2) ── */
     linkFormulario: 'https://forms.gle/j5fYk6yR4D4mCH9j7',  
@@ -771,8 +766,11 @@ function updateIngressoCountdown() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    /* FASE 4 */
-    if (today >= cfg.dataProximaTurma) {
+    /* FASE 3 */
+    const diaAposEnc = new Date(cfg.dataEncerramentoInscricoes);
+    diaAposEnc.setDate(diaAposEnc.getDate() + 1);
+
+    if (today >= diaAposEnc) {
         if (ingressoFaseAtual !== 4) {
             ingressoFaseAtual = 4;
             $countdownBlock.style.display = 'none';
@@ -780,27 +778,6 @@ function updateIngressoCountdown() {
             $ctaBtn.style.display         = 'none';
             clearInterval(ingressoTimer);
         }
-        return;
-    }
-
-    /* FASE 3 */
-    const diaAposEnc = new Date(cfg.dataEncerramentoInscricoes);
-    diaAposEnc.setDate(diaAposEnc.getDate() + 1);
-
-    if (today >= diaAposEnc) {
-        ingressoFaseAtual = 3;
-        $countdownBlock.style.display    = 'flex';
-        $semestralBlock.style.display    = 'none';
-        $ctaBtn.style.display            = '';
-        $countdownBlock.dataset.fase     = '3';
-        $countdownLabel.textContent      = cfg.textoFase3;
-
-        const d = calcDiff(cfg.dataProximaTurma);
-        $cdDays.textContent  = pad(d.days);
-        $cdHours.textContent = pad(d.hours);
-        $cdMins.textContent  = pad(d.mins);
-        $cdSecs.textContent  = pad(d.secs);
-        tickPulse(d.secs);
         return;
     }
 
@@ -843,6 +820,7 @@ function updateIngressoCountdown() {
 updateIngressoCountdown();
 const ingressoTimer = setInterval(updateIngressoCountdown, 1000);
 
+
 /*
    INTERCEPTA O CLIQUE NO BOTÃO DE INGRESSO
    Todas as fases abrem o modal com conteúdo adequado.
@@ -853,7 +831,6 @@ $ctaBtn.addEventListener('click', function(e) {
     if      (ingressoFaseAtual === 1) openIngressoModal(getModalFase1());
     else if (ingressoFaseAtual === 2) openIngressoModal(getModalFase2());
     else if (ingressoFaseAtual === 3) openIngressoModal(getModalFase3());
-    else if (ingressoFaseAtual === 4) openIngressoModal(getModalFase4());
 });
 
 

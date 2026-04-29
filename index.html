@@ -75,99 +75,7 @@
         </section>
 
 
-        <!-- ══════════════════════════════════════════════════════
-             SEÇÃO: INGRESSO
-             ──────────────────────────────────────────────────────
-             LÓGICA DA CONTAGEM REGRESSIVA (gerenciada em scriptpage.js):
-             
-             FASE 1 → Antes de 23/04/2026:
-               Exibe contagem regressiva até 23/04/2026 (abertura das inscrições)
-               Texto: "Inscrições abrem em"
-             
-             FASE 2 → Entre 23/04/2026 e 25/04/2026 (inclusive):
-               Inscrições ABERTAS — exibe contagem regressiva até 25/04/2026 (encerramento)
-               Botão leva ao formulário Google Forms
-               Texto: "Inscrições encerram em"
-             
-             FASE 3 → Entre 26/04/2026 e 08/09/2026:
-               Inscrições encerradas — exibe contagem regressiva até 09/09/2026 (próxima turma)
-               Texto: "Próxima turma em"
-             
-             FASE 4 → A partir de 09/09/2026:
-               Processo encerrado — exibe imagem informativa de que o processo é semestral
-               A imagem deve ser colocada em: assets/imagens/ingresso/processo-semestral.png
-               O botão é ocultado
-             
-             PARA MANUTENÇÃO — altere as datas no objeto INGRESSO_CONFIG em scriptpage.js
-        ══════════════════════════════════════════════════════ -->
-        <section>
-            <div id="parte_nossa_equipe">
-                <H2>INGRESSO</H2>
-                <h3>faça parte da nossa equipe</h3>
-
-                <!-- Bloco da contagem regressiva — preenchido via JS -->
-                <div id="ingresso-countdown-wrapper" class="ingresso-countdown-wrapper">
-                    <!-- Fase 1 e 3: Contagem regressiva -->
-                    <div id="ingresso-countdown-block" class="ingresso-countdown-block" style="display:none">
-                        <p id="ingresso-countdown-label" class="ingresso-countdown-label">Inscrições abrem em</p>
-                        <div class="ingresso-countdown-digits" id="ingresso-countdown-digits">
-                            <div class="countdown-unit">
-                                <span class="countdown-num" id="cd-days">00</span>
-                                <span class="countdown-lbl">Dias</span>
-                            </div>
-                            <span class="countdown-sep">:</span>
-                            <div class="countdown-unit">
-                                <span class="countdown-num" id="cd-hours">00</span>
-                                <span class="countdown-lbl">Horas</span>
-                            </div>
-                            <span class="countdown-sep">:</span>
-                            <div class="countdown-unit">
-                                <span class="countdown-num" id="cd-mins">00</span>
-                                <span class="countdown-lbl">Min</span>
-                            </div>
-                            <span class="countdown-sep">:</span>
-                            <div class="countdown-unit">
-                                <span class="countdown-num" id="cd-secs">00</span>
-                                <span class="countdown-lbl">Seg</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Fase 4: Imagem processo semestral -->
-                    <!--
-                        Para trocar a imagem desta fase, substitua o arquivo em:
-                        assets/imagens/ingresso/processo-semestral.png
-                        O texto alt e o src podem ser ajustados aqui.
-                    -->
-                    <div id="ingresso-semestral-block" class="ingresso-semestral-block" style="display:none">
-                        <img src="assets/imagens/ingresso/processo-semestral.png"
-                            alt="Processo Seletivo Semestral — LES IFPE" class="ingresso-semestral-img"
-                            onerror="this.style.display='none'; document.getElementById('ingresso-semestral-fallback').style.display='block'">
-                        <!-- Fallback caso a imagem não exista ainda -->
-                        <div id="ingresso-semestral-fallback" class="ingresso-semestral-fallback" style="display:none">
-                            <p class="ingresso-semestral-fallback-title">Processo Seletivo Semestral</p>
-                            <p class="ingresso-semestral-fallback-sub">
-                                O ingresso na LES ocorre a cada semestre ou em casos específicos.<br>
-                                Acompanhe nosso Instagram <strong>@les.ifpe</strong> para novidades.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Botão de inscrição — visível/oculto conforme a fase (controlado via JS) -->
-                <div class="cta-group">
-                    <button class="cta-btn cta-primary" id="ingresso-cta-btn" onclick="abrirFormulario()">
-                        <span>Processo</span>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </button>
-                </div>
-                <span class="cta-sub">Seleção semestral · IFPE Campus Recife</span>
-            </div>
-        </section>
-
+        
         <!-- ══ PROJETOS — CARROSSEL ════════════════════════════
              Para adicionar um novo projeto, copie um bloco
              <div class="project-card project-featured"> ... </div>
@@ -555,6 +463,86 @@
 
             </div>
 
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════
+             SEÇÃO: INGRESSO
+             ──────────────────────────────────────────────────────
+             LÓGICA DA CONTAGEM REGRESSIVA (gerenciada em scriptpage.js):
+             
+             FASE 1 → Antes de 23/04/2026:
+               Exibe contagem regressiva até 23/04/2026 (abertura das inscrições)
+               Texto: "Inscrições abrem em"
+             
+             FASE 2 → Entre 23/04/2026 e 25/04/2026 (inclusive):
+               Inscrições ABERTAS — exibe contagem regressiva até 25/04/2026 (encerramento)
+               Botão leva ao formulário Google Forms
+               Texto: "Inscrições encerram em"
+             
+             FASE 3 → Entre 26/04/2026 e 08/09/2026:
+               Inscrições encerradas — exibe contagem regressiva até 09/09/2026 (próxima turma)
+               Texto: "Próxima turma em"
+             
+             FASE 4 → A partir de 09/09/2026:
+               Processo encerrado — exibe imagem informativa de que o processo é semestral
+               A imagem deve ser colocada em: assets/imagens/ingresso/processo-semestral.png
+               O botão é ocultado
+             
+             PARA MANUTENÇÃO — altere as datas no objeto INGRESSO_CONFIG em scriptpage.js
+        ══════════════════════════════════════════════════════ -->
+        <section>
+            <div id="parte_nossa_equipe">
+                <H2>INGRESSO</H2>
+
+                <!-- Bloco da contagem regressiva — preenchido via JS -->
+                <div id="ingresso-countdown-wrapper" class="ingresso-countdown-wrapper">
+                    <!-- Fase 1 e 3: Contagem regressiva -->
+                    <div id="ingresso-countdown-block" class="ingresso-countdown-block" style="display:none">
+                        <p id="ingresso-countdown-label" class="ingresso-countdown-label">Inscrições abrem em</p>
+                        <div class="ingresso-countdown-digits" id="ingresso-countdown-digits">
+                            <div class="countdown-unit">
+                                <span class="countdown-num" id="cd-days">00</span>
+                                <span class="countdown-lbl">Dias</span>
+                            </div>
+                            <span class="countdown-sep">:</span>
+                            <div class="countdown-unit">
+                                <span class="countdown-num" id="cd-hours">00</span>
+                                <span class="countdown-lbl">Horas</span>
+                            </div>
+                            <span class="countdown-sep">:</span>
+                            <div class="countdown-unit">
+                                <span class="countdown-num" id="cd-mins">00</span>
+                                <span class="countdown-lbl">Min</span>
+                            </div>
+                            <span class="countdown-sep">:</span>
+                            <div class="countdown-unit">
+                                <span class="countdown-num" id="cd-secs">00</span>
+                                <span class="countdown-lbl">Seg</span>
+                            </div>
+                        </div>
+                    </div>
+
+                   <!-- Fase 4: Informa processo semestral -->
+                    <div id="ingresso-semestral-block" class="ingresso-semestral-block" style="display:none">
+                        <p class="ingresso-semestral-fallback-title">Processo Seletivo Semestral</p>
+                        <p class="ingresso-semestral-fallback-sub">
+                            O ingresso na LES ocorre a cada semestre.<br>
+                            Acompanhe nosso Instagram <strong>@les.ifpe</strong> para novidades.
+                        </p>
+                    </div>
+
+                <!-- Botão de inscrição — visível/oculto conforme a fase (controlado via JS) -->
+                <div class="cta-group">
+                    <button class="cta-btn cta-primary" id="ingresso-cta-btn" onclick="abrirFormulario()">
+                        <span>Processo</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+                <span class="cta-sub">Seleção semestral · IFPE Campus Recife</span>
+            </div>
         </section>
 
     </main>
