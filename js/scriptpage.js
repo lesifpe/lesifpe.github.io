@@ -382,6 +382,7 @@ const membersData = {
         links: { github: 'https://github.com/EduardaRFSousa', linkedin: 'https://www.linkedin.com/in/eduarda-rocha-full-stack-dev/' }
     },
 
+
     /* ══ COLABORADORES — adicione aqui ══════════════════════
        Exemplo:
        nomeColaborador: {
@@ -421,6 +422,7 @@ const membersData = {
         links: { github: 'https://github.com/francisco-tal', linkedin: 'https://www.linkedin.com/in/francisco-de-assis-53aaab3b2/' }
     },
 
+    
     cristiano: {
         name: 'Cristiano Veras de Souza', role: 'ex_integrante',
         initials: 'CV', group: 'ex_integrante',
