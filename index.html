@@ -75,7 +75,7 @@
         </section>
 
 
-        
+
         <!-- ══ PROJETOS — CARROSSEL ════════════════════════════
              Para adicionar um novo projeto, copie um bloco
              <div class="project-card project-featured"> ... </div>
@@ -105,7 +105,8 @@
                             </h3>
 
                             <p class="project-desc">
-                                Sistema de monitoramento ambiental desenvolvido em parceria com o mestrado de Sustentabilidade Urbana do IFPE.
+                                Sistema de monitoramento ambiental desenvolvido em parceria com o mestrado de
+                                Sustentabilidade Urbana do IFPE.
                                 O ESP32 coleta dados de sensores (chuva e temperatura) e envia em tempo real para o
                                 Firebase Realtime Database.
                                 A aplicação web é construída com Vue e TypeScript, consumindo esses dados para
@@ -225,20 +226,20 @@
         ═════════════════════════════════════════════════════ -->
         <section id="calendario_atividades">
             <h1>Calendário de Atividades</h1>
-            <div class="eventos2" data-titulo="Ingresso LES — Processo Seletivo" data-data="23/04/2026"
+           <!--  <div class="eventos2" data-titulo="Ingresso LES — Processo Seletivo" data-data="23/04/2026"
                 data-tipo="evento"
                 data-descricao="Abertura oficial do processo seletivo para novos membros da Liga de Engenharia de Software do IFPE Campus Recife. O processo é voltado para estudantes dos cursos de tecnologia do IFPE que desejam fazer parte de um ambiente colaborativo de aprendizado prático. Os candidatos passarão por etapas de avaliação técnica e entrevistas com a diretoria da liga. Vagas limitadas. Inscrições pelo formulário disponível no link da bio do Instagram @les.ifpe.">
                 <img src="assets/imagens/logos/Logo com fundo e nome.png" alt="Evento Ingresso">
                 <p>Ingresso LES — Processo Seletivo</p>
                 <p>23/04/2026</p>
             </div>
-
+-->
             <div class="eventos1" data-titulo="Workshop de Inserção no Mercado de Tecnologia" data-data="10/05/2026"
                 data-tipo="workshop"
                 data-descricao="Workshop prático voltado para estudantes que desejam se preparar para o mercado de tecnologia. O evento cobrirá temas como construção de portfólio no GitHub, elaboração de currículo técnico, como se preparar para entrevistas técnicas (incluindo desafios de código), networking profissional e uso estratégico do LinkedIn. Haverá também um painel com profissionais da área de tecnologia de Recife para um bate-papo sobre trajetórias e oportunidades no setor.">
                 <img src="assets/imagens/icones/incessão.png" alt="Workshop Inserção">
                 <p>Workshop de Inserção no Mercado de Tecnologia</p>
-                <p>10/05/2026</p>
+                <p> <STROng>DATA ALTERADA 04/06/2026</STROng> </p>
             </div>
         </section>
 
@@ -437,18 +438,29 @@
                 <div class="member-card" data-member="rafael" data-group="diretoria"></div>
                 <div class="member-card" data-member="ilian" data-group="diretoria"></div>
                 <div class="member-card" data-member="yuri" data-group="diretoria"></div>
-                <div class="member-card" data-member="christoph" data-group="diretoria"></div>
                 <div class="member-card" data-member="alane" data-group="diretoria"></div>
-                <div class="member-card" data-member="francisco" data-group="diretoria"></div>
-
+                
                 <!-- Membros Desenvolvedores -->
+                <div class="member-card" data-member="christoph" data-group="dev"></div>
                 <div class="member-card" data-member="lucas" data-group="dev"></div>
-                <div class="member-card" data-member="cristiano" data-group="dev"></div>
                 <div class="member-card" data-member="guilherme" data-group="dev"></div>
                 <div class="member-card" data-member="paulo" data-group="dev"></div>
                 <div class="member-card" data-member="bruno" data-group="dev"></div>
+                <div class="member-card" data-member="lyzia" data-group="dev"></div>
                 <div class="member-card" data-member="marcos" data-group="dev"></div>
+                <div class="member-card" data-member="renan" data-group="dev"></div>
+                <div class="member-card" data-member="adriano" data-group="dev"></div>
+                <div class="member-card" data-member="kayllane" data-group="dev"></div>
+                <div class="member-card" data-member="matheus" data-group="dev"></div>
+                <div class="member-card" data-member="victor" data-group="dev"></div>
+                 <div class="member-card" data-member="ryan" data-group="dev"></div>
 
+
+                  
+                <div class="member-card" data-member="victor" data-group="dev"></div>
+                <div class="member-card" data-member="felipe" data-group="dev"></div>
+                <div class="member-card" data-member="sabryna" data-group="dev"></div>
+                <div class="member-card" data-member="eduarda" data-group="dev"></div>
                 <!-- Colaboradores
                      Para ativar: descomente e adicione os dados em membersData
                 <div class="member-card" data-member="ID_COLABORADOR" data-group="colaborador"></div>
@@ -460,8 +472,10 @@
                 <!-- Ex Integrantes
                      Para ativar: descomente e adicione os dados em membersData
                 <div class="member-card" data-member="ID_EX_INTEGRANTE" data-group="ex_integrante"></div>
+                
                 -->
-
+                <div class="member-card" data-member="cristiano" data-group="ex_integrante"></div>
+                <div class="member-card" data-member="francisco" data-group="ex_integrante"></div>
             </div>
 
         </section>
@@ -523,7 +537,7 @@
                         </div>
                     </div>
 
-                   <!-- Fase 4: Informa processo semestral -->
+                    <!-- Fase 4: Informa processo semestral -->
                     <div id="ingresso-semestral-block" class="ingresso-semestral-block" style="display:none">
                         <p class="ingresso-semestral-fallback-title">Processo Seletivo Semestral</p>
                         <p class="ingresso-semestral-fallback-sub">
@@ -532,27 +546,29 @@
                         </p>
                     </div>
 
-                <!-- Botão de inscrição — visível/oculto conforme a fase (controlado via JS) -->
-                <div class="cta-group">
-                    <button class="cta-btn cta-primary" id="ingresso-cta-btn" onclick="abrirFormulario()">
-                        <span>Processo</span>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </button>
+                    <!-- Botão de inscrição — visível/oculto conforme a fase (controlado via JS) -->
+                    <div class="cta-group">
+                        <button class="cta-btn cta-primary" id="ingresso-cta-btn" onclick="abrirFormulario()">
+                            <span>Processo</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
+                    <span class="cta-sub">Seleção semestral · IFPE Campus Recife</span>
                 </div>
-                <span class="cta-sub">Seleção semestral · IFPE Campus Recife</span>
-            </div>
         </section>
 
     </main>
 
     <footer class="footer">
         <ul class="social-links">
-            <li><a href="https://www.instagram.com/les.ifpe/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://www.instagram.com/les.ifpe/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </li>
             <li><a href="https://discord.gg/EA9qZ62QSb" target="_blank" rel="noopener noreferrer">Discord</a></li>
-            <li><a href="https://github.com/orgs/lesifpe/repositories" target="_blank" rel="noopener noreferrer">Github</a></li>
+            <li><a href="https://github.com/orgs/lesifpe/repositories" target="_blank"
+                    rel="noopener noreferrer">Github</a></li>
         </ul>
 
         <ul class="footer-links">
@@ -659,13 +675,13 @@
         </div>
     </div>
 
-<!-- ══ MODAL DE INGRESSO (fases 1, 2 e 3) ═══════════════════ -->
-<div id="ingresso-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Processo Seletivo">
-    <div class="modal-box" style="max-width:560px">
-        <button class="modal-close" id="ingresso-modal-close" aria-label="Fechar">&times;</button>
-        <div id="ingresso-modal-content"></div>
+    <!-- ══ MODAL DE INGRESSO (fases 1, 2 e 3) ═══════════════════ -->
+    <div id="ingresso-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Processo Seletivo">
+        <div class="modal-box" style="max-width:560px">
+            <button class="modal-close" id="ingresso-modal-close" aria-label="Fechar">&times;</button>
+            <div id="ingresso-modal-content"></div>
+        </div>
     </div>
-</div>
 
     <script src="script.js"></script>
     <script src="js/scriptpage.js"></script>
