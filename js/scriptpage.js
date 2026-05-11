@@ -381,6 +381,12 @@ const membersData = {
         bio: 'Membra desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
         links: { github: 'https://github.com/EduardaRFSousa', linkedin: 'https://www.linkedin.com/in/eduarda-rocha-full-stack-dev/' }
     },
+    gabriel: {
+        name: 'Gabriel Soares Alves Bernardo da Silva', role: 'Desenvolvedor',
+        initials: 'GS', group: 'dev',
+        bio: 'Membro desenvolvedor da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
+        links: { github: 'https://github.com/gabrielsoarespebr', linkedin: 'https://www.linkedin.com/in/gabrielsoarespebr/' }
+    },
 
 
     /* ══ COLABORADORES — adicione aqui ══════════════════════
