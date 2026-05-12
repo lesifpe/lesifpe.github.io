@@ -188,6 +188,7 @@ body::before {
     visibility: hidden;
     pointer-events: none;
     transition: transform 0.35s var(--ease-smooth), opacity 0.35s, visibility 0.35s;
+    height: 100%;
 }
 
 .mobile-nav.open {
@@ -201,7 +202,8 @@ body::before {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 4rem;
+    
 }
 
 .mobile-menu li a {
