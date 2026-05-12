@@ -373,6 +373,13 @@ const membersData = {
         },
     },
 
+      maria: {
+        name: 'Maria Carollina da Silva Monte', role: 'Desenvolvedor',
+        initials: 'MC', group: 'dev',
+        bio: 'Membra desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
+        links: { github: 'https://github.com/mariacarollinamonte-spec', linkedin: 'https://www.linkedin.com/in/mariacarollinamonte/' }
+    },
+
     /* ══ COLABORADORES — adicione aqui ══════════════════════
        Exemplo:
        nomeColaborador: {
@@ -509,6 +516,7 @@ document.querySelectorAll('.mobile-link').forEach(link => {
         hamburger.setAttribute('aria-expanded', false);
     });
 });
+
 window.addEventListener('resize', () => {
     const isDesktop = window.innerWidth >= 992;
 
