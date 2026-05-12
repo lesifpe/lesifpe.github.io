@@ -509,7 +509,15 @@ document.querySelectorAll('.mobile-link').forEach(link => {
         hamburger.setAttribute('aria-expanded', false);
     });
 });
+window.addEventListener('resize', () => {
+    const isDesktop = window.innerWidth >= 992;
 
+    if (isDesktop && mobileNav.classList.contains('open')) {
+        mobileNav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
+    }
+});
 
 /* ────────────────────────────────────────────────────────────
    B2 · HERO SLIDESHOW

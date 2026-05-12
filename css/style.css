@@ -177,7 +177,10 @@ body::before {
    para compatibilidade com a transição CSS e o JS que adiciona .open */
 .mobile-nav {
     position: fixed;
-    top: 70px; left: 0; right: 0;
+    top: 70px;
+    left: 0;
+    right: 0;
+    height: calc(100vh - 70px);
     background: rgba(10, 10, 10, 0.98);
     backdrop-filter: blur(20px);
     z-index: 999;
@@ -188,7 +191,7 @@ body::before {
     visibility: hidden;
     pointer-events: none;
     transition: transform 0.35s var(--ease-smooth), opacity 0.35s, visibility 0.35s;
-    height: 100%;
+    
 }
 
 .mobile-nav.open {
