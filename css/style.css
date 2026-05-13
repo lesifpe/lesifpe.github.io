@@ -2154,7 +2154,7 @@ main > section[id] > p {
 
 /* Selo */
 .member-card.ligante-card-destaque .member-info::before {
-    content: '★ LIGANTE DO MÊS';
+    content: '★ LIGANTE DESTAQUE';
 
     display: inline-flex;
     align-items: center;

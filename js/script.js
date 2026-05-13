@@ -44,13 +44,12 @@
    FORMATO DAS DATAS: new Date(ano, mês-1, dia)
    ──────────────────────────────────────────────────────────── */
 const INGRESSO_CONFIG = {
-    dataAberturaInscricoes:     new Date(2026, 3, 23),   /* 23/04/2026 */
+    dataAberturaInscricoes: new Date(2026, 3, 23),   /* 23/04/2026 */
     dataEncerramentoInscricoes: new Date(2026, 3, 26),   /* 26/04/2026 */
-    textoFase1:  'Inscrições abrem em',
-    textoFase2:  'Inscrições encerram em',
+    textoFase1: 'Inscrições abrem em',
+    textoFase2: 'Inscrições encerram em',
     linkFormulario: 'https://forms.gle/j5fYk6yR4D4mCH9j7',
 };
-
 
 /* ────────────────────────────────────────────────────────────
    A2 · IMAGENS DO HERO SLIDESHOW
@@ -59,7 +58,7 @@ const INGRESSO_CONFIG = {
    Formato: { src: 'caminho/imagem.jpg', alt: 'Descrição' }
    ──────────────────────────────────────────────────────────── */
 const heroImages = [
-    { src: 'assets/imagens/capa/CAPA1.jpg',  alt: 'IFPE Campus Recife — Fachada' },
+    { src: 'assets/imagens/capa/CAPA1.jpg', alt: 'IFPE Campus Recife — Fachada' },
     { src: 'assets/imagens/capa/CAPA2.jpeg', alt: 'Workshop LES' },
     { src: 'assets/imagens/capa/CAPA3.jpeg', alt: 'Workshop LES' },
 ];
@@ -88,17 +87,17 @@ const heroImages = [
      4. Adicione pílula .equipe-tag no HTML (opcional)
    ──────────────────────────────────────────────────────────── */
 
-   /* ────────────────────────────────────────────────────────────
+/* ────────────────────────────────────────────────────────────
 
-   LIGANTE DO MÊS — configuração
-   Troque membroKey e destaque todo mês. SÓ PREENCHER O MEMBROKEY A BAIXO
+LIGANTE DO MÊS — configuração
+Troque membroKey e destaque todo mês. SÓ PREENCHER O MEMBROKEY A BAIXO
 
-   ──────────────────────────────────────────────────────────── */
+──────────────────────────────────────────────────────────── */
 
 
 const LIGANTE_CONFIG = {
-    membroKey: '',
-    destaque:  'Liderança exemplar na condução dos projetos e na integração da equipe.',
+    membroKey: 'sabryna',
+    destaque: 'Liderança eSabrina se destacou por sua proatividade e qualidade nas entregas, desenvolvendo em menos de um mês o planejamento das redes sociais e os carrosséis institucionais do Instagram. Sua excelente comunicação e compromisso com a equipe resultaram em impactos positivos e consistentes, culminando em sua promoção a Diretora de Comunicação e Designer.xemplar na condução dos projetos e na integração da equipe.',
 };
 
 
@@ -107,27 +106,27 @@ const membersData = {
     /* ── Coordenação ── */
     hilson: {
         name: 'Prof. Hilson Andrade',
-        role: 'Colaborador — Diretor de Extensão IFPE-Recife',
+        role: 'Coordenador do Projeto',
         initials: 'HI',
-        group: 'colaborador',
+        group: 'diretoria',
         bio: 'Professor e pesquisador do IFPE Campus Recife que, há mais de vinte anos, utiliza a ciência e a tecnologia para resolver problemas. Doutorando em Engenharia da Computação, Mestre em Ciências da Computação, Engenheiro Eletrônico e técnico em Eletrotécnica, coordena a Liga de Engenharia de Software, promovendo a formação prática e o desenvolvimento de soluções tecnológicas com impacto real na comunidade.',
         links: {
             linkedin: 'https://www.linkedin.com/in/hilson-andrade-36719344/',
-            email:    'hilsonvilar@recife.ifpe.edu.br',
+            email: 'hilsonvilar@recife.ifpe.edu.br',
+        },
+    },
+    eduardo: {
+        name: 'Prof. Eduardo Vasconcelos',
+        role: 'Colaborador',
+        initials: 'EV',
+        group: 'colaborador',
+        bio: 'Atua como professor orientador colaborador da área técnica, contribuindo diretamente para a concepção, validação e evolução de soluções tecnológicas, além de apoiar o desenvolvimento de projetos com foco prático e impacto na comunidade.',
+        links: {
+            email: 'eduardo.vasconcelos@recife.ifpe.edu.br',
         },
     },
 
-    rafael: {
-        name: 'Prof. Dr. Rafael Roque Aschoff',
-        role: 'Coordenador do Projeto',
-        initials: 'RA',
-        group: 'diretoria',
-        bio: 'Professor e pesquisador do IFPE Campus Recife. Coordena a Liga de Engenharia de Software, promovendo a formação prática e o desenvolvimento de soluções tecnológicas com impacto real na comunidade.',
-        links: {
-            github: 'https://github.com/roque86',
-            email:  'mailto:rafael.aschoff@recife.ifpe.edu.br',
-        },
-    },
+
 
     /* ── Diretoria ── */
     ilian: {
@@ -137,7 +136,7 @@ const membersData = {
         group: 'diretoria',
         bio: 'Presidente da LES-IFPE. Lidera a equipe com foco em inovação, gestão de pessoas e articulação institucional da liga.',
         links: {
-            github:   'https://github.com/ilian-oss',
+            github: 'https://github.com/ilian-oss',
             linkedin: 'https://www.linkedin.com/in/ilian-solano/',
         },
     },
@@ -149,22 +148,55 @@ const membersData = {
         group: 'diretoria',
         bio: 'Vice-presidente da LES, responsável por apoiar a presidência na coordenação estratégica e operacional da liga.',
         links: {
-            github:    'https://github.com/Yuriportf',
-            linkedin:  'https://www.linkedin.com/in/yuri-oliveira-aqui/',
+            github: 'https://github.com/Yuriportf',
+            linkedin: 'https://www.linkedin.com/in/yuri-oliveira-aqui/',
             instagram: 'https://www.instagram.com/_yurioliv_/',
-            email:     'mailto:yuriprodeveloper@gmail.com',
+            email: 'mailto:yuriprodeveloper@gmail.com',
         },
     },
 
     alane: {
         name: 'Maria Alane Oliveira de Arruda Camara',
-        role: 'Diretora de Desenvolvimento e fundadora',
+        role: 'Desenvolvedor fundador',
         initials: 'MA',
-        group: 'diretoria',
+        group: 'dev',
         bio: 'Diretora de Desenvolvimento da LES. Coordena as práticas técnicas, revisão de código e evolução das competências dos membros.',
         links: {
-            github:   'https://github.com/AlaneOliveira',
+            github: 'https://github.com/AlaneOliveira',
             linkedin: 'https://linkedin.com/in/',
+        },
+    },
+
+    sabryna: {
+        name: 'Sabryna Santana da Silva',
+        role: 'Diretora de Comunicação e Design',
+        initials: 'SS',
+        group: 'diretoria',
+        bio: 'Membro desenvolvedor da LES, atuando nas áreas de desenvolvimento e comunicação, contribuindo com soluções criativas, crescimento técnico e fortalecimento dos projetos da liga.',
+        links: {
+            github: 'https://github.com/sabrynasantana',
+            linkedin: 'https://www.linkedin.com/in/sabryna-santana-8150201a1/',
+        },
+    },
+
+    alicy: {
+        name: 'Alicy Lucena Candido da Silva', role: 'Diretora de Comunicação e Design',
+        initials: 'AL', group: 'diretoria',
+        bio: 'Membro desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
+        links: { github: 'https://github.com/alicylucena?tab=projects', linkedin: 'https://www.linkedin.com/in/alicy-lucena-candido-da-silva-336b86406' 
+
+        },
+    },
+
+    marcos: {
+        name: 'Marcos Aurélio Lopes de Araújo',
+        role: 'Secretário executivo',
+        initials: 'MA',
+        group: 'diretoria',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga. ',
+        links: {
+            github: 'https://github.com/marcosaureliodevelop',
+            linkedin: 'https://www.linkedin.com/in/marcos-aurélio-4566a4237/',
         },
     },
 
@@ -176,7 +208,7 @@ const membersData = {
         group: 'dev',
         bio: 'Diretor de Projetos da LES. Gerencia o portfólio de projetos, garantindo alinhamento técnico e entrega de valor para a comunidade.',
         links: {
-            github:   'https://github.com/christoph-sd',
+            github: 'https://github.com/christoph-sd',
             linkedin: 'https://linkedin.com/in/',
         },
     },
@@ -188,7 +220,7 @@ const membersData = {
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, atuando no desenvolvimento de projetos com impacto na comunidade acadêmica do IFPE.',
         links: {
-            github:   'https://github.com/lfurtadomatos',
+            github: 'https://github.com/lfurtadomatos',
             linkedin: 'https://linkedin.com/in/',
         },
     },
@@ -200,7 +232,7 @@ const membersData = {
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, engajado no desenvolvimento de soluções tecnológicas e aprendizado contínuo.',
         links: {
-            github:   'https://github.com/Guinfbm',
+            github: 'https://github.com/Guinfbm',
             linkedin: 'https://www.linkedin.com/in/guilherme-nascimento-f-b-moraes-1a70a8348/',
         },
     },
@@ -212,7 +244,7 @@ const membersData = {
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, colaborando ativamente com os projetos e iniciativas técnicas da liga.',
         links: {
-            github:   'https://github.com/Paulo-Novbr',
+            github: 'https://github.com/Paulo-Novbr',
             linkedin: 'https://www.linkedin.com/in/paulo-ol%C3%ADmpio-a96156339/',
         },
     },
@@ -224,7 +256,7 @@ const membersData = {
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
         links: {
-            github:   'https://github.com/Bruno-0706',
+            github: 'https://github.com/Bruno-0706',
             linkedin: 'https://www.linkedin.com/in/bruno-luiz-b86792339/',
         },
     },
@@ -236,22 +268,12 @@ const membersData = {
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, colaborando ativamente com os projetos e iniciativas técnicas da liga.',
         links: {
-            github:   'https://github.com/LyziaGomes',
+            github: 'https://github.com/LyziaGomes',
             linkedin: 'https://www.linkedin.com/in/lyzia-gomes-288548378',
         },
     },
 
-    marcos: {
-        name: 'Marcos Aurélio Lopes de Araújo',
-        role: 'Desenvolvedor',
-        initials: 'MA',
-        group: 'dev',
-        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
-        links: {
-            github:   'https://github.com/marcosaureliodevelop',
-            linkedin: 'https://www.linkedin.com/in/marcos-aurélio-4566a4237/',
-        },
-    },
+    
 
     renan: {
         name: 'Renan Henrico Borges Pinto',
@@ -260,7 +282,7 @@ const membersData = {
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
         links: {
-            github:   'https://github.com/Renansoader',
+            github: 'https://github.com/Renansoader',
             linkedin: 'https://www.linkedin.com/authwall?trk=bf&trkInfo=AQEUrJM-AzfzAAAAAZ3-wThopYEn__ENQuPhR6PUWJBYxwumZF0zSKlJ2MvFfZ9LuVehOw83Dr4VPWF2-U268s5MgeF8rSZCJpF9LxF3RC2STciOzsa2oPfK7elY3T8kjSvWEwI=&original_referer=&sessionRedirect=https%3A%2F%2Fwww.linkedin.com%2Fin%2Frenanhenry%2F',
         },
     },
@@ -272,7 +294,7 @@ const membersData = {
         group: 'dev',
         bio: 'Movido por desafios, aprendizado contínuo e pela vontade de transformar ideias em soluções reais através da tecnologia.',
         links: {
-            github:   'https://github.com/AdrianoABR123',
+            github: 'https://github.com/AdrianoABR123',
             linkedin: 'https://www.linkedin.com/in/adriano-eloy-a703b4309/',
         },
     },
@@ -284,7 +306,7 @@ const membersData = {
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, focado em iniciação científica e conhecimento acadêmico voltados a projetos da liga.',
         links: {
-            github:   'https://github.com/VmDevalt',
+            github: 'https://github.com/VmDevalt',
             linkedin: 'https://www.linkedin.com/in/victor-montes-97bbb51a3/',
         },
     },
@@ -296,7 +318,7 @@ const membersData = {
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
         links: {
-            github:   'https://github.com/kayvsll',
+            github: 'https://github.com/kayvsll',
             linkedin: 'https://www.linkedin.com/in/kayvsll/',
         },
     },
@@ -308,7 +330,7 @@ const membersData = {
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, focado em crescimento técnico, network e entrega de valor nos projetos da liga.',
         links: {
-            github:   'https://github.com/matheusbalcky',
+            github: 'https://github.com/matheusbalcky',
             linkedin: 'https://www.linkedin.com/in/matheusbalcky',
         },
     },
@@ -320,7 +342,7 @@ const membersData = {
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, focado em crescimento técnico, network e entrega de valor nos projetos da liga.',
         links: {
-            github:   'https://github.com/ryan-star232',
+            github: 'https://github.com/ryan-star232',
             linkedin: 'https://www.linkedin.com/in/ryan-nobre-56aa943a2/',
         },
     },
@@ -332,22 +354,12 @@ const membersData = {
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
         links: {
-            github:   'https://github.com/lFelipe23',
+            github: 'https://github.com/lFelipe23',
             linkedin: 'https://www.linkedin.com/in/luis-felipe-ads/',
         },
     },
 
-    sabryna: {
-        name: 'Sabryna Santana da Silva',
-        role: 'Desenvolvedor',
-        initials: 'SS',
-        group: 'dev',
-        bio: 'Membro desenvolvedor da LES, atuando nas áreas de desenvolvimento e comunicação, contribuindo com soluções criativas, crescimento técnico e fortalecimento dos projetos da liga.',
-        links: {
-            github:   'https://github.com/sabrynasantana',
-            linkedin: 'https://www.linkedin.com/in/sabryna-santana-8150201a1/',
-        },
-    },
+
 
     eduarda: {
         name: 'Eduarda Rocha Fernandes de Sousa',
@@ -356,7 +368,7 @@ const membersData = {
         group: 'dev',
         bio: 'Membra desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
         links: {
-            github:   'https://github.com/EduardaRFSousa',
+            github: 'https://github.com/EduardaRFSousa',
             linkedin: 'https://www.linkedin.com/in/eduarda-rocha-full-stack-dev/',
         },
     },
@@ -368,15 +380,15 @@ const membersData = {
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
         links: {
-            github:   'https://github.com/nicollasnunes04',
+            github: 'https://github.com/nicollasnunes04',
             linkedin: 'https://www.linkedin.com/in/nicollas-nunes-043b622a4?utm_source=share_via&utm_content=profile&utm_medium=member_android',
         },
     },
 
-      maria: {
+    maria: {
         name: 'Maria Carollina da Silva Monte', role: 'Desenvolvedor',
         initials: 'MC', group: 'dev',
-        bio: 'Membra desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
+        bio: 'Membro desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
         links: { github: 'https://github.com/mariacarollinamonte-spec', linkedin: 'https://www.linkedin.com/in/mariacarollinamonte/' }
     },
 
@@ -416,7 +428,7 @@ const membersData = {
         group: 'ex_integrante',
         bio: 'Primeiro Diretor de Administração da Liga de Engenharia de Software (LES) e membro fundador.',
         links: {
-            github:   'https://github.com/francisco-tal',
+            github: 'https://github.com/francisco-tal',
             linkedin: 'https://www.linkedin.com/in/francisco-de-assis-53aaab3b2/',
         },
     },
@@ -428,10 +440,39 @@ const membersData = {
         group: 'ex_integrante',
         bio: 'Ex-membro desenvolvedor da LES.',
         links: {
-            github:   'https://github.com/',
+            github: 'https://github.com/',
             linkedin: 'https://www.linkedin.com/in/cristianoveras/',
         },
     },
+
+    rafael: {
+        name: 'Prof. Dr. Rafael Roque Aschoff',
+        role: 'ex_integrante',
+        initials: 'RA',
+        group: 'ex_integrante',
+        bio: 'Professor e pesquisador do IFPE Campus Recife. Coordena a Liga de Engenharia de Software, promovendo a formação prática e o desenvolvimento de soluções tecnológicas com impacto real na comunidade.',
+        links: {
+            github: 'https://github.com/roque86',
+            email: 'mailto:rafael.aschoff@recife.ifpe.edu.br',
+        },
+    },
+
+
+
+
+
+
+    wallace: {
+        name: 'Wallace Gabriel da Silva', role: 'ex_integrante',
+        initials: 'WS', group: 'ex_integrante',
+        bio: 'Membro desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
+        links: {}
+    },
+
+
+
+
+
 };
 
 
@@ -449,11 +490,11 @@ const linkIcons = {
 };
 
 const linkLabels = {
-    github:    'GitHub',
-    linkedin:  'LinkedIn',
+    github: 'GitHub',
+    linkedin: 'LinkedIn',
     instagram: 'Instagram',
-    email:     'E-mail',
-    discord:   'Discord',
+    email: 'E-mail',
+    discord: 'Discord',
 };
 
 
@@ -468,11 +509,11 @@ const linkLabels = {
    siga as instruções em A3 e na seção HTML correspondente.
    ──────────────────────────────────────────────────────────── */
 const GROUP_LABELS = {
-    diretoria:    'Coordenação e Diretoria',
-    dev:          'Membros Desenvolvedores',
-    colaborador:  'Colaboradores',
-    externo:      'Colaboradores Externos',
-    ex_integrante:'Ex Integrantes',
+    diretoria: 'Coordenação e Diretoria',
+    dev: 'Membros Desenvolvedores',
+    colaborador: 'Colaboradores',
+    externo: 'Colaboradores Externos',
+    ex_integrante: 'Ex Integrantes',
     /* Nova categoria:
        pesquisa: 'Pesquisadores',
        alumni:   'Alumni',
@@ -482,11 +523,11 @@ const GROUP_LABELS = {
 const GROUP_ORDER = ['diretoria', 'dev', 'colaborador', 'externo', 'ex_integrante'];
 
 const GROUP_COLORS = {
-    diretoria:    'var(--green)',
-    dev:          'var(--green)',
-    colaborador:  'var(--gray-lt)',
-    externo:      '#c09030',
-    ex_integrante:'var(--red)',
+    diretoria: 'var(--green)',
+    dev: 'var(--green)',
+    colaborador: 'var(--gray-lt)',
+    externo: '#c09030',
+    ex_integrante: 'var(--red)',
 };
 
 
@@ -533,7 +574,7 @@ window.addEventListener('resize', () => {
 const slideshowEl = document.getElementById('heroSlideshow');
 const slideDotsEl = document.getElementById('slideDots');
 let currentSlide = 0;
-let slideTimer   = null;
+let slideTimer = null;
 
 heroImages.forEach((img, i) => {
     const slide = document.createElement('div');
@@ -550,7 +591,7 @@ heroImages.forEach((img, i) => {
 
 function goToSlide(index) {
     const slides = slideshowEl.querySelectorAll('.hero-slide');
-    const dots   = slideDotsEl.querySelectorAll('.slide-dot');
+    const dots = slideDotsEl.querySelectorAll('.slide-dot');
     slides[currentSlide].classList.remove('active');
     dots[currentSlide].classList.remove('active');
     currentSlide = (index + heroImages.length) % heroImages.length;
@@ -567,17 +608,17 @@ slideTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
    B3 · CARROSSEL DE PROJETOS
    Drag + Touch com fallback para scroll vertical da página.
    ──────────────────────────────────────────────────────────── */
-const track   = document.getElementById('projectsTrack');
-const dotsWrap= document.getElementById('carouselDots');
+const track = document.getElementById('projectsTrack');
+const dotsWrap = document.getElementById('carouselDots');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 
-let currentIndex  = 0;
-let isDragging    = false;
-let startX        = 0;
-let currentX      = 0;
-let initialScrollY= 0;
-let cardWidth     = 0;
+let currentIndex = 0;
+let isDragging = false;
+let startX = 0;
+let currentX = 0;
+let initialScrollY = 0;
+let cardWidth = 0;
 
 function getCardWidth() {
     const card = track.querySelector('.project-card');
@@ -587,7 +628,7 @@ function getCardWidth() {
 function updateCarousel(smooth = true) {
     cardWidth = getCardWidth();
     track.style.transition = smooth ? 'transform 0.45s cubic-bezier(0.32, 0.72, 0, 1)' : 'none';
-    track.style.transform  = `translateX(${-currentIndex * cardWidth}px)`;
+    track.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
     updateDotsAndButtons();
 }
 
@@ -601,8 +642,8 @@ function updateDotsAndButtons() {
 function onTouchStart(e) {
     if (e.touches.length > 1) return;
     isDragging = true;
-    startX     = e.touches[0].clientX;
-    currentX   = startX;
+    startX = e.touches[0].clientX;
+    currentX = startX;
     initialScrollY = window.scrollY;
     track.style.transition = 'none';
 }
@@ -617,7 +658,7 @@ function onTouchMove(e) {
 function onTouchEnd() {
     if (!isDragging) return;
     isDragging = false;
-    const movedBy   = currentX - startX;
+    const movedBy = currentX - startX;
     const threshold = cardWidth * 0.25;
     track.style.transition = 'transform 0.45s cubic-bezier(0.32, 0.72, 0, 1)';
     if (movedBy < -threshold && currentIndex < track.children.length - 1) currentIndex++;
@@ -626,8 +667,8 @@ function onTouchEnd() {
 }
 
 track.addEventListener('touchstart', onTouchStart, { passive: true });
-track.addEventListener('touchmove',  onTouchMove,  { passive: false });
-track.addEventListener('touchend',   onTouchEnd);
+track.addEventListener('touchmove', onTouchMove, { passive: false });
+track.addEventListener('touchend', onTouchEnd);
 prevBtn.addEventListener('click', () => { currentIndex--; updateCarousel(); });
 nextBtn.addEventListener('click', () => { currentIndex++; updateCarousel(); });
 
@@ -657,17 +698,17 @@ function openMemberModal(id) {
     if (!data) return;
 
     document.getElementById('modal-avatar').textContent = data.initials;
-    document.getElementById('modal-role').textContent   = data.role;
-    document.getElementById('modal-name').textContent   = data.name;
-    document.getElementById('modal-bio').textContent    = data.bio;
+    document.getElementById('modal-role').textContent = data.role;
+    document.getElementById('modal-name').textContent = data.name;
+    document.getElementById('modal-bio').textContent = data.bio;
 
     /* Badge de ligante do mês */
     let liganteBadge = document.getElementById('modal-ligante-badge');
     if (id === LIGANTE_CONFIG.membroKey) {
-        const now    = new Date();
-        const mes    = now.toLocaleString('pt-BR', { month: 'long' });
+        const now = new Date();
+        const mes = now.toLocaleString('pt-BR', { month: 'long' });
         const mesStr = mes.charAt(0).toUpperCase() + mes.slice(1);
-        const ano    = now.getFullYear();
+        const ano = now.getFullYear();
 
         if (!liganteBadge) {
             liganteBadge = document.createElement('div');
@@ -700,7 +741,7 @@ function openMemberModal(id) {
                     color:var(--green);
                     display:block;
                     margin-bottom:0.3rem;
-                ">Ligante do Mês · ${mesStr} ${ano}</span>
+                ">Ligante Destaque · ${mesStr} ${ano}</span>
                 <span style="
                     font-family:var(--font-head);
                     font-size:0.88rem;
@@ -720,15 +761,15 @@ function openMemberModal(id) {
     linksEl.innerHTML = '';
     Object.entries(data.links).forEach(([key, url]) => {
         const a = document.createElement('a');
-        a.href      = url;
-        a.target    = '_blank';
-        a.rel       = 'noopener noreferrer';
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
         a.className = `modal-link modal-link-${key}`;
         a.innerHTML = `${linkIcons[key] || ''}<span>${linkLabels[key] || key}</span>`;
         linksEl.appendChild(a);
     });
 
-    
+
 
     memberModal.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -753,18 +794,18 @@ memberModal.addEventListener('click', e => { if (e.target === memberModal) close
 /* ────────────────────────────────────────────────────────────
    B5 · MODAL DE VISÃO GERAL DA EQUIPE (#team-overview-modal)
    ──────────────────────────────────────────────────────────── */
-const teamOverviewModal   = document.getElementById('team-overview-modal');
-const teamOverviewClose   = document.getElementById('team-overview-close');
+const teamOverviewModal = document.getElementById('team-overview-modal');
+const teamOverviewClose = document.getElementById('team-overview-close');
 const teamOverviewFilters = document.getElementById('team-overview-filters');
-const teamOverviewGrid    = document.getElementById('team-overview-grid');
-const btnTeamOverview     = document.getElementById('btn-team-overview');
+const teamOverviewGrid = document.getElementById('team-overview-grid');
+const btnTeamOverview = document.getElementById('btn-team-overview');
 
 /** Coleta membros do DOM organizados por grupo */
 function collectMembersByGroup() {
     const groups = {};
 
     document.querySelectorAll('.member-card[data-member]').forEach(card => {
-        const group  = card.dataset.group || 'outros';
+        const group = card.dataset.group || 'outros';
         const member = card.dataset.member;
 
         if (!groups[group]) groups[group] = [];
@@ -883,23 +924,23 @@ function renderTeamOverviewGrid(groups, activeFilter = 'all') {
                 group === 'dev'
                     ? 'member-avatar dev-avatar'
                     : group === 'colaborador'
-                    ? 'member-avatar colaborador-avatar'
-                    : group === 'externo'
-                    ? 'member-avatar externo-avatar'
-                    : group === 'ex_integrante'
-                    ? 'member-avatar ex-avatar'
-                    : 'member-avatar';
+                        ? 'member-avatar colaborador-avatar'
+                        : group === 'externo'
+                            ? 'member-avatar externo-avatar'
+                            : group === 'ex_integrante'
+                                ? 'member-avatar ex-avatar'
+                                : 'member-avatar';
 
             const roleClass =
                 group === 'dev'
                     ? 'team-role dev-role'
                     : group === 'colaborador'
-                    ? 'team-role colaborador-role'
-                    : group === 'externo'
-                    ? 'team-role externo-role'
-                    : group === 'ex_integrante'
-                    ? 'team-role ex-role'
-                    : 'team-role';
+                        ? 'team-role colaborador-role'
+                        : group === 'externo'
+                            ? 'team-role externo-role'
+                            : group === 'ex_integrante'
+                                ? 'team-role ex-role'
+                                : 'team-role';
 
             const card = document.createElement('div');
 
@@ -908,7 +949,7 @@ function renderTeamOverviewGrid(groups, activeFilter = 'all') {
             card.style.setProperty('--i', globalIndex++);
 
             card.dataset.member = memberId;
-            card.dataset.group  = group;
+            card.dataset.group = group;
 
             /* Destaque visual do ligante */
             if (memberId === LIGANTE_CONFIG.membroKey) {
@@ -1010,22 +1051,22 @@ const eventModal = document.getElementById('event-modal');
 const eventClose = document.getElementById('event-modal-close');
 
 function openEventModal(el) {
-    const titulo = el.dataset.titulo  || '';
-    const data   = el.dataset.data    || '';
-    const tipo   = el.dataset.tipo    || 'evento';
-    const desc   = el.dataset.descricao || '';
+    const titulo = el.dataset.titulo || '';
+    const data = el.dataset.data || '';
+    const tipo = el.dataset.tipo || 'evento';
+    const desc = el.dataset.descricao || '';
     const imgSrc = el.querySelector('img')?.src || '';
     const imgAlt = el.querySelector('img')?.alt || '';
 
-    document.getElementById('event-modal-img').src   = imgSrc;
-    document.getElementById('event-modal-img').alt   = imgAlt;
+    document.getElementById('event-modal-img').src = imgSrc;
+    document.getElementById('event-modal-img').alt = imgAlt;
     document.getElementById('event-modal-title').textContent = titulo;
-    document.getElementById('event-modal-date').textContent  = data;
-    document.getElementById('event-modal-desc').textContent  = desc;
+    document.getElementById('event-modal-date').textContent = data;
+    document.getElementById('event-modal-desc').textContent = desc;
 
-    const typeEl      = document.getElementById('event-modal-type');
+    const typeEl = document.getElementById('event-modal-type');
     typeEl.textContent = tipo.toUpperCase();
-    typeEl.className   = 'event-modal-type' + (tipo === 'evento' ? ' tipo-evento' : '');
+    typeEl.className = 'event-modal-type' + (tipo === 'evento' ? ' tipo-evento' : '');
 
     eventModal.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -1049,18 +1090,18 @@ eventModal.addEventListener('click', e => { if (e.target === eventModal) closeEv
    ──────────────────────────────────────────────────────────── */
 
 /* Elementos do DOM */
-const $ctaBtn          = document.getElementById('ingresso-cta-btn');
-const $countdownBlock  = document.getElementById('ingresso-countdown-block');
-const $countdownLabel  = document.getElementById('ingresso-countdown-label');
-const $semestralBlock  = document.getElementById('ingresso-semestral-block');
-const $cdDays          = document.getElementById('cd-days');
-const $cdHours         = document.getElementById('cd-hours');
-const $cdMins          = document.getElementById('cd-mins');
-const $cdSecs          = document.getElementById('cd-secs');
+const $ctaBtn = document.getElementById('ingresso-cta-btn');
+const $countdownBlock = document.getElementById('ingresso-countdown-block');
+const $countdownLabel = document.getElementById('ingresso-countdown-label');
+const $semestralBlock = document.getElementById('ingresso-semestral-block');
+const $cdDays = document.getElementById('cd-days');
+const $cdHours = document.getElementById('cd-hours');
+const $cdMins = document.getElementById('cd-mins');
+const $cdSecs = document.getElementById('cd-secs');
 
-const $ingressoModal        = document.getElementById('ingresso-modal');
+const $ingressoModal = document.getElementById('ingresso-modal');
 const $ingressoModalContent = document.getElementById('ingresso-modal-content');
-const $ingressoModalClose   = document.getElementById('ingresso-modal-close');
+const $ingressoModalClose = document.getElementById('ingresso-modal-close');
 
 function openIngressoModal(html) {
     $ingressoModalContent.innerHTML = html;
@@ -1145,10 +1186,10 @@ function pad(n) { return String(n).padStart(2, '0'); }
 function calcDiff(target) {
     const diff = Math.max(0, target - Date.now());
     return {
-        days:  Math.floor(diff / 86400000),
+        days: Math.floor(diff / 86400000),
         hours: Math.floor((diff % 86400000) / 3600000),
-        mins:  Math.floor((diff % 3600000)  / 60000),
-        secs:  Math.floor((diff % 60000)    / 1000),
+        mins: Math.floor((diff % 3600000) / 60000),
+        secs: Math.floor((diff % 60000) / 1000),
     };
 }
 
@@ -1164,7 +1205,7 @@ function tickPulse(sec) {
 }
 
 function updateIngressoCountdown() {
-    const cfg   = INGRESSO_CONFIG;
+    const cfg = INGRESSO_CONFIG;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -1177,7 +1218,7 @@ function updateIngressoCountdown() {
             ingressoFaseAtual = 4;
             $countdownBlock.style.display = 'none';
             $semestralBlock.style.display = 'flex';
-            $ctaBtn.style.display         = 'none';
+            $ctaBtn.style.display = 'none';
             clearInterval(ingressoTimer);
         }
         return;
@@ -1188,17 +1229,17 @@ function updateIngressoCountdown() {
         ingressoFaseAtual = 2;
         $countdownBlock.style.display = 'flex';
         $semestralBlock.style.display = 'none';
-        $ctaBtn.style.display         = '';
-        $countdownBlock.dataset.fase  = '2';
-        $countdownLabel.textContent   = cfg.textoFase2;
+        $ctaBtn.style.display = '';
+        $countdownBlock.dataset.fase = '2';
+        $countdownLabel.textContent = cfg.textoFase2;
 
         const target = new Date(cfg.dataEncerramentoInscricoes);
         target.setHours(23, 59, 59, 999);
         const d = calcDiff(target);
-        $cdDays.textContent  = pad(d.days);
+        $cdDays.textContent = pad(d.days);
         $cdHours.textContent = pad(d.hours);
-        $cdMins.textContent  = pad(d.mins);
-        $cdSecs.textContent  = pad(d.secs);
+        $cdMins.textContent = pad(d.mins);
+        $cdSecs.textContent = pad(d.secs);
         tickPulse(d.secs);
         return;
     }
@@ -1207,15 +1248,15 @@ function updateIngressoCountdown() {
     ingressoFaseAtual = 1;
     $countdownBlock.style.display = 'flex';
     $semestralBlock.style.display = 'none';
-    $ctaBtn.style.display         = '';
-    $countdownBlock.dataset.fase  = '1';
-    $countdownLabel.textContent   = cfg.textoFase1;
+    $ctaBtn.style.display = '';
+    $countdownBlock.dataset.fase = '1';
+    $countdownLabel.textContent = cfg.textoFase1;
 
     const d = calcDiff(cfg.dataAberturaInscricoes);
-    $cdDays.textContent  = pad(d.days);
+    $cdDays.textContent = pad(d.days);
     $cdHours.textContent = pad(d.hours);
-    $cdMins.textContent  = pad(d.mins);
-    $cdSecs.textContent  = pad(d.secs);
+    $cdMins.textContent = pad(d.mins);
+    $cdSecs.textContent = pad(d.secs);
     tickPulse(d.secs);
 }
 
@@ -1253,22 +1294,22 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
     const revealTargets = [
-        { selector: '#equipe .team-section',        cls: 'reveal' },
-        { selector: '.team-list li',                cls: 'reveal' },
-        { selector: '.timeline-item',              cls: 'reveal-left' },
-        { selector: '.historia-texto p',            cls: 'reveal' },
-        { selector: '#TransformaçãoDigital',        cls: 'reveal' },
-        { selector: '#MetodologiasAgeis',           cls: 'reveal' },
-        { selector: '#ImpactoSocial',              cls: 'reveal' },
-        { selector: '.eventos1, .eventos2',         cls: 'reveal' },
-        { selector: '#parte_nossa_equipe H2',       cls: 'reveal' },
-        { selector: '#parte_nossa_equipe h3',       cls: 'reveal' },
+        { selector: '#equipe .team-section', cls: 'reveal' },
+        { selector: '.team-list li', cls: 'reveal' },
+        { selector: '.timeline-item', cls: 'reveal-left' },
+        { selector: '.historia-texto p', cls: 'reveal' },
+        { selector: '#TransformaçãoDigital', cls: 'reveal' },
+        { selector: '#MetodologiasAgeis', cls: 'reveal' },
+        { selector: '#ImpactoSocial', cls: 'reveal' },
+        { selector: '.eventos1, .eventos2', cls: 'reveal' },
+        { selector: '#parte_nossa_equipe H2', cls: 'reveal' },
+        { selector: '#parte_nossa_equipe h3', cls: 'reveal' },
         { selector: '#parte_nossa_equipe .cta-btn', cls: 'reveal' },
         { selector: '#parte_nossa_equipe .cta-sub', cls: 'reveal' },
-        { selector: 'main > section h2',           cls: 'reveal' },
-        { selector: 'main > section > p',          cls: 'reveal' },
-        { selector: '.historia h2',                 cls: 'reveal' },
-        { selector: '.project-card',                cls: 'reveal' },
+        { selector: 'main > section h2', cls: 'reveal' },
+        { selector: 'main > section > p', cls: 'reveal' },
+        { selector: '.historia h2', cls: 'reveal' },
+        { selector: '.project-card', cls: 'reveal' },
     ];
 
     revealTargets.forEach(({ selector, cls }) => {
@@ -1307,8 +1348,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /* 5. Títulos dos Pilares (injetados via JS para facilitar manutenção) */
     const pilarData = {
         'TransformaçãoDigital': 'Transformação Digital',
-        'MetodologiasAgeis':    'Metodologias Ágeis',
-        'ImpactoSocial':        'Impacto Social',
+        'MetodologiasAgeis': 'Metodologias Ágeis',
+        'ImpactoSocial': 'Impacto Social',
     };
     Object.entries(pilarData).forEach(([id, title]) => {
         const el = document.getElementById(id);
@@ -1355,7 +1396,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(glow);
     document.addEventListener('mousemove', e => {
         glow.style.left = e.clientX + 'px';
-        glow.style.top  = e.clientY + 'px';
+        glow.style.top = e.clientY + 'px';
     });
 
 
@@ -1365,7 +1406,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const step = ts => {
             if (!start) start = ts;
             const progress = Math.min((ts - start) / duration, 1);
-            const ease     = 1 - Math.pow(1 - progress, 4);
+            const ease = 1 - Math.pow(1 - progress, 4);
             el.textContent = Math.floor(ease * target);
             if (progress < 1) requestAnimationFrame(step);
             else el.textContent = target;
@@ -1436,10 +1477,10 @@ document.addEventListener('DOMContentLoaded', () => {
    ──────────────────────────────────────────────────────────── */
 document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
-    if (memberModal.classList.contains('open'))       closeMemberModal();
-    else if (eventModal.classList.contains('open'))   closeEventModal();
+    if (memberModal.classList.contains('open')) closeMemberModal();
+    else if (eventModal.classList.contains('open')) closeEventModal();
     else if (teamOverviewModal.classList.contains('open')) closeTeamOverviewModal();
-    else if ($ingressoModal.classList.contains('open'))    closeIngressoModal();
+    else if ($ingressoModal.classList.contains('open')) closeIngressoModal();
 });
 
 
