@@ -97,7 +97,7 @@ Troque membroKey e destaque todo mês. SÓ PREENCHER O MEMBROKEY A BAIXO
 
 const LIGANTE_CONFIG = {
     membroKey: 'sabryna',
-    destaque: 'Liderança eSabrina se destacou por sua proatividade e qualidade nas entregas, desenvolvendo em menos de um mês o planejamento das redes sociais e os carrosséis institucionais do Instagram. Sua excelente comunicação e compromisso com a equipe resultaram em impactos positivos e consistentes, culminando em sua promoção a Diretora de Comunicação e Designer.xemplar na condução dos projetos e na integração da equipe.',
+    destaque: 'Sabrina se destacou por sua proatividade e qualidade nas entregas, desenvolvendo em menos de um mês o planejamento das redes sociais e os carrosséis institucionais do Instagram. Sua excelente comunicação e compromisso com a equipe resultaram em impactos positivos e consistentes, culminando em sua promoção a Diretora de Comunicação e Designer.xemplar na condução dos projetos e na integração da equipe.',
 };
 
 
