@@ -157,9 +157,9 @@ const membersData = {
 
     alane: {
         name: 'Maria Alane Oliveira de Arruda Camara',
-        role: 'Desenvolvedor fundador',
+        role: 'Diretora de desenvolvimento',
         initials: 'MA',
-        group: 'dev',
+        group: 'ddiretoria',
         bio: 'Diretora de Desenvolvimento da LES. Coordena as práticas técnicas, revisão de código e evolução das competências dos membros.',
         links: {
             github: 'https://github.com/AlaneOliveira',
