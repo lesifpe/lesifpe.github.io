@@ -338,6 +338,13 @@ const membersData = {
         links: { github: 'https://github.com/mariacarollinamonte-spec', linkedin: 'https://www.linkedin.com/in/mariacarollinamonte/' }
     },
 
+    alicy: {
+        name: 'Alicy Lucena Candido da Silva', role: 'Desenvolvedor',
+        initials: 'AL', group: 'dev',
+        bio: 'Membra desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
+        links: { github: 'https://github.com/alicylucena?tab=projects', linkedin: 'https://www.linkedin.com/in/alicy-lucena-candido-da-silva-336b86406' }
+    },
+
     /* ══ COLABORADORES — adicione aqui ══════════════════════
        Exemplo:
        nomeColaborador: {
