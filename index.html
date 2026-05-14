@@ -14,7 +14,8 @@
     <title>Les-IFPE</title>
     <link rel="icon" href="assets/imagens/logos/LOGO.png" type="image/png">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/Adicions.css">
+
+
 </head>
 
 <body>
@@ -57,7 +58,7 @@
     <main class="main">
 
         <!-- ══ HERO COM SLIDESHOW ══════════════════════════════ -->
-        <section>
+        <section class="section-hero">
             <div class="LIGA">
                 <h1>LIGA DE ENGENHARIA DE SOFTWARE</h1>
                 <p>
@@ -75,13 +76,7 @@
         </section>
 
 
-        
-        <!-- ══ PROJETOS — CARROSSEL ════════════════════════════
-             Para adicionar um novo projeto, copie um bloco
-             <div class="project-card project-featured"> ... </div>
-             e cole dentro de #projectsTrack, abaixo dos existentes.
-             O carrossel se adapta automaticamente.
-        ═════════════════════════════════════════════════════ -->
+        <!-- ══ PROJETOS — CARROSSEL ════════════════════════════ -->
         <section id="projetos">
             <h2>Projetos</h2>
             <p>Soluções tecnológicas com impacto real desenvolvidas pela equipe LES.</p>
@@ -105,7 +100,8 @@
                             </h3>
 
                             <p class="project-desc">
-                                Sistema de monitoramento ambiental desenvolvido em parceria com o mestrado de Sustentabilidade Urbana do IFPE.
+                                Sistema de monitoramento ambiental desenvolvido em parceria com o mestrado de
+                                Sustentabilidade Urbana do IFPE.
                                 O ESP32 coleta dados de sensores (chuva e temperatura) e envia em tempo real para o
                                 Firebase Realtime Database.
                                 A aplicação web é construída com Vue e TypeScript, consumindo esses dados para
@@ -170,30 +166,6 @@
                         </div>
                     </div>
 
-                    <!-- ══ ADICIONE NOVOS PROJETOS AQUI ══
-                    <div class="project-card project-featured">
-                        <div class="project-img-wrap">
-                            <img src="arquivos/imagens/SEU_SCREENSHOT.png" alt="Nome do Projeto" class="project-img">
-                            <div class="project-badge">EM ANDAMENTO</div>
-                        </div>
-                        <div class="project-body">
-                            <span class="project-tag">Categoria</span>
-                            <h3 class="project-title">Nome do Projeto</h3>
-                            <p class="project-desc">Descrição do projeto aqui.</p>
-                            <div class="project-stack">
-                                <span>React</span><span>Node.js</span>
-                            </div>
-                            <a href="#" class="project-link" target="_blank">
-                                Ver no GitHub
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    ══════════════════════════════════════ -->
-
                 </div>
             </div>
 
@@ -218,27 +190,16 @@
         </section>
 
 
-        <!-- ══ CALENDÁRIO ══════════════════════════════════════
-             Para abrir o modal de cada evento, o JS lê os
-             atributos data-* de cada .eventos1 / .eventos2.
-             Basta preencher os atributos para configurar o modal.
-        ═════════════════════════════════════════════════════ -->
+        <!-- ══ CALENDÁRIO ══════════════════════════════════════ -->
         <section id="calendario_atividades">
             <h1>Calendário de Atividades</h1>
-            <div class="eventos2" data-titulo="Ingresso LES — Processo Seletivo" data-data="23/04/2026"
-                data-tipo="evento"
-                data-descricao="Abertura oficial do processo seletivo para novos membros da Liga de Engenharia de Software do IFPE Campus Recife. O processo é voltado para estudantes dos cursos de tecnologia do IFPE que desejam fazer parte de um ambiente colaborativo de aprendizado prático. Os candidatos passarão por etapas de avaliação técnica e entrevistas com a diretoria da liga. Vagas limitadas. Inscrições pelo formulário disponível no link da bio do Instagram @les.ifpe.">
-                <img src="assets/imagens/logos/Logo com fundo e nome.png" alt="Evento Ingresso">
-                <p>Ingresso LES — Processo Seletivo</p>
-                <p>23/04/2026</p>
-            </div>
 
             <div class="eventos1" data-titulo="Workshop de Inserção no Mercado de Tecnologia" data-data="10/05/2026"
                 data-tipo="workshop"
                 data-descricao="Workshop prático voltado para estudantes que desejam se preparar para o mercado de tecnologia. O evento cobrirá temas como construção de portfólio no GitHub, elaboração de currículo técnico, como se preparar para entrevistas técnicas (incluindo desafios de código), networking profissional e uso estratégico do LinkedIn. Haverá também um painel com profissionais da área de tecnologia de Recife para um bate-papo sobre trajetórias e oportunidades no setor.">
                 <img src="assets/imagens/icones/incessão.png" alt="Workshop Inserção">
                 <p>Workshop de Inserção no Mercado de Tecnologia</p>
-                <p> <STROng>DATA ALTERADA 04/06/2026</STROng> </p> 
+                <p><strong>DATA ALTERADA: 04/06/2026</strong></p>
             </div>
         </section>
 
@@ -350,30 +311,7 @@
         </section>
 
 
-        <!-- ══════════════════════════════════════════════════════
-             SEÇÃO: NOSSA EQUIPE
-             ──────────────────────────────────────────────────────
-             A seção exibe apenas o botão "Conheça nossa equipe".
-             Todos os membros vivem dentro do modal #team-overview-modal
-             que é aberto ao clicar no botão.
-
-             OS DADOS DOS MEMBROS ficam em scriptpage.js → membersData.
-             O modal é renderizado dinamicamente via JS.
-
-             GRUPOS DISPONÍVEIS (configurados em scriptpage.js):
-               "diretoria"    → Coordenação e Diretoria
-               "dev"          → Membros Desenvolvedores
-               "colaborador"  → Colaboradores
-               (adicione novos grupos em GROUP_LABELS no scriptpage.js)
-        ══════════════════════════════════════════════════════ -->
-        <!-- ══ TRECHO PARA SUBSTITUIR NO index.html ══════════════════
-     Substitua o bloco inteiro da <section id="equipe"> pelo
-     conteúdo abaixo. As únicas mudanças são:
-       1. Pílulas de categoria: adicionadas "Colab. Externo" e "Ex Integrantes"
-       2. Bloco .equipe-data-source: hilson movido para data-group="externo"
-          e adicionado bloco de ex_integrante comentado
-════════════════════════════════════════════════════════════ -->
-
+        <!-- ══ EQUIPE ══════════════════════════════════════════ -->
         <section id="equipe">
             <h2>Nossa Equipe</h2>
             <p>Conheça as pessoas que impulsionam a tecnologia e a inovação na LES.</p>
@@ -417,122 +355,98 @@
                         <span class="equipe-tag equipe-tag--amber">Colaboradores</span>
                         <span class="equipe-tag equipe-tag--gold">Colab. Externo</span>
                         <span class="equipe-tag equipe-tag--muted">Ex Integrantes</span>
-
                     </div>
                 </div>
 
             </div>
 
-            <!-- ══ DADOS DOS MEMBROS (hidden — lidos pelo JS para o modal) ══
-                 GRUPOS:
-                   data-group="diretoria"    → Coordenação e Diretoria
-                   data-group="dev"          → Membros Desenvolvedores
-                   data-group="colaborador"  → Colaboradores
-                   data-group="externo"      → Colaboradores Externos
-                   data-group="ex_integrante"→ Ex Integrantes
-            ══ -->
+            <!-- ══ DADOS DOS MEMBROS (hidden — lidos pelo JS para o modal) ══ -->
             <div class="equipe-data-source" aria-hidden="true" style="display:none">
 
                 <!-- Coordenação e Diretoria -->
-                <div class="member-card" data-member="rafael" data-group="diretoria"></div>
+                <div class="member-card" data-member="hilson" data-group="diretoria"></div>
                 <div class="member-card" data-member="ilian" data-group="diretoria"></div>
                 <div class="member-card" data-member="yuri" data-group="diretoria"></div>
-                <div class="member-card" data-member="christoph" data-group="diretoria"></div>
+                <div class="member-card" data-member="sabryna" data-group="diretoria"></div>
+                <div class="member-card" data-member="alicy" data-group="diretoria"></div>
+                <div class="member-card" data-member="marcos" data-group="diretoria"></div>
                 <div class="member-card" data-member="alane" data-group="diretoria"></div>
-                <div class="member-card" data-member="francisco" data-group="diretoria"></div>
-
                 <!-- Membros Desenvolvedores -->
+                <div class="member-card" data-member="alane" data-group="dev"></div>
+                <div class="member-card" data-member="christoph" data-group="dev"></div>
                 <div class="member-card" data-member="lucas" data-group="dev"></div>
-                <div class="member-card" data-member="cristiano" data-group="dev"></div>
                 <div class="member-card" data-member="guilherme" data-group="dev"></div>
                 <div class="member-card" data-member="paulo" data-group="dev"></div>
                 <div class="member-card" data-member="bruno" data-group="dev"></div>
                 <div class="member-card" data-member="lyzia" data-group="dev"></div>
-                <div class="member-card" data-member="marcos" data-group="dev"></div>
                 <div class="member-card" data-member="renan" data-group="dev"></div>
                 <div class="member-card" data-member="adriano" data-group="dev"></div>
                 <!-- Colaboradores
                      Para ativar: descomente e adicione os dados em membersData
                 <div class="member-card" data-member="ID_COLABORADOR" data-group="colaborador"></div>
                 -->
+                <div class="member-card" data-member="kayllane" data-group="dev"></div>
+                <div class="member-card" data-member="matheus" data-group="dev"></div>
+                <div class="member-card" data-member="victor" data-group="dev"></div>
+                <div class="member-card" data-member="ryan" data-group="dev"></div>
+                <div class="member-card" data-member="felipe" data-group="dev"></div>
 
-                <!-- Colaboradores Externos -->
-                <div class="member-card" data-member="hilson" data-group="colaborador"></div>
+                <div class="member-card" data-member="eduarda" data-group="dev"></div>
+                <div class="member-card" data-member="maria" data-group="dev"></div>
 
-                <!-- Ex Integrantes
-                     Para ativar: descomente e adicione os dados em membersData
-                <div class="member-card" data-member="ID_EX_INTEGRANTE" data-group="ex_integrante"></div>
-                -->
 
-            </div>
+                <!-- Colaboradores -->
+                <div class="member-card" data-member="eduardo" data-group="colaborador"></div>
 
+                <!-- Ex Integrantes -->
+                <div class="member-card" data-member="cristiano" data-group="ex_integrante"></div>
+                <div class="member-card" data-member="francisco" data-group="ex_integrante"></div>
+                <div class="member-card" data-member="rafael" data-group="ex_integrante"></div>
+                <div class="member-card" data-member="wallace" data-group="ex_integrante"></div>
         </section>
 
-        <!-- ══════════════════════════════════════════════════════
-             SEÇÃO: INGRESSO
-             ──────────────────────────────────────────────────────
-             LÓGICA DA CONTAGEM REGRESSIVA (gerenciada em scriptpage.js):
-             
-             FASE 1 → Antes de 23/04/2026:
-               Exibe contagem regressiva até 23/04/2026 (abertura das inscrições)
-               Texto: "Inscrições abrem em"
-             
-             FASE 2 → Entre 23/04/2026 e 25/04/2026 (inclusive):
-               Inscrições ABERTAS — exibe contagem regressiva até 25/04/2026 (encerramento)
-               Botão leva ao formulário Google Forms
-               Texto: "Inscrições encerram em"
-             
-             FASE 3 → Entre 26/04/2026 e 08/09/2026:
-               Inscrições encerradas — exibe contagem regressiva até 09/09/2026 (próxima turma)
-               Texto: "Próxima turma em"
-             
-             FASE 4 → A partir de 09/09/2026:
-               Processo encerrado — exibe imagem informativa de que o processo é semestral
-               A imagem deve ser colocada em: assets/imagens/ingresso/processo-semestral.png
-               O botão é ocultado
-             
-             PARA MANUTENÇÃO — altere as datas no objeto INGRESSO_CONFIG em scriptpage.js
-        ══════════════════════════════════════════════════════ -->
-        <section>
-            <div id="parte_nossa_equipe">
-                <H2>INGRESSO</H2>
 
-                <!-- Bloco da contagem regressiva — preenchido via JS -->
-                <div id="ingresso-countdown-wrapper" class="ingresso-countdown-wrapper">
-                    <!-- Fase 1 e 3: Contagem regressiva -->
-                    <div id="ingresso-countdown-block" class="ingresso-countdown-block" style="display:none">
-                        <p id="ingresso-countdown-label" class="ingresso-countdown-label">Inscrições abrem em</p>
-                        <div class="ingresso-countdown-digits" id="ingresso-countdown-digits">
-                            <div class="countdown-unit">
-                                <span class="countdown-num" id="cd-days">00</span>
-                                <span class="countdown-lbl">Dias</span>
-                            </div>
-                            <span class="countdown-sep">:</span>
-                            <div class="countdown-unit">
-                                <span class="countdown-num" id="cd-hours">00</span>
-                                <span class="countdown-lbl">Horas</span>
-                            </div>
-                            <span class="countdown-sep">:</span>
-                            <div class="countdown-unit">
-                                <span class="countdown-num" id="cd-mins">00</span>
-                                <span class="countdown-lbl">Min</span>
-                            </div>
-                            <span class="countdown-sep">:</span>
-                            <div class="countdown-unit">
-                                <span class="countdown-num" id="cd-secs">00</span>
-                                <span class="countdown-lbl">Seg</span>
-                            </div>
+        <!-- ══ INGRESSO ════════════════════════════════════════ -->
+        <section id="parte_nossa_equipe">
+            <h2>INGRESSO</h2>
+
+            <!-- Bloco da contagem regressiva — preenchido via JS -->
+            <div id="ingresso-countdown-wrapper" class="ingresso-countdown-wrapper">
+
+                <!-- Fase 1 e 3: Contagem regressiva -->
+                <div id="ingresso-countdown-block" class="ingresso-countdown-block" style="display:none">
+                    <p id="ingresso-countdown-label" class="ingresso-countdown-label">Inscrições abrem em</p>
+                    <div class="ingresso-countdown-digits" id="ingresso-countdown-digits">
+                        <div class="countdown-unit">
+                            <span class="countdown-num" id="cd-days">00</span>
+                            <span class="countdown-lbl">Dias</span>
+                        </div>
+                        <span class="countdown-sep">:</span>
+                        <div class="countdown-unit">
+                            <span class="countdown-num" id="cd-hours">00</span>
+                            <span class="countdown-lbl">Horas</span>
+                        </div>
+                        <span class="countdown-sep">:</span>
+                        <div class="countdown-unit">
+                            <span class="countdown-num" id="cd-mins">00</span>
+                            <span class="countdown-lbl">Min</span>
+                        </div>
+                        <span class="countdown-sep">:</span>
+                        <div class="countdown-unit">
+                            <span class="countdown-num" id="cd-secs">00</span>
+                            <span class="countdown-lbl">Seg</span>
                         </div>
                     </div>
+                </div>
 
-                   <!-- Fase 4: Informa processo semestral -->
-                    <div id="ingresso-semestral-block" class="ingresso-semestral-block" style="display:none">
-                        <p class="ingresso-semestral-fallback-title">Processo Seletivo Semestral</p>
-                        <p class="ingresso-semestral-fallback-sub">
-                            O ingresso na LES ocorre a cada semestre.<br>
-                            Acompanhe nosso Instagram <strong>@les.ifpe</strong> para novidades.
-                        </p>
-                    </div>
+                <!-- Fase 4: Informa processo semestral -->
+                <div id="ingresso-semestral-block" class="ingresso-semestral-block" style="display:none">
+                    <p class="ingresso-semestral-fallback-title">Processo Seletivo Semestral</p>
+                    <p class="ingresso-semestral-fallback-sub">
+                        O ingresso na LES ocorre a cada semestre.<br>
+                        Acompanhe nosso Instagram <strong>@les.ifpe</strong> para novidades.
+                    </p>
+                </div>
 
                 <!-- Botão de inscrição — visível/oculto conforme a fase (controlado via JS) -->
                 <div class="cta-group">
@@ -545,16 +459,19 @@
                     </button>
                 </div>
                 <span class="cta-sub">Seleção semestral · IFPE Campus Recife</span>
-            </div>
+
+            </div><!-- /#ingresso-countdown-wrapper -->
         </section>
 
     </main>
 
     <footer class="footer">
         <ul class="social-links">
-            <li><a href="https://www.instagram.com/les.ifpe/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="https://www.instagram.com/les.ifpe/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </li>
             <li><a href="https://discord.gg/EA9qZ62QSb" target="_blank" rel="noopener noreferrer">Discord</a></li>
-            <li><a href="https://github.com/orgs/lesifpe/repositories" target="_blank" rel="noopener noreferrer">Github</a></li>
+            <li><a href="https://github.com/orgs/lesifpe/repositories" target="_blank"
+                    rel="noopener noreferrer">Github</a></li>
         </ul>
 
         <ul class="footer-links">
@@ -568,13 +485,7 @@
     </footer>
 
 
-    <!-- ══════════════════════════════════════════════════════════
-         MODAL: PERFIL INDIVIDUAL DO MEMBRO
-         ──────────────────────────────────────────────────────────
-         Preenchido dinamicamente via openMemberModal(id) em scriptpage.js
-         Pode ser aberto pelo clique direto no .member-card
-         OU pelo clique em um card dentro do #team-overview-modal
-    ══════════════════════════════════════════════════════════ -->
+    <!-- ══ MODAL: PERFIL INDIVIDUAL DO MEMBRO ══════════════════ -->
     <div id="member-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Perfil do membro">
         <div class="modal-box">
             <button class="modal-close" id="modal-close" aria-label="Fechar">&times;</button>
@@ -590,30 +501,11 @@
         </div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════════════
-         MODAL: VISÃO GERAL DA EQUIPE (abre via botão "Conheça nossa equipe")
-         ──────────────────────────────────────────────────────────
-         Este modal exibe TODOS os membros em uma grade larga,
-         organizados por grupo, com filtros no topo.
-         
-         Ao clicar em um card aqui, o #member-modal se abre por cima
-         (z-index maior), permitindo ver o perfil completo.
-         
-         ESTRUTURA:
-           - #team-overview-modal      → overlay (fundo)
-           - .team-overview-modal-box  → caixa do modal
-           - #team-overview-filters    → botões de filtro por grupo
-           - #team-overview-grid       → grade gerada via JS
-         
-         O conteúdo da grade é gerado dinamicamente por
-         renderTeamOverviewGrid() em scriptpage.js,
-         lendo todos os .member-card da página.
-    ══════════════════════════════════════════════════════════ -->
+    <!-- ══ MODAL: VISÃO GERAL DA EQUIPE ════════════════════════ -->
     <div id="team-overview-modal" class="team-overview-overlay" role="dialog" aria-modal="true"
         aria-label="Nossa equipe completa">
         <div class="team-overview-modal-box">
 
-            <!-- Header do modal -->
             <div class="team-overview-modal-header">
                 <div>
                     <h2 class="team-overview-modal-title">Nossa Equipe</h2>
@@ -622,22 +514,10 @@
                 <button class="team-overview-close" id="team-overview-close" aria-label="Fechar">&times;</button>
             </div>
 
-            <!-- Filtros por grupo -->
-            <!--
-                Os filtros são gerados automaticamente via JS (renderTeamOverviewFilters)
-                com base nos data-group dos .member-card existentes na página.
-                Não é necessário editar este bloco manualmente.
-            -->
             <div class="team-overview-filters" id="team-overview-filters">
                 <!-- Preenchido via JS -->
             </div>
 
-            <!-- Grade de membros -->
-            <!--
-                A grade é gerada automaticamente via JS (renderTeamOverviewGrid)
-                lendo todos os .member-card presentes na página.
-                Não é necessário editar este bloco manualmente.
-            -->
             <div class="team-overview-grid" id="team-overview-grid">
                 <!-- Preenchido via JS -->
             </div>
@@ -661,16 +541,16 @@
         </div>
     </div>
 
-<!-- ══ MODAL DE INGRESSO (fases 1, 2 e 3) ═══════════════════ -->
-<div id="ingresso-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Processo Seletivo">
-    <div class="modal-box" style="max-width:560px">
-        <button class="modal-close" id="ingresso-modal-close" aria-label="Fechar">&times;</button>
-        <div id="ingresso-modal-content"></div>
+    <!-- ══ MODAL DE INGRESSO (fases 1, 2 e 3) ═══════════════════ -->
+    <div id="ingresso-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Processo Seletivo">
+        <div class="modal-box" style="max-width:560px">
+            <button class="modal-close" id="ingresso-modal-close" aria-label="Fechar">&times;</button>
+            <div id="ingresso-modal-content"></div>
+        </div>
     </div>
-</div>
 
-    <script src="script.js"></script>
-    <script src="js/scriptpage.js"></script>
+    <script src="js/script.js"></script>
+
 </body>
 
 </html>
