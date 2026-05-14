@@ -158,7 +158,7 @@ const membersData = {
 
     sabryna: {
         name: 'Sabryna Santana da Silva',
-        role: 'Diretora de Comunicação e Design',
+        role: 'CoDiretora  de Comunicação e Design',
         initials: 'SS',
         group: 'diretoria',
         bio: 'Membro desenvolvedor da LES, atuando nas áreas de desenvolvimento e comunicação, contribuindo com soluções criativas, crescimento técnico e fortalecimento dos projetos da liga.',
@@ -169,7 +169,7 @@ const membersData = {
     },
 
     alicy: {
-        name: 'Alicy Lucena Candido da Silva', role: 'Diretora de Comunicação e Design',
+        name: 'Alicy Lucena Candido da Silva', role: 'CoDiretora de Comunicação e Design',
         initials: 'AL', group: 'diretoria',
         bio: 'Membro desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
         links: {
