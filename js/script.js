@@ -155,17 +155,6 @@ const membersData = {
         },
     },
 
-    alane: {
-        name: 'Maria Alane Oliveira de Arruda Camara',
-        role: 'Diretora de desenvolvimento',
-        initials: 'MA',
-        group: 'ddiretoria',
-        bio: 'Diretora de Desenvolvimento da LES. Coordena as práticas técnicas, revisão de código e evolução das competências dos membros.',
-        links: {
-            github: 'https://github.com/AlaneOliveira',
-            linkedin: 'https://linkedin.com/in/',
-        },
-    },
 
     sabryna: {
         name: 'Sabryna Santana da Silva',
@@ -183,7 +172,8 @@ const membersData = {
         name: 'Alicy Lucena Candido da Silva', role: 'Diretora de Comunicação e Design',
         initials: 'AL', group: 'diretoria',
         bio: 'Membro desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
-        links: { github: 'https://github.com/alicylucena?tab=projects', linkedin: 'https://www.linkedin.com/in/alicy-lucena-candido-da-silva-336b86406' 
+        links: {
+            github: 'https://github.com/alicylucena?tab=projects', linkedin: 'https://www.linkedin.com/in/alicy-lucena-candido-da-silva-336b86406'
 
         },
     },
@@ -200,7 +190,34 @@ const membersData = {
         },
     },
 
+
+    eduarda: {
+        name: 'Eduarda Rocha Fernandes de Sousa',
+        role: 'Diretora de Ensino',
+        initials: 'ES',
+        group: 'diretoria',
+        bio: 'Membro desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
+        links: {
+            github: 'https://github.com/EduardaRFSousa',
+            linkedin: 'https://www.linkedin.com/in/eduarda-rocha-full-stack-dev/',
+        },
+    },
+
+
+
     /* ── Desenvolvedores ── */
+
+    alane: {
+        name: 'Maria Alane Oliveira de Arruda Camara',
+        role: 'Desenvolvedora Fundadora',
+        initials: 'MA',
+        group: 'dev',
+        bio: 'Diretora de Desenvolvimento da LES. Coordena as práticas técnicas, revisão de código e evolução das competências dos membros.',
+        links: {
+            github: 'https://github.com/AlaneOliveira',
+            linkedin: 'https://linkedin.com/in/',
+        },
+    },
     christoph: {
         name: 'Christoph Soares Diehl',
         role: 'Desenvolvedor fundador',
@@ -272,8 +289,6 @@ const membersData = {
             linkedin: 'https://www.linkedin.com/in/lyzia-gomes-288548378',
         },
     },
-
-    
 
     renan: {
         name: 'Renan Henrico Borges Pinto',
@@ -359,19 +374,6 @@ const membersData = {
         },
     },
 
-
-
-    eduarda: {
-        name: 'Eduarda Rocha Fernandes de Sousa',
-        role: 'Desenvolvedor',
-        initials: 'ES',
-        group: 'dev',
-        bio: 'Membra desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
-        links: {
-            github: 'https://github.com/EduardaRFSousa',
-            linkedin: 'https://www.linkedin.com/in/eduarda-rocha-full-stack-dev/',
-        },
-    },
 
     nicolas: {
         name: 'Nicollas Nunes Araújo',
