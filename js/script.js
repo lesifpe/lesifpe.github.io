@@ -457,11 +457,6 @@ const membersData = {
         },
     },
 
-
-
-
-
-
     wallace: {
         name: 'Wallace Gabriel da Silva', role: 'ex_integrante',
         initials: 'WS', group: 'ex_integrante',
