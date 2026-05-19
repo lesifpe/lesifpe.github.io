@@ -394,6 +394,14 @@ const membersData = {
         links: { github: 'https://github.com/mariacarollinamonte-spec', linkedin: 'https://www.linkedin.com/in/mariacarollinamonte/' }
     },
 
+    maria: {
+        name: 'Miguel Henrique Luz dos Santos', role: 'Desenvolvedor',
+        initials: 'MH', group: 'dev',
+        bio: 'Membro desenvolvedor da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
+        links: { github: 'https://github.com/miguelhlsantos-dev', linkedin: 'https://www.linkedin.com/in/miguelhlsantos/' }
+    },
+
+
     /* ══ COLABORADORES — adicione aqui ══════════════════════
        Exemplo:
        nomeColaborador: {
