@@ -106,7 +106,7 @@ const membersData = {
     /* ── Coordenação ── */
     hilson: {
         name: 'Prof. Hilson Andrade',
-        role: 'Coordenador do Projeto',
+        role: 'Colaborador',
         initials: 'HI',
         group: 'diretoria',
         bio: 'Professor e pesquisador do IFPE Campus Recife que, há mais de vinte anos, utiliza a ciência e a tecnologia para resolver problemas. Doutorando em Engenharia da Computação, Mestre em Ciências da Computação, Engenheiro Eletrônico e técnico em Eletrotécnica, coordena a Liga de Engenharia de Software, promovendo a formação prática e o desenvolvimento de soluções tecnológicas com impacto real na comunidade.',
@@ -117,7 +117,7 @@ const membersData = {
     },
     eduardo: {
         name: 'Prof. Eduardo Vasconcelos',
-        role: 'Colaborador',
+        role: 'Coordenador do Projeto',
         initials: 'EV',
         group: 'colaborador',
         bio: 'Atua como professor orientador colaborador da área técnica, contribuindo diretamente para a concepção, validação e evolução de soluções tecnológicas, além de apoiar o desenvolvimento de projetos com foco prático e impacto na comunidade.',
@@ -400,7 +400,12 @@ const membersData = {
         bio: 'Membro desenvolvedor da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
         links: { github: 'https://github.com/miguelhlsantos-dev', linkedin: 'https://www.linkedin.com/in/miguelhlsantos/' }
     },
-
+    leonardol: {
+        name: 'Leonardo lemos dos Santos', role: 'Desenvolvedor',
+        initials: 'MH', group: 'dev',
+        bio: 'Membro desenvolvedor da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
+        links: { github: 'https://github.com/lemure17', linkedin: 'hhttps://www.linkedin.com/in/leonardo-lemos-dos-santos?utm_source=share_via&utm_content=profile&utm_medium=member_android' }
+    },
 
     /* ══ COLABORADORES — adicione aqui ══════════════════════
        Exemplo:
@@ -1055,18 +1060,59 @@ teamOverviewModal.addEventListener('click', e => {
 const eventModal = document.getElementById('event-modal');
 const eventClose = document.getElementById('event-modal-close');
 
+/* ── B6a · Injeta coluna de data em todos os eventos ──────
+   Lê data-data (vigente) e, se existir data-data-original,
+   monta o badge de alteração. Manutenção: só editar os
+   atributos no HTML — o JS cuida da renderização.
+   ──────────────────────────────────────────────────────────── */
+document.querySelectorAll('.eventos1, .eventos2').forEach(ev => {
+    const dataVigente  = ev.dataset.data         || '';
+    const dataOriginal = ev.dataset.dataOriginal || '';
+
+    const dateEl = document.createElement('p');
+
+    if (dataOriginal && dataOriginal !== dataVigente) {
+        /* Data foi alterada → badge vermelho com riscado */
+        dateEl.className = 'evento-data-col';
+        dateEl.innerHTML = `
+            <span class="evento-data-riscada">${dataOriginal}</span>
+            <span class="evento-badge-alterada">Data Alterada</span>
+            <strong class="evento-data-nova">${dataVigente}</strong>
+        `;
+    } else {
+        /* Data normal → texto simples (mesmo estilo do p:last-child) */
+        dateEl.textContent = dataVigente;
+    }
+
+    ev.appendChild(dateEl);
+});
+
+/* ── B6b · Abre modal de evento ───────────────────────────── */
 function openEventModal(el) {
-    const titulo = el.dataset.titulo || '';
-    const data = el.dataset.data || '';
-    const tipo = el.dataset.tipo || 'evento';
-    const desc = el.dataset.descricao || '';
-    const imgSrc = el.querySelector('img')?.src || '';
-    const imgAlt = el.querySelector('img')?.alt || '';
+    const titulo       = el.dataset.titulo       || '';
+    const dataVigente  = el.dataset.data         || '';
+    const dataOriginal = el.dataset.dataOriginal || '';
+    const tipo         = el.dataset.tipo         || 'evento';
+    const desc         = el.dataset.descricao    || '';
+    const imgSrc       = el.querySelector('img')?.src || '';
+    const imgAlt       = el.querySelector('img')?.alt || '';
 
     document.getElementById('event-modal-img').src = imgSrc;
     document.getElementById('event-modal-img').alt = imgAlt;
     document.getElementById('event-modal-title').textContent = titulo;
-    document.getElementById('event-modal-date').textContent = data;
+
+    /* Data no modal: riscada + nova se foi alterada */
+    const dateEl = document.getElementById('event-modal-date');
+    if (dataOriginal && dataOriginal !== dataVigente) {
+        dateEl.innerHTML = `
+            <span style="text-decoration:line-through;color:var(--gray-lt);margin-right:0.5rem">${dataOriginal}</span>
+            <span style="color:var(--red)">→</span>
+            <span style="color:var(--green);margin-left:0.5rem">${dataVigente}</span>
+        `;
+    } else {
+        dateEl.textContent = dataVigente;
+    }
+
     document.getElementById('event-modal-desc').textContent = desc;
 
     const typeEl = document.getElementById('event-modal-type');
@@ -1088,8 +1134,6 @@ document.querySelectorAll('.eventos1, .eventos2').forEach(ev => {
 
 eventClose.addEventListener('click', closeEventModal);
 eventModal.addEventListener('click', e => { if (e.target === eventModal) closeEventModal(); });
-
-
 /* ────────────────────────────────────────────────────────────
    B7 · CONTAGEM REGRESSIVA DO INGRESSO + MODAL DE FASES
    ──────────────────────────────────────────────────────────── */
