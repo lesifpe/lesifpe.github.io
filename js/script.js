@@ -44,8 +44,8 @@
    FORMATO DAS DATAS: new Date(ano, mês-1, dia)
    ──────────────────────────────────────────────────────────── */
 const INGRESSO_CONFIG = {
-    dataAberturaInscricoes: new Date(2026, 3, 23),   /* 23/04/2026 */
-    dataEncerramentoInscricoes: new Date(2026, 3, 26),   /* 26/04/2026 */
+    dataAberturaInscricoes: new Date(2026, 7, 20),   /* 20/08/2026 */
+    dataEncerramentoInscricoes: new Date(2026, 8, 22),   /* 22/09/2026 */
     textoFase1: 'Inscrições abrem em',
     textoFase2: 'Inscrições encerram em',
     linkFormulario: 'https://forms.gle/j5fYk6yR4D4mCH9j7',
