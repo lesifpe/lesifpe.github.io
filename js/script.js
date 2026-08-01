@@ -1227,52 +1227,50 @@ const eventClose = document.getElementById('event-modal-close');
    atributos no HTML — o JS cuida da renderização.
    ──────────────────────────────────────────────────────────── */
 document.querySelectorAll('.eventos1, .eventos2').forEach(ev => {
-    const dataVigente  = ev.dataset.data         || '';
-    const dataOriginal = ev.dataset.dataOriginal || '';
-
     const dateEl = document.createElement('p');
-
-    if (dataOriginal && dataOriginal !== dataVigente) {
-        /* Data foi alterada → badge vermelho com riscado */
-        dateEl.className = 'evento-data-col';
-        dateEl.innerHTML = `
-            <span class="evento-data-riscada">${dataOriginal}</span>
-            <span class="evento-badge-alterada">Data Alterada</span>
-            <strong class="evento-data-nova">${dataVigente}</strong>
-        `;
-    } else {
-        /* Data normal → texto simples (mesmo estilo do p:last-child) */
-        dateEl.textContent = dataVigente;
-    }
+    dateEl.className = 'evento-data-col';
+    dateEl.textContent = '09/06/2026';
 
     ev.appendChild(dateEl);
 });
 
+function renderEventSpeakers() {
+    document.querySelectorAll('.event-modal-speaker').forEach(speaker => {
+        const name = speaker.dataset.name || 'Palestrante';
+        const photo = speaker.dataset.photo || '';
+        const imgEl = speaker.querySelector('.event-modal-speaker-photo');
+        const nameEl = speaker.querySelector('.event-modal-speaker-name');
+
+        if (imgEl) {
+            if (photo) {
+                imgEl.src = photo;
+                imgEl.alt = name;
+            } else {
+                imgEl.removeAttribute('src');
+                imgEl.alt = name;
+            }
+        }
+
+        if (nameEl) {
+            nameEl.textContent = name;
+        }
+    });
+}
+
 /* ── B6b · Abre modal de evento ───────────────────────────── */
 function openEventModal(el) {
-    const titulo       = el.dataset.titulo       || '';
-    const dataVigente  = el.dataset.data         || '';
-    const dataOriginal = el.dataset.dataOriginal || '';
-    const tipo         = el.dataset.tipo         || 'evento';
-    const desc         = el.dataset.descricao    || '';
-    const imgSrc       = el.querySelector('img')?.src || '';
-    const imgAlt       = el.querySelector('img')?.alt || '';
+    const titulo = el.dataset.titulo || '';
+    const tipo   = el.dataset.tipo || 'evento';
+    const desc   = el.dataset.descricao || '';
+    const imgSrc = el.querySelector('img')?.src || '';
+    const imgAlt = el.querySelector('img')?.alt || '';
 
     document.getElementById('event-modal-img').src = imgSrc;
     document.getElementById('event-modal-img').alt = imgAlt;
     document.getElementById('event-modal-title').textContent = titulo;
 
-    /* Data no modal: riscada + nova se foi alterada */
     const dateEl = document.getElementById('event-modal-date');
-    if (dataOriginal && dataOriginal !== dataVigente) {
-        dateEl.innerHTML = `
-            <span style="text-decoration:line-through;color:var(--gray-lt);margin-right:0.5rem">${dataOriginal}</span>
-            <span style="color:var(--red)">→</span>
-            <span style="color:var(--green);margin-left:0.5rem">${dataVigente}</span>
-        `;
-    } else {
-        dateEl.textContent = dataVigente;
-    }
+    dateEl.textContent = '09/06/2026';
 
     document.getElementById('event-modal-desc').textContent = desc;
 
@@ -1280,6 +1278,7 @@ function openEventModal(el) {
     typeEl.textContent = tipo.toUpperCase();
     typeEl.className = 'event-modal-type' + (tipo === 'evento' ? ' tipo-evento' : '');
 
+    renderEventSpeakers();
     eventModal.classList.add('open');
     document.body.style.overflow = 'hidden';
 }

@@ -1156,7 +1156,6 @@ main > section[id] > p {
     margin-top: 1.2rem;
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.06);
-    background: rgba(255, 255, 255, 0.025);
     transition: border-color 0.3s, transform 0.3s, background 0.3s;
     cursor: pointer;
     overflow: hidden;
@@ -1292,6 +1291,17 @@ main > section[id] > p {
 @media (max-width: 480px) {
     .evento-data-col { align-items: flex-start; text-align: left; }
 }
+
+@media (max-width: 600px) {
+    .event-modal-speakers-list {
+        grid-template-columns: 1fr;
+    }
+
+    .event-modal-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
 /* ─────────────────────────────────────────────────────────────
    12 · MODAL DE EVENTO
    CORRIGIDO: height fixo removido, substituído por max-height
@@ -1329,9 +1339,17 @@ main > section[id] > p {
 
 .event-modal-overlay.open .event-modal-box { transform: translateY(0) scale(1); }
 
-.event-modal-img { width: 100%; height: 200px; object-fit: cover; filter: brightness(0.6) saturate(0.7); }
+.event-modal-img { width: 100%; height: 200px; object-fit: cover; }
 .event-modal-accent { height: 3px; background: linear-gradient(90deg, var(--green), var(--red)); }
 .event-modal-body { padding: 2rem 2.5rem 2.5rem; }
+
+.event-modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
 
 .event-modal-type {
     font-family: var(--font-head);
@@ -1344,10 +1362,22 @@ main > section[id] > p {
     padding: 0.2rem 0.7rem;
     border-radius: 2px;
     display: inline-block;
-    margin-bottom: 1rem;
 }
 
 .event-modal-type.tipo-evento { background: var(--red); color: var(--white); }
+
+.event-modal-status {
+    font-family: var(--font-head);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: #5c5c5c;
+    padding: 0.2rem 0.7rem;
+    border-radius: 2px;
+    display: inline-block;
+}
 
 .event-modal-title {
     font-family: var(--font-head);
@@ -1358,6 +1388,14 @@ main > section[id] > p {
     margin-bottom: 0.5rem;
 }
 
+.event-modal-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+}
+
 .event-modal-date {
     font-family: var(--font-head);
     font-size: 0.85rem;
@@ -1365,7 +1403,7 @@ main > section[id] > p {
     letter-spacing: 0.15em;
     color: var(--green);
     text-transform: uppercase;
-    margin-bottom: 1.25rem;
+    margin: 0;
 }
 
 .event-modal-desc {
@@ -1374,6 +1412,60 @@ main > section[id] > p {
     color: rgba(245, 245, 240, 0.65);
     border-top: 1px solid rgba(255, 255, 255, 0.07);
     padding-top: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.event-modal-location {
+    font-family: var(--font-head);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--green);
+    margin: 0;
+}
+
+.event-modal-speakers {
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    padding-top: 1.25rem;
+}
+
+.event-modal-speakers-title {
+    font-family: var(--font-head);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 1rem;
+}
+
+.event-modal-speakers-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.event-modal-speaker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    text-align: center;
+}
+
+.event-modal-speaker-photo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: block;
+    object-fit: cover;
+    border: 2px solid var(--green);
+}
+
+.event-modal-speaker-name {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: rgba(245, 245, 240, 0.7);
 }
 
 .event-modal-close {
