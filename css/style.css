@@ -1160,6 +1160,248 @@ main > section[id] > p {
 
 
 /* ─────────────────────────────────────────────────────────────
+   10a · GALERIA DE FOTOS
+───────────────────────────────────────────────────────────── */
+
+/* ── Capas dos álbuns (clique abre a sub-tela) ────────────── */
+.galeria-albuns-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.galeria-album-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 3 / 2;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    transition: transform 0.35s var(--ease-smooth), box-shadow 0.35s;
+}
+
+.galeria-album-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5); }
+
+.galeria-album-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s var(--ease-smooth);
+}
+
+.galeria-album-card:hover img { transform: scale(1.06); }
+
+.galeria-album-card-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    padding: 1.75rem 1.5rem 1.5rem;
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.92), rgba(10, 10, 10, 0.15) 55%, transparent);
+}
+
+.galeria-album-card-titulo {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1.15;
+}
+
+.galeria-album-card-count {
+    font-family: var(--font-head);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green);
+}
+
+/* ── Sub-tela: fotos do álbum ─────────────────────────────── */
+.galeria-album-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 8800;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s var(--ease-smooth);
+    overflow-y: auto;
+}
+
+.galeria-album-overlay.open { opacity: 1; pointer-events: all; }
+
+.galeria-album-modal-box {
+    background: #0f0f0f;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 3px solid var(--green);
+    border-radius: 12px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 2.5rem;
+    position: relative;
+    transform: translateY(50px) scale(0.96);
+    transition: transform 0.45s var(--ease-smooth);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.75);
+    margin: auto;
+}
+
+.galeria-album-overlay.open .galeria-album-modal-box { transform: translateY(0) scale(1); }
+
+.galeria-album-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.galeria-album-modal-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--white);
+    line-height: 1.1;
+}
+
+.galeria-album-modal-close {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    color: var(--gray-lt);
+    font-size: 1.6rem;
+    width: 38px; height: 38px;
+    cursor: pointer;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: color 0.2s, transform 0.2s, border-color 0.2s;
+    padding: 0;
+}
+
+.galeria-album-modal-close:hover { color: var(--white); border-color: rgba(255, 255, 255, 0.4); transform: rotate(90deg); }
+
+.galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.galeria-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform 0.35s var(--ease-smooth), box-shadow 0.35s;
+}
+
+.galeria-item:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45); }
+
+.galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s var(--ease-smooth);
+}
+
+.galeria-item:hover img { transform: scale(1.06); }
+
+/* ── Lightbox ─────────────────────────────────────────────── */
+.galeria-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 5, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease-smooth);
+    z-index: 9100;
+    padding: 2rem;
+}
+
+.galeria-lightbox.open { opacity: 1; pointer-events: all; }
+
+.galeria-lightbox-figure {
+    max-width: min(90vw, 1000px);
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    transform: scale(0.94);
+    transition: transform 0.3s var(--ease-smooth);
+}
+
+.galeria-lightbox.open .galeria-lightbox-figure { transform: scale(1); }
+
+.galeria-lightbox-figure img {
+    max-width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.galeria-lightbox-close,
+.galeria-lightbox-nav {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--white);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.25s, transform 0.25s;
+}
+
+.galeria-lightbox-close {
+    top: 1.5rem; right: 1.5rem;
+    width: 44px; height: 44px;
+    font-size: 1.75rem;
+    line-height: 1;
+}
+
+.galeria-lightbox-close:hover { background: rgba(204, 0, 0, 0.4); transform: rotate(90deg); }
+
+.galeria-lightbox-nav {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px; height: 52px;
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.galeria-lightbox-nav:hover { background: rgba(0, 166, 81, 0.35); }
+.galeria-lightbox-prev { left: 1.5rem; }
+.galeria-lightbox-next { right: 1.5rem; }
+
+
+/* ─────────────────────────────────────────────────────────────
    11 · CALENDÁRIO E EVENTOS
    CORRIGIDO: pseudo-elementos ::before e ::after separados
    para borda lateral e badge de tipo
@@ -1533,7 +1775,7 @@ main > section[id] > p {
 #parte_nossa_equipe {
     background: var(--gray) !important;
     text-align: center;
-    padding: 7rem 2.5rem !important;
+    padding: 2rem 2.5rem !important;
     overflow: hidden;
 }
 
@@ -1555,6 +1797,81 @@ main > section[id] > p {
 /* Mantém conteúdo interno acima do fundo decorativo */
 #parte_nossa_equipe > * { position: relative; z-index: 1; }
 
+.ingresso-etapas li{
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.4rem 2rem 1.4rem 2rem; /* padding-left extra para a borda */
+    margin-top: 1.2rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.025);
+    transition: border-color 0.3s, transform 0.3s, background 0.3s;
+    overflow: hidden;
+}
+
+.ingresso-etapas .numero-etapa {
+    font-size: 4.5rem;
+    font-weight: bold;
+    color: var(--green);
+    line-height: 1;
+}
+
+/* Borda lateral colorida via ::before */
+.ingresso-etapas li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    pointer-events: none;
+}
+
+.ingresso-etapas li::before { background: var(--green); }
+
+.ingresso-etapas p{
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: rgba(245, 245, 240, 0.85);
+    line-height: 1.4;
+}
+
+.ingresso-etapas p:last-child {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--gray-lt);
+}
+
+.ingresso-explicacoes{
+    padding: 0px 2rem;
+    margin: 0 auto 5.5rem;
+}
+
+#ingresso-explicacoes-etapas{
+    padding: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto 2rem;
+}
+
+#ingresso-explicacoes-etapas h4{
+    font-size: 18px;
+}
+
+#ingresso-explicacoes-1-periodo{
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    margin: 0 0 0.75rem;
+}
+
 #parte_nossa_equipe h2 {
     font-family: var(--font-display);
     font-size: clamp(3rem, 7vw, 6rem);
@@ -1562,6 +1879,7 @@ main > section[id] > p {
     text-transform: uppercase;
     color: var(--white);
     line-height: 1;
+    margin: 0;
 }
 
 /* Remove o sublinhado ::after gerado pelo seletor genérico de h2 */
@@ -1575,7 +1893,7 @@ main > section[id] > p {
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--gray-lt);
-    margin: 0.75rem 0 2.5rem;
+    margin: 0px 0 1.5rem;
 }
 
 .cta-group { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 1.25rem; }
@@ -2151,7 +2469,12 @@ main > section[id] > p {
     margin: 0;
 }
 
-.ingresso-countdown-digits { display: flex; align-items: center; gap: 0.5rem; }
+.ingresso-countdown-digits {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 20px;
+}
 
 .countdown-unit {
     display: flex;
@@ -3073,6 +3396,8 @@ main > section[id] > p {
 ───────────────────────────────────────────────────────────── */
 @media (max-width: 1200px) {
     .pilares-grid { grid-template-columns: repeat(2, 1fr); }
+    .galeria-grid { grid-template-columns: repeat(2, 1fr); }
+    .project-card { flex: 0 0 calc(72% - 0.75rem); }
     .historia .container { gap: 3rem; }
     .team-overview-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 }
@@ -3091,6 +3416,7 @@ main > section[id] > p {
     .equipe-avatar-float--7, .equipe-avatar-float--8 { display: none; }
     .team-overview-modal-box { padding: 2rem 1.5rem; }
     .team-overview-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+    .galeria-album-modal-box { padding: 2rem 1.5rem; }
     .ligante-body { gap: 1.75rem; padding: 2rem; }
     #projetos { padding: 5rem 2rem 2rem 2rem; }
 }
@@ -3138,6 +3464,11 @@ main > section[id] > p {
     .pilares-grid { grid-template-columns: 1fr; margin-top: 2rem; }
     .pilar-card { padding: 2rem 1.5rem 1.75rem; }
 
+    .galeria-grid { grid-template-columns: 1fr; }
+    .galeria-lightbox-nav { width: 42px; height: 42px; font-size: 1.6rem; }
+    .galeria-lightbox-prev { left: 0.5rem; }
+    .galeria-lightbox-next { right: 0.5rem; }
+
     .eventos1 img, .eventos2 img { width: 64px; height: 64px; }
     .eventos1, .eventos2 { grid-template-columns: auto 1fr; gap: 0.75rem; padding: 1rem 1.25rem 1rem 1.75rem; }
 
@@ -3159,6 +3490,9 @@ main > section[id] > p {
     .team-overview-modal-box { padding: 1.5rem 1.25rem; border-radius: 8px; }
     .team-overview-modal-title { font-size: 1.6rem; }
     .team-overview-grid { grid-template-columns: 1fr; }
+    .galeria-album-overlay { padding: 1rem 0.75rem; }
+    .galeria-album-modal-box { padding: 1.5rem 1.25rem; border-radius: 8px; }
+    .galeria-album-modal-title { font-size: 1.4rem; }
 
     .ingresso-countdown-digits { gap: 0.3rem; }
     .countdown-unit { min-width: 44px; }
@@ -3191,6 +3525,7 @@ main > section[id] > p {
     .equipe-hero { min-height: 260px; }
     .equipe-avatar-float { width: 38px; height: 38px; font-size: 0.65rem; }
     .team-overview-modal-box { padding: 1.25rem 1rem; }
+    .galeria-album-modal-box { padding: 1.25rem 1rem; }
     .countdown-num { font-size: 1.6rem; }
     .ligante-avatar { width: 76px; height: 76px; font-size: 1.4rem; }
     #parte_nossa_equipe { padding: 4rem 1rem !important; }

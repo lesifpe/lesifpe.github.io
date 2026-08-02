@@ -30,6 +30,7 @@
                 <li><a href="#projetos" class="menu-link">Projetos</a></li>
                 <li><a href="#calendario_atividades" class="menu-link">Calendário</a></li>
                 <li><a href="#historia" class="menu-link">História</a></li>
+                <li><a href="#galeria" class="menu-link">Galeria</a></li>
                 <li><a href="#pilares" class="menu-link">Nossos Pilares</a></li>
                 <li><a href="#equipe" class="menu-link">Nossa Equipe</a></li>
                 <li><a href="#parte_nossa_equipe" class="menu-link">Ingresso</a></li>
@@ -48,6 +49,7 @@
     <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
         <ul class="mobile-menu">
             <li><a href="#" class="mobile-link">Início</a></li>
+            <li><a href="#galeria" class="mobile-link">Galeria</a></li>
             <li><a href="#equipe" class="mobile-link">Nossa Equipe</a></li>
             <li><a href="#pilares" class="mobile-link">Nossos Pilares</a></li>
             <li><a href="#calendario_atividades" class="mobile-link">Calendário de Atividades</a></li>
@@ -287,6 +289,16 @@
             </div>
         </section>
 
+        <!-- Necessario pensar em alternativa de escalamento de imagens para não consumir 
+         tanto espaço no projeto  -->
+        <section id="galeria">
+            <h2>Galeria</h2>
+            <p>Aulas e eventos que mostram a LES em ação.</p>
+
+            <div class="galeria-albuns-grid" id="galeriaAlbunsWrap">
+            </div>
+        </section>
+
 
         <!-- ══ PILARES ═════════════════════════════════════════ -->
         <section id="pilares">
@@ -443,6 +455,44 @@
         <!-- ══ INGRESSO ════════════════════════════════════════ -->
         <section id="parte_nossa_equipe">
             <h2>INGRESSO</h2>
+            <h3>Aos interessados em fazer parte da Liga</h3>
+            <div class="ingresso-explicacoes">
+                <p>A LES abre inscrições para integração de novos membros de maneira semestral para que os alunos interessados possam colaborar dentro da Liga.</p>
+                <p>Nesse semestre o processo de ingresso terá 15 vagas, sendo 10 delas destinadas à discentes a partir do 2° período, e é composto por 4 etapas principais:</p>
+                <ol class="ingresso-etapas" id="ingresso-explicacoes-etapas">
+                    <li> 
+                        <p class="numero-etapa">1.</p>
+                        <div>
+                            <h4>Inscrição niveladora</h4>
+                            <p>Os candidatos preencherão um formulário de nivelamento, a fim de que os avaliadores entendam o intuito do candidato na LES e o direcionamento melhor dentro dos projetos. <em>(Etapa não eliminatória)</em></p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="numero-etapa">2.</p>
+                        <div>
+                            <h4>Projeto prático</h4>
+                            <p>Nessa etapa o candidato será desafiado a realizar um projeto prático a para verificar sua hardskill. Os projetos variam de dificuldade, para abranger diferentes níveis de experiência.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="numero-etapa">3.</p>
+                        <div>
+                            <h4>Entrevistas presenciais</h4>
+                            <p>Os aprovados passarão por uma última etapa com os avaliadores para esclarecer possíveis dúvidas de ambos os lados e para que haja um melhor conhecimento das softskills dos candidatos.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="numero-etapa">4.</p>
+                        <div>
+                            <h4>Pré-liga</h4>
+                            <p>Os candidatos aprovados não entrarão logo após o processo seletivo, mas ficarão en um processo de "pré-liga". Esse período de avaliação dura 2 meses e tem como finalidade esclarecer para a LES questões como disponibilidade e compromisso dos que chegaram até essa etapa.</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <h4 id="ingresso-explicacoes-1-periodo">Vagas para o 1° período</h4>
+                <p>Os alunos do primeiro poderão participar do processo seletivo regular através de recomendações da liderança da LES. Com exceção desses casos, inscrições de discentes do 1° período serão desconsideradas.</p>
+            </div>
 
             <!-- Bloco da contagem regressiva — preenchido via JS -->
             <div id="ingresso-countdown-wrapper" class="ingresso-countdown-wrapper">
@@ -559,7 +609,6 @@
         </div>
     </div>
 
-
     <!-- ══ MODAL EVENTO ═══════════════════════════════════════ -->
     <div id="event-modal" class="event-modal-overlay" role="dialog" aria-modal="true" aria-label="Detalhes do evento">
         <div class="event-modal-box">
@@ -596,6 +645,30 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="galeria-album-modal" class="galeria-album-overlay" role="dialog" aria-modal="true"
+        aria-label="Fotos do álbum">
+        <div class="galeria-album-modal-box">
+            <div class="galeria-album-modal-header">
+                <h2 class="galeria-album-modal-title" id="galeria-album-modal-title"></h2>
+                <button class="galeria-album-modal-close" id="galeria-album-modal-close"
+                    aria-label="Fechar">&times;</button>
+            </div>
+            <div class="galeria-grid" id="galeria-album-modal-grid">
+            </div>
+        </div>
+    </div>
+
+    <div id="galeria-lightbox" class="galeria-lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+        <button class="galeria-lightbox-close" id="galeria-lightbox-close" aria-label="Fechar">&times;</button>
+        <button class="galeria-lightbox-nav galeria-lightbox-prev" id="galeria-lightbox-prev"
+            aria-label="Foto anterior">&#8249;</button>
+        <figure class="galeria-lightbox-figure">
+            <img src="" alt="" id="galeria-lightbox-img">
+        </figure>
+        <button class="galeria-lightbox-nav galeria-lightbox-next" id="galeria-lightbox-next"
+            aria-label="Próxima foto">&#8250;</button>
     </div>
 
     <!-- ══ MODAL DE INGRESSO (fases 1, 2 e 3) ═══════════════════ -->

@@ -10,6 +10,7 @@
    │    A3 · Dados dos Membros                               │
    │    A4 · Ícones e rótulos de links sociais               │
    │    A5 · Grupos — rótulos, ordem e cores                 │
+   │    A6 · Dados da Galeria de Fotos                        │
    ├─────────────────────────────────────────────────────────┤
    │  SEÇÃO B — FUNÇÕES E LÓGICA (não é necessário editar)   │
    │    B1 · Hamburger Menu                                  │
@@ -17,7 +18,7 @@
    │    B3 · Carrossel de Projetos                           │
    │    B4 · Modal de Perfil Individual                      │
    │    B5 · Modal de Visão Geral da Equipe                  │
-   │    B6 · Modal de Eventos                                │
+   │    B6 · Modal de Eventos + Galeria de Fotos              │
    │    B7 · Contagem Regressiva do Ingresso + Modal         │
    │    B8 · Animações e Efeitos (DOMContentLoaded)          │
    │    B9 · Fechar Modais com ESC                           │
@@ -44,8 +45,8 @@
    FORMATO DAS DATAS: new Date(ano, mês-1, dia)
    ──────────────────────────────────────────────────────────── */
 const INGRESSO_CONFIG = {
-    dataAberturaInscricoes: new Date(2026, 3, 23),   /* 23/04/2026 */
-    dataEncerramentoInscricoes: new Date(2026, 3, 26),   /* 26/04/2026 */
+    dataAberturaInscricoes: new Date(2026, 7, 20),   /* 20/08/2026 */
+    dataEncerramentoInscricoes: new Date(2026, 8, 22),   /* 22/09/2026 */
     textoFase1: 'Inscrições abrem em',
     textoFase2: 'Inscrições encerram em',
     linkFormulario: 'https://forms.gle/j5fYk6yR4D4mCH9j7',
@@ -695,6 +696,56 @@ const GROUP_COLORS = {
 };
 
 
+/* desc galleria;
+
+   Cada álbum vira uma seção na página (título + grade de fotos).
+   Para adicionar um álbum novo, inclua um objeto na lista abaixo.
+   Para adicionar uma foto a um álbum existente, inclua um item
+   no array "fotos" dele. titulo da foto é opcional. */
+const galeriaAlbuns = [
+    {
+        titulo: 'Aulas',
+        fotos: [
+            {
+                src: 'assets/imagens/galeria/aulas-les-01.jpg',
+                alt: 'Membro da LES explicando operadores aritméticos no quadro durante aula de Introdução ao JavaScript',
+                titulo: 'Aula de Introdução ao JavaScript',
+            },
+            {
+                src: 'assets/imagens/galeria/aulas-les-02.jpg',
+                alt: 'Alunos acompanhando explicação durante aula de Introdução ao JavaScript no laboratório',
+                titulo: 'Aula de Introdução ao JavaScript',
+            },
+            {
+                src: 'assets/imagens/galeria/aulas-les-03.jpg',
+                alt: 'Membros da LES reunidos no laboratório de informática durante aula de Introdução ao JavaScript',
+                titulo: 'Turma da Aula de JavaScript',
+            },
+        ],
+    },
+    {
+        titulo: 'Workshop de Inserção no Mercado de Tecnologia',
+        fotos: [
+            {
+                src: 'assets/imagens/galeria/workshop-insercao.jpg',
+                alt: 'Participantes e organizadores reunidos após o Workshop de Inserção no Mercado de Tecnologia da LES',
+                titulo: 'Foto oficial do workshop',
+            },
+            {
+                src: 'assets/imagens/galeria/workshop-insercao-02.jpg',
+                alt: 'Painel de convidados discutindo erros comuns na carreira em tecnologia durante o Workshop de Inserção no Mercado',
+                titulo: 'Mesa de Discussão — Erros Comuns no Mercado de TI',
+            },
+            {
+                src: 'assets/imagens/galeria/workshop-insercao-03.jpg',
+                alt: 'Mesa de abertura do Workshop de Inserção no Mercado de Tecnologia com plateia acompanhando',
+                titulo: 'Abertura do Workshop',
+            },
+        ],
+    },
+];
+
+
 /* ════════════════════════════════════════════════════════════
    SEÇÃO B — FUNÇÕES E LÓGICA
    (não é necessário editar abaixo para manutenção de dados)
@@ -1341,6 +1392,112 @@ document.querySelectorAll('.eventos1, .eventos2').forEach(ev => {
 
 eventClose.addEventListener('click', closeEventModal);
 eventModal.addEventListener('click', e => { if (e.target === eventModal) closeEventModal(); });
+
+const galeriaAlbunsWrap = document.getElementById('galeriaAlbunsWrap');
+
+const galeriaAlbumModal      = document.getElementById('galeria-album-modal');
+const galeriaAlbumModalTitle = document.getElementById('galeria-album-modal-title');
+const galeriaAlbumModalGrid  = document.getElementById('galeria-album-modal-grid');
+const galeriaAlbumModalClose = document.getElementById('galeria-album-modal-close');
+
+const galeriaLightbox       = document.getElementById('galeria-lightbox');
+const galeriaLightboxImg    = document.getElementById('galeria-lightbox-img');
+const galeriaLightboxClose  = document.getElementById('galeria-lightbox-close');
+const galeriaLightboxPrev   = document.getElementById('galeria-lightbox-prev');
+const galeriaLightboxNext   = document.getElementById('galeria-lightbox-next');
+
+let galeriaFotosAtivas = [];
+let galeriaIndiceAtual = 0;
+
+function renderGaleriaAlbunsCapas() {
+    if (!galeriaAlbunsWrap) return;
+    galeriaAlbunsWrap.innerHTML = '';
+
+    galeriaAlbuns.forEach((album, i) => {
+        const capa = album.fotos[0];
+
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'galeria-album-card';
+        card.innerHTML = `
+            <img src="${capa.src}" alt="${capa.alt}" loading="lazy">
+            <div class="galeria-album-card-overlay">
+                <h3 class="galeria-album-card-titulo">${album.titulo}</h3>
+                <span class="galeria-album-card-count">${album.fotos.length} fotos</span>
+            </div>
+        `;
+        card.addEventListener('click', () => openGaleriaAlbumModal(i));
+        galeriaAlbunsWrap.appendChild(card);
+    });
+}
+renderGaleriaAlbunsCapas();
+
+function openGaleriaAlbumModal(albumIndex) {
+    const album = galeriaAlbuns[albumIndex];
+    if (!album) return;
+
+    galeriaAlbumModalTitle.textContent = album.titulo;
+    galeriaAlbumModalGrid.innerHTML = '';
+
+    album.fotos.forEach((foto, i) => {
+        const fig = document.createElement('figure');
+        fig.className = 'galeria-item';
+        fig.innerHTML = `<img src="${foto.src}" alt="${foto.alt}" loading="lazy">`;
+        fig.addEventListener('click', () => abrirGaleriaLightbox(album.fotos, i));
+        galeriaAlbumModalGrid.appendChild(fig);
+    });
+
+    galeriaAlbumModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeGaleriaAlbumModal() {
+    galeriaAlbumModal.classList.remove('open');
+    if (!galeriaLightbox.classList.contains('open')) document.body.style.overflow = '';
+}
+
+galeriaAlbumModalClose?.addEventListener('click', closeGaleriaAlbumModal);
+galeriaAlbumModal?.addEventListener('click', e => { if (e.target === galeriaAlbumModal) closeGaleriaAlbumModal(); });
+
+function abrirGaleriaLightbox(fotos, indice) {
+    galeriaFotosAtivas = fotos;
+    galeriaIndiceAtual = indice;
+
+    renderGaleriaLightbox();
+    galeriaLightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function renderGaleriaLightbox() {
+    const foto = galeriaFotosAtivas[galeriaIndiceAtual];
+    if (!foto) return;
+
+    galeriaLightboxImg.src = foto.src;
+    galeriaLightboxImg.alt = foto.alt;
+}
+
+function closeGaleriaLightbox() {
+    galeriaLightbox.classList.remove('open');
+    if (!galeriaAlbumModal.classList.contains('open')) document.body.style.overflow = '';
+}
+
+function galeriaLightboxAvancar(delta) {
+    if (!galeriaFotosAtivas.length) return;
+    galeriaIndiceAtual = (galeriaIndiceAtual + delta + galeriaFotosAtivas.length) % galeriaFotosAtivas.length;
+    renderGaleriaLightbox();
+}
+
+galeriaLightboxClose?.addEventListener('click', closeGaleriaLightbox);
+galeriaLightboxPrev?.addEventListener('click', () => galeriaLightboxAvancar(-1));
+galeriaLightboxNext?.addEventListener('click', () => galeriaLightboxAvancar(1));
+galeriaLightbox?.addEventListener('click', e => { if (e.target === galeriaLightbox) closeGaleriaLightbox(); });
+
+document.addEventListener('keydown', e => {
+    if (!galeriaLightbox?.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') galeriaLightboxAvancar(-1);
+    if (e.key === 'ArrowRight') galeriaLightboxAvancar(1);
+});
+
 /* ────────────────────────────────────────────────────────────
    B7 · CONTAGEM REGRESSIVA DO INGRESSO + MODAL DE FASES
    ──────────────────────────────────────────────────────────── */
@@ -1354,85 +1511,6 @@ const $cdDays = document.getElementById('cd-days');
 const $cdHours = document.getElementById('cd-hours');
 const $cdMins = document.getElementById('cd-mins');
 const $cdSecs = document.getElementById('cd-secs');
-
-const $ingressoModal = document.getElementById('ingresso-modal');
-const $ingressoModalContent = document.getElementById('ingresso-modal-content');
-const $ingressoModalClose = document.getElementById('ingresso-modal-close');
-
-function openIngressoModal(html) {
-    $ingressoModalContent.innerHTML = html;
-    $ingressoModal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeIngressoModal() {
-    $ingressoModal.classList.remove('open');
-    document.body.style.overflow = '';
-}
-
-$ingressoModalClose.addEventListener('click', closeIngressoModal);
-$ingressoModal.addEventListener('click', e => { if (e.target === $ingressoModal) closeIngressoModal(); });
-
-/* Conteúdo HTML dos modais por fase */
-function getModalFase1() {
-    return `
-        <div style="margin-bottom:1.25rem">
-            <span style="font-family:var(--font-head);font-size:0.7rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--green)">Processo Seletivo Semestral</span>
-            <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.2rem);color:var(--white);line-height:1.1;margin-top:0.4rem">Ingresso LES-IFPE</h2>
-            <p style="font-size:0.88rem;color:var(--gray-lt);margin-top:0.5rem">O ingresso na Liga de Engenharia de Software é <strong style="color:var(--white)">semestral</strong>. As inscrições abrirão em breve. Confira as etapas do processo:</p>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:1rem">
-            <div style="border:1px solid rgba(0,166,81,0.2);border-left:3px solid var(--green);border-radius:6px;padding:1rem 1.25rem;background:rgba(0,166,81,0.04)">
-                <p style="font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin:0 0 0.4rem">1ª Etapa — Teste de Nivelamento</p>
-                <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.65;margin:0">Avaliação <strong style="color:var(--white)">não eliminatória</strong> com o objetivo de identificar seu nível atual de conhecimento em programação. Não é necessário saber tudo — queremos apenas compreender seu ponto de partida.</p>
-            </div>
-            <div style="border:1px solid rgba(255,255,255,0.08);border-left:3px solid rgba(255,255,255,0.2);border-radius:6px;padding:1rem 1.25rem;background:rgba(255,255,255,0.02)">
-                <p style="font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,245,240,0.6);margin:0 0 0.4rem">2ª Etapa — Entrevista</p>
-                <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.65;margin:0">Conversa individual para conhecer melhor você, suas motivações e seu perfil. O objetivo é avaliar sua afinidade com a área de Engenharia de Software e com a Liga.</p>
-            </div>
-        </div>
-        <p style="font-size:0.8rem;color:rgba(245,245,240,0.35);margin-top:1.25rem;text-align:center">Acompanhe nosso Instagram <strong style="color:rgba(245,245,240,0.55)">@les.ifpe</strong> para ser avisado quando as inscrições abrirem.</p>
-    `;
-}
-
-function getModalFase2() {
-    return `
-        <div style="margin-bottom:1.25rem">
-            <span style="font-family:var(--font-head);font-size:0.7rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--green)">Inscrições Abertas · Seleção Semestral</span>
-            <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.2rem);color:var(--white);line-height:1.1;margin-top:0.4rem">Ingresso LES-IFPE</h2>
-            <p style="font-size:0.88rem;color:var(--gray-lt);margin-top:0.5rem">As inscrições estão abertas! O processo é <strong style="color:var(--white)">semestral</strong>. Inscreva-se pelo formulário e confira as etapas:</p>
-        </div>
-        <a href="${INGRESSO_CONFIG.linkFormulario}" target="_blank" rel="noopener noreferrer"
-            style="display:flex;align-items:center;justify-content:center;gap:0.6rem;width:100%;padding:0.9rem 1.5rem;background:var(--green);color:var(--black);font-family:var(--font-head);font-size:0.9rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-radius:4px;text-decoration:none;margin-bottom:1.25rem;transition:background 0.2s"
-            onmouseover="this.style.background='var(--green-d)';this.style.color='var(--white)'"
-            onmouseout="this.style.background='var(--green)';this.style.color='var(--black)'">
-            Acessar Formulário de Inscrição
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <div style="display:flex;flex-direction:column;gap:1rem">
-            <div style="border:1px solid rgba(0,166,81,0.2);border-left:3px solid var(--green);border-radius:6px;padding:1rem 1.25rem;background:rgba(0,166,81,0.04)">
-                <p style="font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin:0 0 0.4rem">1ª Etapa — Teste de Nivelamento</p>
-                <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.65;margin:0">Avaliação <strong style="color:var(--white)">não eliminatória</strong> com o objetivo de identificar seu nível atual de conhecimento em programação. Não é necessário saber tudo — queremos apenas compreender seu ponto de partida.</p>
-            </div>
-            <div style="border:1px solid rgba(255,255,255,0.08);border-left:3px solid rgba(255,255,255,0.2);border-radius:6px;padding:1rem 1.25rem;background:rgba(255,255,255,0.02)">
-                <p style="font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,245,240,0.6);margin:0 0 0.4rem">2ª Etapa — Entrevista</p>
-                <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.65;margin:0">Conversa individual para conhecer melhor você, suas motivações e seu perfil. O objetivo é avaliar sua afinidade com a área de Engenharia de Software e com a Liga.</p>
-            </div>
-        </div>
-    `;
-}
-
-function getModalFase3() {
-    return `
-        <div style="text-align:center;padding:0.5rem 0 1.5rem">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:1rem"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <span style="font-family:var(--font-head);font-size:0.7rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:0.5rem">Inscrições Encerradas</span>
-            <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.2rem);color:var(--white);line-height:1.1;margin-bottom:0.75rem">Processo encerrado</h2>
-            <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.7;max-width:400px;margin:0 auto">O cadastro para esta edição foi encerrado. O ingresso na LES é <strong style="color:var(--white)">semestral</strong> — a próxima turma abrirá inscrições em breve.</p>
-        </div>
-        <p style="font-size:0.8rem;color:rgba(245,245,240,0.35);text-align:center;margin-top:0.5rem">Fique de olho no Instagram <strong style="color:rgba(245,245,240,0.55)">@les.ifpe</strong> para não perder a próxima edição.</p>
-    `;
-}
 
 /* Utilitários da contagem */
 let ingressoFaseAtual = null;
@@ -1518,13 +1596,6 @@ function updateIngressoCountdown() {
 
 updateIngressoCountdown();
 const ingressoTimer = setInterval(updateIngressoCountdown, 1000);
-
-$ctaBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    if (ingressoFaseAtual === 1) openIngressoModal(getModalFase1());
-    else if (ingressoFaseAtual === 2) openIngressoModal(getModalFase2());
-    else if (ingressoFaseAtual === 3) openIngressoModal(getModalFase3());
-});
 
 
 /* ────────────────────────────────────────────────────────────
@@ -1734,9 +1805,10 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
     if (memberModal.classList.contains('open')) closeMemberModal();
+    else if (galeriaLightbox.classList.contains('open')) closeGaleriaLightbox();
+    else if (galeriaAlbumModal.classList.contains('open')) closeGaleriaAlbumModal();
     else if (eventModal.classList.contains('open')) closeEventModal();
     else if (teamOverviewModal.classList.contains('open')) closeTeamOverviewModal();
-    else if ($ingressoModal.classList.contains('open')) closeIngressoModal();
 });
 
 
