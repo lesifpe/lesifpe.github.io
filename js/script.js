@@ -10,6 +10,7 @@
    │    A3 · Dados dos Membros                               │
    │    A4 · Ícones e rótulos de links sociais               │
    │    A5 · Grupos — rótulos, ordem e cores                 │
+   │    A6 · Dados da Galeria de Fotos                        │
    ├─────────────────────────────────────────────────────────┤
    │  SEÇÃO B — FUNÇÕES E LÓGICA (não é necessário editar)   │
    │    B1 · Hamburger Menu                                  │
@@ -17,7 +18,7 @@
    │    B3 · Carrossel de Projetos                           │
    │    B4 · Modal de Perfil Individual                      │
    │    B5 · Modal de Visão Geral da Equipe                  │
-   │    B6 · Modal de Eventos                                │
+   │    B6 · Modal de Eventos + Galeria de Fotos              │
    │    B7 · Contagem Regressiva do Ingresso + Modal         │
    │    B8 · Animações e Efeitos (DOMContentLoaded)          │
    │    B9 · Fechar Modais com ESC                           │
@@ -695,6 +696,56 @@ const GROUP_COLORS = {
 };
 
 
+/* desc galleria;
+
+   Cada álbum vira uma seção na página (título + grade de fotos).
+   Para adicionar um álbum novo, inclua um objeto na lista abaixo.
+   Para adicionar uma foto a um álbum existente, inclua um item
+   no array "fotos" dele. titulo da foto é opcional. */
+const galeriaAlbuns = [
+    {
+        titulo: 'Aulas',
+        fotos: [
+            {
+                src: 'assets/imagens/galeria/aulas-les-01.jpg',
+                alt: 'Membro da LES explicando operadores aritméticos no quadro durante aula de Introdução ao JavaScript',
+                titulo: 'Aula de Introdução ao JavaScript',
+            },
+            {
+                src: 'assets/imagens/galeria/aulas-les-02.jpg',
+                alt: 'Alunos acompanhando explicação durante aula de Introdução ao JavaScript no laboratório',
+                titulo: 'Aula de Introdução ao JavaScript',
+            },
+            {
+                src: 'assets/imagens/galeria/aulas-les-03.jpg',
+                alt: 'Membros da LES reunidos no laboratório de informática durante aula de Introdução ao JavaScript',
+                titulo: 'Turma da Aula de JavaScript',
+            },
+        ],
+    },
+    {
+        titulo: 'Workshop de Inserção no Mercado de Tecnologia',
+        fotos: [
+            {
+                src: 'assets/imagens/galeria/workshop-insercao.jpg',
+                alt: 'Participantes e organizadores reunidos após o Workshop de Inserção no Mercado de Tecnologia da LES',
+                titulo: 'Foto oficial do workshop',
+            },
+            {
+                src: 'assets/imagens/galeria/workshop-insercao-02.jpg',
+                alt: 'Painel de convidados discutindo erros comuns na carreira em tecnologia durante o Workshop de Inserção no Mercado',
+                titulo: 'Mesa de Discussão — Erros Comuns no Mercado de TI',
+            },
+            {
+                src: 'assets/imagens/galeria/workshop-insercao-03.jpg',
+                alt: 'Mesa de abertura do Workshop de Inserção no Mercado de Tecnologia com plateia acompanhando',
+                titulo: 'Abertura do Workshop',
+            },
+        ],
+    },
+];
+
+
 /* ════════════════════════════════════════════════════════════
    SEÇÃO B — FUNÇÕES E LÓGICA
    (não é necessário editar abaixo para manutenção de dados)
@@ -1295,6 +1346,112 @@ document.querySelectorAll('.eventos1, .eventos2').forEach(ev => {
 
 eventClose.addEventListener('click', closeEventModal);
 eventModal.addEventListener('click', e => { if (e.target === eventModal) closeEventModal(); });
+
+const galeriaAlbunsWrap = document.getElementById('galeriaAlbunsWrap');
+
+const galeriaAlbumModal      = document.getElementById('galeria-album-modal');
+const galeriaAlbumModalTitle = document.getElementById('galeria-album-modal-title');
+const galeriaAlbumModalGrid  = document.getElementById('galeria-album-modal-grid');
+const galeriaAlbumModalClose = document.getElementById('galeria-album-modal-close');
+
+const galeriaLightbox       = document.getElementById('galeria-lightbox');
+const galeriaLightboxImg    = document.getElementById('galeria-lightbox-img');
+const galeriaLightboxClose  = document.getElementById('galeria-lightbox-close');
+const galeriaLightboxPrev   = document.getElementById('galeria-lightbox-prev');
+const galeriaLightboxNext   = document.getElementById('galeria-lightbox-next');
+
+let galeriaFotosAtivas = [];
+let galeriaIndiceAtual = 0;
+
+function renderGaleriaAlbunsCapas() {
+    if (!galeriaAlbunsWrap) return;
+    galeriaAlbunsWrap.innerHTML = '';
+
+    galeriaAlbuns.forEach((album, i) => {
+        const capa = album.fotos[0];
+
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'galeria-album-card';
+        card.innerHTML = `
+            <img src="${capa.src}" alt="${capa.alt}" loading="lazy">
+            <div class="galeria-album-card-overlay">
+                <h3 class="galeria-album-card-titulo">${album.titulo}</h3>
+                <span class="galeria-album-card-count">${album.fotos.length} fotos</span>
+            </div>
+        `;
+        card.addEventListener('click', () => openGaleriaAlbumModal(i));
+        galeriaAlbunsWrap.appendChild(card);
+    });
+}
+renderGaleriaAlbunsCapas();
+
+function openGaleriaAlbumModal(albumIndex) {
+    const album = galeriaAlbuns[albumIndex];
+    if (!album) return;
+
+    galeriaAlbumModalTitle.textContent = album.titulo;
+    galeriaAlbumModalGrid.innerHTML = '';
+
+    album.fotos.forEach((foto, i) => {
+        const fig = document.createElement('figure');
+        fig.className = 'galeria-item';
+        fig.innerHTML = `<img src="${foto.src}" alt="${foto.alt}" loading="lazy">`;
+        fig.addEventListener('click', () => abrirGaleriaLightbox(album.fotos, i));
+        galeriaAlbumModalGrid.appendChild(fig);
+    });
+
+    galeriaAlbumModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeGaleriaAlbumModal() {
+    galeriaAlbumModal.classList.remove('open');
+    if (!galeriaLightbox.classList.contains('open')) document.body.style.overflow = '';
+}
+
+galeriaAlbumModalClose?.addEventListener('click', closeGaleriaAlbumModal);
+galeriaAlbumModal?.addEventListener('click', e => { if (e.target === galeriaAlbumModal) closeGaleriaAlbumModal(); });
+
+function abrirGaleriaLightbox(fotos, indice) {
+    galeriaFotosAtivas = fotos;
+    galeriaIndiceAtual = indice;
+
+    renderGaleriaLightbox();
+    galeriaLightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function renderGaleriaLightbox() {
+    const foto = galeriaFotosAtivas[galeriaIndiceAtual];
+    if (!foto) return;
+
+    galeriaLightboxImg.src = foto.src;
+    galeriaLightboxImg.alt = foto.alt;
+}
+
+function closeGaleriaLightbox() {
+    galeriaLightbox.classList.remove('open');
+    if (!galeriaAlbumModal.classList.contains('open')) document.body.style.overflow = '';
+}
+
+function galeriaLightboxAvancar(delta) {
+    if (!galeriaFotosAtivas.length) return;
+    galeriaIndiceAtual = (galeriaIndiceAtual + delta + galeriaFotosAtivas.length) % galeriaFotosAtivas.length;
+    renderGaleriaLightbox();
+}
+
+galeriaLightboxClose?.addEventListener('click', closeGaleriaLightbox);
+galeriaLightboxPrev?.addEventListener('click', () => galeriaLightboxAvancar(-1));
+galeriaLightboxNext?.addEventListener('click', () => galeriaLightboxAvancar(1));
+galeriaLightbox?.addEventListener('click', e => { if (e.target === galeriaLightbox) closeGaleriaLightbox(); });
+
+document.addEventListener('keydown', e => {
+    if (!galeriaLightbox?.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') galeriaLightboxAvancar(-1);
+    if (e.key === 'ArrowRight') galeriaLightboxAvancar(1);
+});
+
 /* ────────────────────────────────────────────────────────────
    B7 · CONTAGEM REGRESSIVA DO INGRESSO + MODAL DE FASES
    ──────────────────────────────────────────────────────────── */
@@ -1602,6 +1759,8 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
     if (memberModal.classList.contains('open')) closeMemberModal();
+    else if (galeriaLightbox.classList.contains('open')) closeGaleriaLightbox();
+    else if (galeriaAlbumModal.classList.contains('open')) closeGaleriaAlbumModal();
     else if (eventModal.classList.contains('open')) closeEventModal();
     else if (teamOverviewModal.classList.contains('open')) closeTeamOverviewModal();
 });
