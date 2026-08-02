@@ -1309,85 +1309,6 @@ const $cdHours = document.getElementById('cd-hours');
 const $cdMins = document.getElementById('cd-mins');
 const $cdSecs = document.getElementById('cd-secs');
 
-const $ingressoModal = document.getElementById('ingresso-modal');
-const $ingressoModalContent = document.getElementById('ingresso-modal-content');
-const $ingressoModalClose = document.getElementById('ingresso-modal-close');
-
-function openIngressoModal(html) {
-    $ingressoModalContent.innerHTML = html;
-    $ingressoModal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeIngressoModal() {
-    $ingressoModal.classList.remove('open');
-    document.body.style.overflow = '';
-}
-
-$ingressoModalClose.addEventListener('click', closeIngressoModal);
-$ingressoModal.addEventListener('click', e => { if (e.target === $ingressoModal) closeIngressoModal(); });
-
-/* Conteúdo HTML dos modais por fase */
-function getModalFase1() {
-    return `
-        <div style="margin-bottom:1.25rem">
-            <span style="font-family:var(--font-head);font-size:0.7rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--green)">Processo Seletivo Semestral</span>
-            <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.2rem);color:var(--white);line-height:1.1;margin-top:0.4rem">Ingresso LES-IFPE</h2>
-            <p style="font-size:0.88rem;color:var(--gray-lt);margin-top:0.5rem">O ingresso na Liga de Engenharia de Software é <strong style="color:var(--white)">semestral</strong>. As inscrições abrirão em breve. Confira as etapas do processo:</p>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:1rem">
-            <div style="border:1px solid rgba(0,166,81,0.2);border-left:3px solid var(--green);border-radius:6px;padding:1rem 1.25rem;background:rgba(0,166,81,0.04)">
-                <p style="font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin:0 0 0.4rem">1ª Etapa — Teste de Nivelamento</p>
-                <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.65;margin:0">Avaliação <strong style="color:var(--white)">não eliminatória</strong> com o objetivo de identificar seu nível atual de conhecimento em programação. Não é necessário saber tudo — queremos apenas compreender seu ponto de partida.</p>
-            </div>
-            <div style="border:1px solid rgba(255,255,255,0.08);border-left:3px solid rgba(255,255,255,0.2);border-radius:6px;padding:1rem 1.25rem;background:rgba(255,255,255,0.02)">
-                <p style="font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,245,240,0.6);margin:0 0 0.4rem">2ª Etapa — Entrevista</p>
-                <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.65;margin:0">Conversa individual para conhecer melhor você, suas motivações e seu perfil. O objetivo é avaliar sua afinidade com a área de Engenharia de Software e com a Liga.</p>
-            </div>
-        </div>
-        <p style="font-size:0.8rem;color:rgba(245,245,240,0.35);margin-top:1.25rem;text-align:center">Acompanhe nosso Instagram <strong style="color:rgba(245,245,240,0.55)">@les.ifpe</strong> para ser avisado quando as inscrições abrirem.</p>
-    `;
-}
-
-function getModalFase2() {
-    return `
-        <div style="margin-bottom:1.25rem">
-            <span style="font-family:var(--font-head);font-size:0.7rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--green)">Inscrições Abertas · Seleção Semestral</span>
-            <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.2rem);color:var(--white);line-height:1.1;margin-top:0.4rem">Ingresso LES-IFPE</h2>
-            <p style="font-size:0.88rem;color:var(--gray-lt);margin-top:0.5rem">As inscrições estão abertas! O processo é <strong style="color:var(--white)">semestral</strong>. Inscreva-se pelo formulário e confira as etapas:</p>
-        </div>
-        <a href="${INGRESSO_CONFIG.linkFormulario}" target="_blank" rel="noopener noreferrer"
-            style="display:flex;align-items:center;justify-content:center;gap:0.6rem;width:100%;padding:0.9rem 1.5rem;background:var(--green);color:var(--black);font-family:var(--font-head);font-size:0.9rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border-radius:4px;text-decoration:none;margin-bottom:1.25rem;transition:background 0.2s"
-            onmouseover="this.style.background='var(--green-d)';this.style.color='var(--white)'"
-            onmouseout="this.style.background='var(--green)';this.style.color='var(--black)'">
-            Acessar Formulário de Inscrição
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <div style="display:flex;flex-direction:column;gap:1rem">
-            <div style="border:1px solid rgba(0,166,81,0.2);border-left:3px solid var(--green);border-radius:6px;padding:1rem 1.25rem;background:rgba(0,166,81,0.04)">
-                <p style="font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--green);margin:0 0 0.4rem">1ª Etapa — Teste de Nivelamento</p>
-                <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.65;margin:0">Avaliação <strong style="color:var(--white)">não eliminatória</strong> com o objetivo de identificar seu nível atual de conhecimento em programação. Não é necessário saber tudo — queremos apenas compreender seu ponto de partida.</p>
-            </div>
-            <div style="border:1px solid rgba(255,255,255,0.08);border-left:3px solid rgba(255,255,255,0.2);border-radius:6px;padding:1rem 1.25rem;background:rgba(255,255,255,0.02)">
-                <p style="font-family:var(--font-head);font-size:0.72rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,245,240,0.6);margin:0 0 0.4rem">2ª Etapa — Entrevista</p>
-                <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.65;margin:0">Conversa individual para conhecer melhor você, suas motivações e seu perfil. O objetivo é avaliar sua afinidade com a área de Engenharia de Software e com a Liga.</p>
-            </div>
-        </div>
-    `;
-}
-
-function getModalFase3() {
-    return `
-        <div style="text-align:center;padding:0.5rem 0 1.5rem">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:1rem"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <span style="font-family:var(--font-head);font-size:0.7rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:0.5rem">Inscrições Encerradas</span>
-            <h2 style="font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.2rem);color:var(--white);line-height:1.1;margin-bottom:0.75rem">Processo encerrado</h2>
-            <p style="font-size:0.88rem;color:var(--gray-lt);line-height:1.7;max-width:400px;margin:0 auto">O cadastro para esta edição foi encerrado. O ingresso na LES é <strong style="color:var(--white)">semestral</strong> — a próxima turma abrirá inscrições em breve.</p>
-        </div>
-        <p style="font-size:0.8rem;color:rgba(245,245,240,0.35);text-align:center;margin-top:0.5rem">Fique de olho no Instagram <strong style="color:rgba(245,245,240,0.55)">@les.ifpe</strong> para não perder a próxima edição.</p>
-    `;
-}
-
 /* Utilitários da contagem */
 let ingressoFaseAtual = null;
 
@@ -1472,13 +1393,6 @@ function updateIngressoCountdown() {
 
 updateIngressoCountdown();
 const ingressoTimer = setInterval(updateIngressoCountdown, 1000);
-
-$ctaBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    if (ingressoFaseAtual === 1) openIngressoModal(getModalFase1());
-    else if (ingressoFaseAtual === 2) openIngressoModal(getModalFase2());
-    else if (ingressoFaseAtual === 3) openIngressoModal(getModalFase3());
-});
 
 
 /* ────────────────────────────────────────────────────────────
@@ -1690,7 +1604,6 @@ document.addEventListener('keydown', e => {
     if (memberModal.classList.contains('open')) closeMemberModal();
     else if (eventModal.classList.contains('open')) closeEventModal();
     else if (teamOverviewModal.classList.contains('open')) closeTeamOverviewModal();
-    else if ($ingressoModal.classList.contains('open')) closeIngressoModal();
 });
 
 
