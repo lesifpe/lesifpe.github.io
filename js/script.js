@@ -769,84 +769,131 @@ slideTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
 
 
 /* ────────────────────────────────────────────────────────────
-   B3 · CARROSSEL DE PROJETOS
-   Drag + Touch com fallback para scroll vertical da página.
+   B3 · CARROSSEL DE PROJETOS (COVERFLOW CENTRALIZADO)
    ──────────────────────────────────────────────────────────── */
 const track = document.getElementById('projectsTrack');
+const container = document.querySelector('.projects-track-container');
 const dotsWrap = document.getElementById('carouselDots');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
+const cards = Array.from(track.querySelectorAll('.project-card'));
 
 let currentIndex = 0;
 let isDragging = false;
 let startX = 0;
 let currentX = 0;
-let initialScrollY = 0;
-let cardWidth = 0;
 
-function getCardWidth() {
-    const card = track.querySelector('.project-card');
-    return card ? card.getBoundingClientRect().width + 24 : 320;
-}
+function updateCarousel() {
+    if (cards.length === 0) return;
 
-function updateCarousel(smooth = true) {
-    cardWidth = getCardWidth();
-    track.style.transition = smooth ? 'transform 0.45s cubic-bezier(0.32, 0.72, 0, 1)' : 'none';
-    track.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
+    const containerWidth = container.getBoundingClientRect().width;
+    const activeCard = cards[currentIndex];
+    
+    // Atualiza classe ativa nos cards
+    cards.forEach((card, index) => {
+        card.classList.toggle('active', index === currentIndex);
+    });
+
+    // Calcula a posição centralizada do card ativo
+    const cardRect = activeCard.getBoundingClientRect();
+    const cardWidth = activeCard.offsetWidth;
+    const cardMarginLeft = parseFloat(window.getComputedStyle(activeCard).marginLeft) || 0;
+    
+    // Posição do centro do card em relação ao track
+    const cardCenter = activeCard.offsetLeft + (cardWidth / 2);
+    
+    // Deslocamento necessário para centralizar o card no container
+    const offset = (containerWidth / 2) - cardCenter;
+
+    track.style.transform = `translateX(${offset}px)`;
+
     updateDotsAndButtons();
 }
 
 function updateDotsAndButtons() {
     dotsWrap.querySelectorAll('.carousel-dot').forEach((dot, i) =>
         dot.classList.toggle('active', i === currentIndex));
+    
     prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex >= track.children.length - 1;
+    nextBtn.disabled = currentIndex === cards.length - 1;
 }
 
+// Eventos de Toque / Arraste (Touch & Mouse)
 function onTouchStart(e) {
-    if (e.touches.length > 1) return;
     isDragging = true;
-    startX = e.touches[0].clientX;
+    startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
     currentX = startX;
-    initialScrollY = window.scrollY;
     track.style.transition = 'none';
 }
 
 function onTouchMove(e) {
     if (!isDragging) return;
-    currentX = e.touches[0].clientX;
-    if (Math.abs(window.scrollY - initialScrollY) > 15) { isDragging = false; return; }
-    track.style.transform = `translateX(${-currentIndex * cardWidth + (currentX - startX)}px)`;
+    currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
 }
 
 function onTouchEnd() {
     if (!isDragging) return;
     isDragging = false;
+    
     const movedBy = currentX - startX;
-    const threshold = cardWidth * 0.25;
-    track.style.transition = 'transform 0.45s cubic-bezier(0.32, 0.72, 0, 1)';
-    if (movedBy < -threshold && currentIndex < track.children.length - 1) currentIndex++;
-    else if (movedBy > threshold && currentIndex > 0) currentIndex--;
+    const threshold = 50; // Sensibilidade do swipe em pixels
+
+    track.style.transition = 'transform 0.55s cubic-bezier(0.25, 1, 0.5, 1)';
+
+    if (movedBy < -threshold && currentIndex < cards.length - 1) {
+        currentIndex++;
+    } else if (movedBy > threshold && currentIndex > 0) {
+        currentIndex--;
+    }
+    
     updateCarousel();
 }
 
+// Event listeners de cliques
+prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+        currentIndex--;
+        updateCarousel();
+    }
+});
+
+nextBtn.addEventListener('click', () => {
+    if (currentIndex < cards.length - 1) {
+        currentIndex++;
+        updateCarousel();
+    }
+});
+
+// Suporte a gestos (Touch)
 track.addEventListener('touchstart', onTouchStart, { passive: true });
-track.addEventListener('touchmove', onTouchMove, { passive: false });
+track.addEventListener('touchmove', onTouchMove, { passive: true });
 track.addEventListener('touchend', onTouchEnd);
-prevBtn.addEventListener('click', () => { currentIndex--; updateCarousel(); });
-nextBtn.addEventListener('click', () => { currentIndex++; updateCarousel(); });
+
+// Permitir clicar nos cards das pontas para focar neles diretamente
+cards.forEach((card, i) => {
+    card.addEventListener('click', () => {
+        if (currentIndex !== i) {
+            currentIndex = i;
+            updateCarousel();
+        }
+    });
+});
 
 function createDots() {
     dotsWrap.innerHTML = '';
-    Array.from(track.children).forEach((_, i) => {
+    cards.forEach((_, i) => {
         const dot = document.createElement('button');
         dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
-        dot.addEventListener('click', () => { currentIndex = i; updateCarousel(); });
+        dot.addEventListener('click', () => { 
+            currentIndex = i; 
+            updateCarousel(); 
+        });
         dotsWrap.appendChild(dot);
     });
 }
 
-window.addEventListener('resize', () => updateCarousel());
+// Inicialização e responsividade
+window.addEventListener('resize', updateCarousel);
 createDots();
 updateCarousel();
 
