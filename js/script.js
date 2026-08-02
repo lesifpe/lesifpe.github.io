@@ -820,134 +820,221 @@ slideTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
 
 
 /* ────────────────────────────────────────────────────────────
-   B3 · CARROSSEL DE PROJETOS (COVERFLOW CENTRALIZADO)
+   B3 · CARROSSEL DE PROJETOS (TRANSIÇÃO DE ESTADOS FLUIDA)
    ──────────────────────────────────────────────────────────── */
 const track = document.getElementById('projectsTrack');
 const container = document.querySelector('.projects-track-container');
 const dotsWrap = document.getElementById('carouselDots');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
-const cards = Array.from(track.querySelectorAll('.project-card'));
 
-let currentIndex = 0;
-let isDragging = false;
-let startX = 0;
-let currentX = 0;
+const initialCards = Array.from(track.querySelectorAll('.project-card'));
+let isAnimating = false;
 
-function updateCarousel() {
+function updateCarousel(smooth = true) {
+    const cards = Array.from(track.querySelectorAll('.project-card'));
     if (cards.length === 0) return;
 
     const containerWidth = container.getBoundingClientRect().width;
-    const activeCard = cards[currentIndex];
     
-    // Atualiza classe ativa nos cards
+    // O card central (ativo) é sempre o do meio na fila visual
+    const activeIndex = Math.floor(cards.length / 2);
+    const activeCard = cards[activeIndex];
+
+    // Alterna os estados nos cards (ativo vs inativo)
     cards.forEach((card, index) => {
-        card.classList.toggle('active', index === currentIndex);
+        card.classList.toggle('active', index === activeIndex);
     });
 
-    // Calcula a posição centralizada do card ativo
-    const cardRect = activeCard.getBoundingClientRect();
     const cardWidth = activeCard.offsetWidth;
-    const cardMarginLeft = parseFloat(window.getComputedStyle(activeCard).marginLeft) || 0;
-    
-    // Posição do centro do card em relação ao track
     const cardCenter = activeCard.offsetLeft + (cardWidth / 2);
-    
-    // Deslocamento necessário para centralizar o card no container
     const offset = (containerWidth / 2) - cardCenter;
 
+    // Controla a suavidade da transição de movimento horizontal
+    track.style.transition = smooth ? 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
     track.style.transform = `translateX(${offset}px)`;
 
-    updateDotsAndButtons();
+    updateDots(activeCard);
 }
 
-function updateDotsAndButtons() {
-    dotsWrap.querySelectorAll('.carousel-dot').forEach((dot, i) =>
-        dot.classList.toggle('active', i === currentIndex));
+function rotateRight() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    // 1. Desativa a transição temporariamente para preparar o layout
+    track.style.transition = 'none';
+
+    // 2. Transfere o elemento fisicamente no DOM
+    const firstCard = track.firstElementChild;
+    track.appendChild(firstCard);
+
+    // 3. Recalcula a posição física atual mantendo o visual no mesmo lugar exato
+    const cards = Array.from(track.querySelectorAll('.project-card'));
+    const containerWidth = container.getBoundingClientRect().width;
+    const activeIndex = Math.floor(cards.length / 2);
     
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex === cards.length - 1;
+    // Calcula o offset do estado "anterior" (à direita)
+    const prevActiveCard = cards[activeIndex - 1];
+    const offsetStart = (containerWidth / 2) - (prevActiveCard.offsetLeft + (prevActiveCard.offsetWidth / 2));
+    
+    track.style.transform = `translateX(${offsetStart}px)`;
+
+    // Aplica os estados visuais nos cards
+    cards.forEach((card, index) => {
+        card.classList.toggle('active', index === activeIndex - 1);
+    });
+
+    // 4. No próximo frame, ativa a animação e desliza suavemente até o destino final
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            track.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
+            
+            cards.forEach((card, index) => {
+                card.classList.toggle('active', index === activeIndex);
+            });
+
+            const activeCard = cards[activeIndex];
+            const offsetEnd = (containerWidth / 2) - (activeCard.offsetLeft + (activeCard.offsetWidth / 2));
+            track.style.transform = `translateX(${offsetEnd}px)`;
+            updateDots(activeCard);
+
+            setTimeout(() => {
+                isAnimating = false;
+            }, 350);
+        });
+    });
 }
 
-// Eventos de Toque / Arraste (Touch & Mouse)
+function rotateLeft() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    track.style.transition = 'none';
+
+    const lastCard = track.lastElementChild;
+    track.insertBefore(lastCard, track.firstElementChild);
+
+    const cards = Array.from(track.querySelectorAll('.project-card'));
+    const containerWidth = container.getBoundingClientRect().width;
+    const activeIndex = Math.floor(cards.length / 2);
+
+    const nextActiveCard = cards[activeIndex + 1];
+    const offsetStart = (containerWidth / 2) - (nextActiveCard.offsetLeft + (nextActiveCard.offsetWidth / 2));
+    
+    track.style.transform = `translateX(${offsetStart}px)`;
+
+    cards.forEach((card, index) => {
+        card.classList.toggle('active', index === activeIndex + 1);
+    });
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            track.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
+            
+            cards.forEach((card, index) => {
+                card.classList.toggle('active', index === activeIndex);
+            });
+
+            const activeCard = cards[activeIndex];
+            const offsetEnd = (containerWidth / 2) - (activeCard.offsetLeft + (activeCard.offsetWidth / 2));
+            track.style.transform = `translateX(${offsetEnd}px)`;
+            updateDots(activeCard);
+
+            setTimeout(() => {
+                isAnimating = false;
+            }, 350);
+        });
+    });
+}
+
+// Ouvintes de evento das setas
+nextBtn?.addEventListener('click', rotateRight);
+prevBtn?.addEventListener('click', rotateLeft);
+
+// Gestos Touch / Arraste
+let startX = 0;
+let isDragging = false;
+
 function onTouchStart(e) {
+    if (isAnimating) return;
     isDragging = true;
     startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-    currentX = startX;
-    track.style.transition = 'none';
 }
 
-function onTouchMove(e) {
-    if (!isDragging) return;
-    currentX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-}
-
-function onTouchEnd() {
+function onTouchEnd(e) {
     if (!isDragging) return;
     isDragging = false;
-    
-    const movedBy = currentX - startX;
-    const threshold = 50; // Sensibilidade do swipe em pixels
+    const endX = e.type.includes('mouse') ? e.clientX : e.changedTouches[0].clientX;
+    const movedBy = endX - startX;
 
-    track.style.transition = 'transform 0.55s cubic-bezier(0.25, 1, 0.5, 1)';
-
-    if (movedBy < -threshold && currentIndex < cards.length - 1) {
-        currentIndex++;
-    } else if (movedBy > threshold && currentIndex > 0) {
-        currentIndex--;
+    if (movedBy < -40) {
+        rotateRight();
+    } else if (movedBy > 40) {
+        rotateLeft();
     }
-    
-    updateCarousel();
 }
 
-// Event listeners de cliques
-prevBtn.addEventListener('click', () => {
-    if (currentIndex > 0) {
-        currentIndex--;
-        updateCarousel();
-    }
-});
-
-nextBtn.addEventListener('click', () => {
-    if (currentIndex < cards.length - 1) {
-        currentIndex++;
-        updateCarousel();
-    }
-});
-
-// Suporte a gestos (Touch)
 track.addEventListener('touchstart', onTouchStart, { passive: true });
-track.addEventListener('touchmove', onTouchMove, { passive: true });
 track.addEventListener('touchend', onTouchEnd);
+track.addEventListener('mousedown', onTouchStart);
+track.addEventListener('mouseup', onTouchEnd);
 
-// Permitir clicar nos cards das pontas para focar neles diretamente
-cards.forEach((card, i) => {
-    card.addEventListener('click', () => {
-        if (currentIndex !== i) {
-            currentIndex = i;
-            updateCarousel();
-        }
-    });
+track.addEventListener('click', (e) => {
+    const cardClicked = e.target.closest('.project-card');
+    if (!cardClicked || cardClicked.classList.contains('active') || isAnimating) return;
+
+    const cards = Array.from(track.querySelectorAll('.project-card'));
+    const clickedIndex = cards.indexOf(cardClicked);
+    const activeIndex = Math.floor(cards.length / 2);
+
+    if (clickedIndex > activeIndex) {
+        rotateRight();
+    } else if (clickedIndex < activeIndex) {
+        rotateLeft();
+    }
 });
 
 function createDots() {
+    if (!dotsWrap) return;
     dotsWrap.innerHTML = '';
-    cards.forEach((_, i) => {
+    initialCards.forEach((card, i) => {
         const dot = document.createElement('button');
         dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
-        dot.addEventListener('click', () => { 
-            currentIndex = i; 
-            updateCarousel(); 
+        dot.dataset.title = card.querySelector('.project-title')?.textContent.trim() || '';
+        
+        dot.addEventListener('click', () => {
+            if (isAnimating) return;
+            const currentCards = Array.from(track.querySelectorAll('.project-card'));
+            const targetCard = currentCards.find(c => c.querySelector('.project-title')?.textContent.trim() === dot.dataset.title);
+            const targetIndex = currentCards.indexOf(targetCard);
+            const activeIndex = Math.floor(currentCards.length / 2);
+            
+            const diff = targetIndex - activeIndex;
+            if (diff > 0) {
+                rotateRight();
+            } else if (diff < 0) {
+                rotateLeft();
+            }
         });
         dotsWrap.appendChild(dot);
     });
 }
 
-// Inicialização e responsividade
-window.addEventListener('resize', updateCarousel);
-createDots();
-updateCarousel();
+function updateDots(activeCard) {
+    if (!dotsWrap) return;
+    const activeTitle = activeCard.querySelector('.project-title')?.textContent.trim();
+    dotsWrap.querySelectorAll('.carousel-dot').forEach(dot => {
+        dot.classList.toggle('active', dot.dataset.title === activeTitle);
+    });
+}
 
+window.addEventListener('resize', () => updateCarousel(false));
+createDots();
+
+if (initialCards.length > 2) {
+    track.insertBefore(track.lastElementChild, track.firstElementChild);
+}
+updateCarousel(false);
 
 /* ────────────────────────────────────────────────────────────
    B4 · MODAL DE PERFIL INDIVIDUAL (#member-modal)
@@ -1685,14 +1772,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tag.textContent = title;
         el.insertBefore(tag, el.firstChild);
     });
-
-
-    /* 6. Destaque accent no H1 do Hero */
-    const h1 = document.querySelector('.LIGA h1');
-    if (h1) {
-        const text = h1.textContent;
-        h1.innerHTML = text.replace('LIGA', '<span class="accent">LIGA</span>');
-    }
 
 
     /* 7. Smooth scroll nos links do menu */
