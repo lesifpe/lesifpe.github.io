@@ -1037,6 +1037,76 @@ if (initialCards.length > 2) {
 updateCarousel(false);
 
 /* ────────────────────────────────────────────────────────────
+   B3.1 · CARROSSEL DE EVENTOS (MOVIMENTAÇÃO SIMPLES)
+   ──────────────────────────────────────────────────────────── */
+const eventsTrack = document.getElementById('eventsTrack');
+const eventsContainer = document.querySelector('.events-track-container');
+const eventsDotsWrap = document.getElementById('eventsDots');
+const eventsPrevBtn = document.getElementById('eventsPrevBtn');
+const eventsNextBtn = document.getElementById('eventsNextBtn');
+
+let currentEventIndex = 0;
+
+function updateEventsCarousel() {
+    if (!eventsTrack) return;
+    const cards = Array.from(eventsTrack.querySelectorAll('.event-card-vertical'));
+    if (cards.length === 0) return;
+
+    // Limita o índice entre 0 e a quantidade de cards
+    currentEventIndex = Math.max(0, Math.min(currentEventIndex, cards.length - 1));
+
+    const card = cards[0];
+    const cardWidth = card.offsetWidth;
+    const gap = parseFloat(window.getComputedStyle(eventsTrack).gap) || 32;
+    
+    // Desloca para o card selecionado de forma direta e limpa
+    const offset = -(currentEventIndex * (cardWidth + gap));
+    eventsTrack.style.transform = `translateX(${offset}px)`;
+
+    // Atualiza os dots
+    if (eventsDotsWrap) {
+        const dots = eventsDotsWrap.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === currentEventIndex);
+        });
+    }
+
+    // Desabilita os botões nas extremidades
+    if (eventsPrevBtn) eventsPrevBtn.disabled = currentEventIndex === 0;
+    if (eventsNextBtn) eventsNextBtn.disabled = currentEventIndex === cards.length - 1;
+}
+
+eventsNextBtn?.addEventListener('click', () => {
+    currentEventIndex++;
+    updateEventsCarousel();
+});
+
+eventsPrevBtn?.addEventListener('click', () => {
+    currentEventIndex--;
+    updateEventsCarousel();
+});
+
+function createEventsDots() {
+    if (!eventsDotsWrap || !eventsTrack) return;
+    eventsDotsWrap.innerHTML = '';
+    const cards = Array.from(eventsTrack.querySelectorAll('.event-card-vertical'));
+    
+    cards.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+        dot.addEventListener('click', () => {
+            currentEventIndex = i;
+            updateEventsCarousel();
+        });
+        eventsDotsWrap.appendChild(dot);
+    });
+}
+
+createEventsDots();
+window.addEventListener('resize', updateEventsCarousel);
+updateEventsCarousel();
+
+/* ────────────────────────────────────────────────────────────
    B4 · MODAL DE PERFIL INDIVIDUAL (#member-modal)
    ──────────────────────────────────────────────────────────── */
 const memberModal = document.getElementById('member-modal');
@@ -1401,69 +1471,76 @@ teamOverviewModal.addEventListener('click', e => {
 })();
 
 /* ────────────────────────────────────────────────────────────
-   B6 · MODAL DE EVENTOS
+   B6 · MODAL DE EVENTOS (COM RENDERIZAÇÃO DINÂMICA DE PALESTRANTES)
    ──────────────────────────────────────────────────────────── */
 const eventModal = document.getElementById('event-modal');
 const eventClose = document.getElementById('event-modal-close');
 
-/* ── B6a · Injeta coluna de data em todos os eventos ──────
-   Lê data-data (vigente) e, se existir data-data-original,
-   monta o badge de alteração. Manutenção: só editar os
-   atributos no HTML — o JS cuida da renderização.
-   ──────────────────────────────────────────────────────────── */
-document.querySelectorAll('.eventos1, .eventos2').forEach(ev => {
-    const dateEl = document.createElement('p');
-    dateEl.className = 'evento-data-col';
-    dateEl.textContent = '09/06/2026';
+function renderEventSpeakers(speakersData) {
+    const listEl = document.getElementById('event-modal-speakers-list');
+    if (!listEl) return;
 
-    ev.appendChild(dateEl);
-});
+    listEl.innerHTML = '';
 
-function renderEventSpeakers() {
-    document.querySelectorAll('.event-modal-speaker').forEach(speaker => {
-        const name = speaker.dataset.name || 'Palestrante';
-        const photo = speaker.dataset.photo || '';
-        const imgEl = speaker.querySelector('.event-modal-speaker-photo');
-        const nameEl = speaker.querySelector('.event-modal-speaker-name');
+    if (!speakersData || speakersData.length === 0) {
+        document.querySelector('.event-modal-speakers')?.style.setProperty('display', 'none');
+        return;
+    }
 
-        if (imgEl) {
-            if (photo) {
-                imgEl.src = photo;
-                imgEl.alt = name;
-            } else {
-                imgEl.removeAttribute('src');
-                imgEl.alt = name;
-            }
-        }
+    document.querySelector('.event-modal-speakers')?.style.setProperty('display', 'block');
 
-        if (nameEl) {
-            nameEl.textContent = name;
-        }
+    speakersData.forEach(speaker => {
+        const speakerDiv = document.createElement('div');
+        speakerDiv.className = 'event-modal-speaker';
+
+        speakerDiv.innerHTML = `
+            <img class="event-modal-speaker-photo" src="${speaker.photo}" alt="${speaker.name}" onerror="this.src='assets/imagens/logos/leslogowithouttext.png'">
+            <span class="event-modal-speaker-name">${speaker.name}</span>
+        `;
+
+        listEl.appendChild(speakerDiv);
     });
 }
 
-/* ── B6b · Abre modal de evento ───────────────────────────── */
 function openEventModal(el) {
     const titulo = el.dataset.titulo || '';
     const tipo   = el.dataset.tipo || 'evento';
     const desc   = el.dataset.descricao || '';
-    const imgSrc = el.querySelector('img')?.src || '';
-    const imgAlt = el.querySelector('img')?.alt || '';
+    const data   = el.dataset.data || 'xx/xx/xxxx';
+    const local  = el.dataset.local || 'IFPE Campus Recife';
+    
+    // Prioriza a imagem definida no data-img-modal; se não houver, pega a imagem da visão geral
+    const imgSrc = el.dataset.imgModal || el.querySelector('.event-card-img')?.src || el.querySelector('img')?.src || '';
+    const imgAlt = el.querySelector('.event-card-img')?.alt || el.querySelector('img')?.alt || '';
 
+    let palestrantes = [];
+    try {
+        palestrantes = JSON.parse(el.dataset.palestrantes || '[]');
+    } catch (e) {
+        console.error('Erro ao converter JSON de palestrantes:', e);
+    }
+
+    // Preenche a imagem do modal expandido com a nova foto definida
     document.getElementById('event-modal-img').src = imgSrc;
     document.getElementById('event-modal-img').alt = imgAlt;
     document.getElementById('event-modal-title').textContent = titulo;
 
     const dateEl = document.getElementById('event-modal-date');
-    dateEl.textContent = '09/06/2026';
+    if (dateEl) dateEl.textContent = data;
+
+    const locationEl = document.getElementById('event-modal-location');
+    if (locationEl) locationEl.textContent = local;
 
     document.getElementById('event-modal-desc').textContent = desc;
 
     const typeEl = document.getElementById('event-modal-type');
-    typeEl.textContent = tipo.toUpperCase();
-    typeEl.className = 'event-modal-type' + (tipo === 'evento' ? ' tipo-evento' : '');
+    if (typeEl) {
+        typeEl.textContent = tipo.toUpperCase();
+        typeEl.className = 'event-modal-type' + (tipo === 'evento' || tipo === 'curso' ? ' tipo-evento' : '');
+    }
 
-    renderEventSpeakers();
+    renderEventSpeakers(palestrantes);
+
     eventModal.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
@@ -1473,13 +1550,13 @@ function closeEventModal() {
     document.body.style.overflow = '';
 }
 
-document.querySelectorAll('.eventos1, .eventos2').forEach(ev => {
+/* Associa o clique apenas aos cards que possuem atributos de evento */
+document.querySelectorAll('.event-card-vertical[data-titulo], .eventos1, .eventos2').forEach(ev => {
     ev.addEventListener('click', () => openEventModal(ev));
 });
 
-eventClose.addEventListener('click', closeEventModal);
-eventModal.addEventListener('click', e => { if (e.target === eventModal) closeEventModal(); });
-
+eventClose?.addEventListener('click', closeEventModal);
+eventModal?.addEventListener('click', e => { if (e.target === eventModal) closeEventModal(); });
 const galeriaAlbunsWrap = document.getElementById('galeriaAlbunsWrap');
 
 const galeriaAlbumModal      = document.getElementById('galeria-album-modal');

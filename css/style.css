@@ -1397,17 +1397,13 @@ main > section[id] > p {
 
 
 /* ─────────────────────────────────────────────────────────────
-   11 · CALENDÁRIO E EVENTOS
-   CORRIGIDO: pseudo-elementos ::before e ::after separados
-   para borda lateral e badge de tipo
+   11 · CALENDÁRIO E EVENTOS (CARROSSEL SIMPLES DE CARDS VERTICAIS)
 ───────────────────────────────────────────────────────────── */
+#calendario_atividades {
+    background: var(--black);
+    padding: 6rem 2.5rem 3rem 2.5rem;
+}
 
-
-
-#calendario_atividades { background: var(--black); }
-
-/* Sobrescreve a barra lateral genérica para o calendário
-   (que tem ::before já definido pela section[id]) */
 #calendario_atividades::before {
     content: '';
     position: absolute;
@@ -1419,162 +1415,234 @@ main > section[id] > p {
     pointer-events: none;
 }
 
-.eventos1, .eventos2 {
+/* Wrapper principal do carrossel de eventos */
+.events-carousel-wrap {
     position: relative;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
+    display: flex;
     align-items: center;
-    gap: 1.5rem;
-    padding: 1.4rem 1.75rem 1.4rem 2.25rem; /* padding-left extra para a borda */
-    margin-top: 1.2rem;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: border-color 0.3s, transform 0.3s, background 0.3s;
-    cursor: pointer;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.events-track-container {
+    width: 100%;
     overflow: hidden;
+    padding: 1.5rem 0;
 }
 
-/* Borda lateral colorida via ::before */
-.eventos1::before, .eventos2::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 4px;
-    pointer-events: none;
+.events-track {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
 }
 
-.eventos1::before { background: var(--green); }
-.eventos2::before { background: var(--red); }
-
-.eventos1:hover, .eventos2:hover {
-    border-color: rgba(0, 166, 81, 0.35);
-    transform: translateX(6px);
-    background: rgba(0, 166, 81, 0.04);
-}
-.eventos2:hover { border-color: rgba(204, 0, 0, 0.35); background: rgba(204, 0, 0, 0.04); }
-
-.eventos1 img, .eventos2 img {
-    width: 80px; height: 80px;
-    object-fit: cover;
-    border-radius: 6px;
-    flex-shrink: 0;
-    order: -1;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.eventos1 p, .eventos2 p {
-    font-family: var(--font-head);
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    color: rgba(245, 245, 240, 0.85);
-    line-height: 1.4;
-}
-
-.eventos1 p:last-child, .eventos2 p:last-child {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: var(--gray-lt);
-    white-space: nowrap;
-    text-align: right;
-}
-
-/* CORRIGIDO: badges de tipo via ::after no elemento .eventos,
-   não ::before (já usado pela borda lateral) */
-.eventos1 p:first-of-type::before {
-    content: 'WORKSHOP';
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    color: var(--black);
-    background: var(--green);
-    padding: 0.15rem 0.55rem;
-    border-radius: 2px;
-    margin-right: 0.75rem;
-    vertical-align: middle;
-}
-
-.eventos2 p:first-of-type::before {
-    content: 'EVENTO';
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    color: var(--white);
-    background: var(--red);
-    padding: 0.15rem 0.55rem;
-    border-radius: 2px;
-    margin-right: 0.75rem;
-    vertical-align: middle;
-}
-
-/* ── Badge de data alterada — injetado via JS ─────────── */
-.evento-data-col {
+/* Card Vertical Base com tamanho fixo */
+.event-card-vertical {
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 0.25rem;
-    text-align: right;
+    flex: 0 0 350px;
+    max-width: 85vw;
+    height: 480px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #111;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition: transform 0.35s var(--ease-smooth), border-color 0.35s, box-shadow 0.35s;
 }
 
-.evento-data-riscada {
-    font-family: var(--font-head);
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: var(--gray-lt);
-    text-decoration: line-through;
-    text-decoration-color: var(--red);
-    white-space: nowrap;
+.event-card-vertical:hover {
+    transform: translateY(-8px);
+    border-color: rgba(0, 166, 81, 0.4);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 166, 81, 0.15);
 }
 
-.evento-badge-alterada {
-    display: inline-block;
+/* Imagem de Fundo + Gradiente Integrado */
+.event-card-img-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.event-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.85);
+    transition: transform 0.5s var(--ease-smooth);
+}
+
+.event-card-vertical:hover .event-card-img {
+    transform: scale(1.05);
+}
+
+.event-card-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 10, 0.1) 0%,
+        rgba(10, 10, 10, 0.4) 40%,
+        rgba(10, 10, 10, 0.95) 80%,
+        rgba(10, 10, 10, 1) 100%
+    );
+}
+
+.event-card-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    padding: 2rem 1.75rem 1.75rem;
+    gap: 1rem;
+}
+
+.event-card-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.event-card-badge {
     font-family: var(--font-head);
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     font-weight: 700;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--white);
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+}
+
+.badge-type {
+    background: var(--green);
+    color: var(--black);
+}
+
+.badge-type-curso {
     background: var(--red);
-    padding: 0.12rem 0.5rem;
-    border-radius: 2px;
-    animation: pulse-green 2.5s ease infinite;
-    animation-name: pulse-red;
-    white-space: nowrap;
-}
-
-@keyframes pulse-red {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(204, 0, 0, 0.4); }
-    50%       { box-shadow: 0 0 0 6px rgba(204, 0, 0, 0); }
-}
-
-.evento-data-nova {
-    font-family: var(--font-head);
-    font-size: 0.88rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
     color: var(--white);
-    white-space: nowrap;
 }
 
-/* Mobile: alinha à esquerda quando o card vira coluna */
-@media (max-width: 480px) {
-    .evento-data-col { align-items: flex-start; text-align: left; }
+.badge-status {
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--white);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 600px) {
-    .event-modal-speakers-list {
-        grid-template-columns: 1fr;
+.event-card-title {
+    font-family: var(--font-head);
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.25;
+}
+
+.event-card-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    margin-top: 0.5rem;
+    border-radius: 999px;
+    border: none;
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--font-head);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s, transform 0.25s var(--ease-smooth), box-shadow 0.3s;
+}
+
+.event-card-btn svg {
+    transition: transform 0.3s var(--ease-smooth);
+}
+
+.event-card-vertical:hover .event-card-btn {
+    background: var(--green);
+    color: var(--black);
+    box-shadow: 0 4px 20px rgba(0, 166, 81, 0.4);
+}
+
+.event-card-vertical:hover .event-card-btn svg {
+    transform: translateX(4px);
+}
+
+/* ── CARD PLACEHOLDER ── */
+.event-card-placeholder {
+    cursor: default;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+.event-card-placeholder:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 166, 81, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.event-card-placeholder-bg {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 30%, rgba(0, 166, 81, 0.08) 0%, rgba(10, 10, 10, 0.95) 70%);
+}
+
+.event-card-placeholder-content {
+    align-items: center;
+    text-align: center;
+    padding: 2.5rem 2rem 2.5rem;
+}
+
+.event-card-placeholder-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(0, 166, 81, 0.1);
+    border: 1px solid rgba(0, 166, 81, 0.25);
+    color: var(--green);
+    margin-bottom: 0.5rem;
+    box-shadow: 0 0 20px rgba(0, 166, 81, 0.15);
+}
+
+.badge-type-embreve {
+    background: rgba(0, 166, 81, 0.15);
+    color: var(--green);
+    border: 1px solid rgba(0, 166, 81, 0.3);
+}
+
+.event-card-subtitle {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--gray-lt);
+    margin-top: -0.25rem;
+}
+
+@media (max-width: 768px) {
+    #calendario_atividades {
+        padding: 4rem 1.25rem 1.5rem 1.25rem;
     }
-
-    .event-modal-meta {
-        flex-direction: column;
-        align-items: flex-start;
+    .event-card-vertical {
+        flex: 0 0 300px;
+        height: 440px;
     }
 }
+
 /* ─────────────────────────────────────────────────────────────
    12 · MODAL DE EVENTO
    CORRIGIDO: height fixo removido, substituído por max-height
@@ -1713,16 +1781,18 @@ main > section[id] > p {
 }
 
 .event-modal-speakers-list {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
+    display: flex; /* ou grid com alinhamento */
+    flex-wrap: wrap;
+    justify-content: center; /* Centraliza os palestrantes horizontalmente */
+    align-items: center;
+    gap: 9rem;
+    margin: 0 auto;
 }
 
 .event-modal-speaker {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
+    align-items: center; /* Centraliza foto e nome individualmente */
     text-align: center;
 }
 
@@ -1761,6 +1831,59 @@ main > section[id] > p {
 
 .event-modal-close:hover { transform: rotate(90deg); background: rgba(204, 0, 0, 0.4); }
 
+/* ── CARD PLACEHOLDER (MAIS EVENTOS) ── */
+.event-card-placeholder {
+    cursor: default;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+.event-card-placeholder:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 166, 81, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Fundo sutil com gradiente em padrão técnico */
+.event-card-placeholder-bg {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 30%, rgba(0, 166, 81, 0.08) 0%, rgba(10, 10, 10, 0.95) 70%);
+}
+
+.event-card-placeholder-content {
+    align-items: center;
+    text-align: center;
+    padding: 2.5rem 2rem 2.5rem;
+}
+
+/* Ícone de calendário com brilho suave em verde */
+.event-card-placeholder-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(0, 166, 81, 0.1);
+    border: 1px solid rgba(0, 166, 81, 0.25);
+    color: var(--green);
+    margin-bottom: 0.5rem;
+    box-shadow: 0 0 20px rgba(0, 166, 81, 0.15);
+}
+
+/* Tag EM BREVE */
+.badge-type-embreve {
+    background: rgba(0, 166, 81, 0.15);
+    color: var(--green);
+    border: 1px solid rgba(0, 166, 81, 0.3);
+}
+
+.event-card-subtitle {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--gray-lt);
+    margin-top: -0.25rem;
+}
 
 /* ─────────────────────────────────────────────────────────────
    13 · SEÇÃO INGRESSO (CTA)
