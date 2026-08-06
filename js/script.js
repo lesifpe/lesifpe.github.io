@@ -820,87 +820,291 @@ slideTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
 
 
 /* ────────────────────────────────────────────────────────────
-   B3 · CARROSSEL DE PROJETOS
-   Drag + Touch com fallback para scroll vertical da página.
+   B3 · CARROSSEL DE PROJETOS (TRANSIÇÃO DE ESTADOS FLUIDA)
    ──────────────────────────────────────────────────────────── */
 const track = document.getElementById('projectsTrack');
+const container = document.querySelector('.projects-track-container');
 const dotsWrap = document.getElementById('carouselDots');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 
-let currentIndex = 0;
-let isDragging = false;
-let startX = 0;
-let currentX = 0;
-let initialScrollY = 0;
-let cardWidth = 0;
-
-function getCardWidth() {
-    const card = track.querySelector('.project-card');
-    return card ? card.getBoundingClientRect().width + 24 : 320;
-}
+const initialCards = Array.from(track.querySelectorAll('.project-card'));
+let isAnimating = false;
 
 function updateCarousel(smooth = true) {
-    cardWidth = getCardWidth();
-    track.style.transition = smooth ? 'transform 0.45s cubic-bezier(0.32, 0.72, 0, 1)' : 'none';
-    track.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
-    updateDotsAndButtons();
+    const cards = Array.from(track.querySelectorAll('.project-card'));
+    if (cards.length === 0) return;
+
+    const containerWidth = container.getBoundingClientRect().width;
+    
+    // O card central (ativo) é sempre o do meio na fila visual
+    const activeIndex = Math.floor(cards.length / 2);
+    const activeCard = cards[activeIndex];
+
+    // Alterna os estados nos cards (ativo vs inativo)
+    cards.forEach((card, index) => {
+        card.classList.toggle('active', index === activeIndex);
+    });
+
+    const cardWidth = activeCard.offsetWidth;
+    const cardCenter = activeCard.offsetLeft + (cardWidth / 2);
+    const offset = (containerWidth / 2) - cardCenter;
+
+    // Controla a suavidade da transição de movimento horizontal
+    track.style.transition = smooth ? 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
+    track.style.transform = `translateX(${offset}px)`;
+
+    updateDots(activeCard);
 }
 
-function updateDotsAndButtons() {
-    dotsWrap.querySelectorAll('.carousel-dot').forEach((dot, i) =>
-        dot.classList.toggle('active', i === currentIndex));
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex >= track.children.length - 1;
+function rotateRight() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    // 1. Desativa a transição temporariamente para preparar o layout
+    track.style.transition = 'none';
+
+    // 2. Transfere o elemento fisicamente no DOM
+    const firstCard = track.firstElementChild;
+    track.appendChild(firstCard);
+
+    // 3. Recalcula a posição física atual mantendo o visual no mesmo lugar exato
+    const cards = Array.from(track.querySelectorAll('.project-card'));
+    const containerWidth = container.getBoundingClientRect().width;
+    const activeIndex = Math.floor(cards.length / 2);
+    
+    // Calcula o offset do estado "anterior" (à direita)
+    const prevActiveCard = cards[activeIndex - 1];
+    const offsetStart = (containerWidth / 2) - (prevActiveCard.offsetLeft + (prevActiveCard.offsetWidth / 2));
+    
+    track.style.transform = `translateX(${offsetStart}px)`;
+
+    // Aplica os estados visuais nos cards
+    cards.forEach((card, index) => {
+        card.classList.toggle('active', index === activeIndex - 1);
+    });
+
+    // 4. No próximo frame, ativa a animação e desliza suavemente até o destino final
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            track.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
+            
+            cards.forEach((card, index) => {
+                card.classList.toggle('active', index === activeIndex);
+            });
+
+            const activeCard = cards[activeIndex];
+            const offsetEnd = (containerWidth / 2) - (activeCard.offsetLeft + (activeCard.offsetWidth / 2));
+            track.style.transform = `translateX(${offsetEnd}px)`;
+            updateDots(activeCard);
+
+            setTimeout(() => {
+                isAnimating = false;
+            }, 350);
+        });
+    });
 }
+
+function rotateLeft() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    track.style.transition = 'none';
+
+    const lastCard = track.lastElementChild;
+    track.insertBefore(lastCard, track.firstElementChild);
+
+    const cards = Array.from(track.querySelectorAll('.project-card'));
+    const containerWidth = container.getBoundingClientRect().width;
+    const activeIndex = Math.floor(cards.length / 2);
+
+    const nextActiveCard = cards[activeIndex + 1];
+    const offsetStart = (containerWidth / 2) - (nextActiveCard.offsetLeft + (nextActiveCard.offsetWidth / 2));
+    
+    track.style.transform = `translateX(${offsetStart}px)`;
+
+    cards.forEach((card, index) => {
+        card.classList.toggle('active', index === activeIndex + 1);
+    });
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            track.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
+            
+            cards.forEach((card, index) => {
+                card.classList.toggle('active', index === activeIndex);
+            });
+
+            const activeCard = cards[activeIndex];
+            const offsetEnd = (containerWidth / 2) - (activeCard.offsetLeft + (activeCard.offsetWidth / 2));
+            track.style.transform = `translateX(${offsetEnd}px)`;
+            updateDots(activeCard);
+
+            setTimeout(() => {
+                isAnimating = false;
+            }, 350);
+        });
+    });
+}
+
+// Ouvintes de evento das setas
+nextBtn?.addEventListener('click', rotateRight);
+prevBtn?.addEventListener('click', rotateLeft);
+
+// Gestos Touch / Arraste
+let startX = 0;
+let isDragging = false;
 
 function onTouchStart(e) {
-    if (e.touches.length > 1) return;
+    if (isAnimating) return;
     isDragging = true;
-    startX = e.touches[0].clientX;
-    currentX = startX;
-    initialScrollY = window.scrollY;
-    track.style.transition = 'none';
+    startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
 }
 
-function onTouchMove(e) {
-    if (!isDragging) return;
-    currentX = e.touches[0].clientX;
-    if (Math.abs(window.scrollY - initialScrollY) > 15) { isDragging = false; return; }
-    track.style.transform = `translateX(${-currentIndex * cardWidth + (currentX - startX)}px)`;
-}
-
-function onTouchEnd() {
+function onTouchEnd(e) {
     if (!isDragging) return;
     isDragging = false;
-    const movedBy = currentX - startX;
-    const threshold = cardWidth * 0.25;
-    track.style.transition = 'transform 0.45s cubic-bezier(0.32, 0.72, 0, 1)';
-    if (movedBy < -threshold && currentIndex < track.children.length - 1) currentIndex++;
-    else if (movedBy > threshold && currentIndex > 0) currentIndex--;
-    updateCarousel();
+    const endX = e.type.includes('mouse') ? e.clientX : e.changedTouches[0].clientX;
+    const movedBy = endX - startX;
+
+    if (movedBy < -40) {
+        rotateRight();
+    } else if (movedBy > 40) {
+        rotateLeft();
+    }
 }
 
 track.addEventListener('touchstart', onTouchStart, { passive: true });
-track.addEventListener('touchmove', onTouchMove, { passive: false });
 track.addEventListener('touchend', onTouchEnd);
-prevBtn.addEventListener('click', () => { currentIndex--; updateCarousel(); });
-nextBtn.addEventListener('click', () => { currentIndex++; updateCarousel(); });
+track.addEventListener('mousedown', onTouchStart);
+track.addEventListener('mouseup', onTouchEnd);
+
+track.addEventListener('click', (e) => {
+    const cardClicked = e.target.closest('.project-card');
+    if (!cardClicked || cardClicked.classList.contains('active') || isAnimating) return;
+
+    const cards = Array.from(track.querySelectorAll('.project-card'));
+    const clickedIndex = cards.indexOf(cardClicked);
+    const activeIndex = Math.floor(cards.length / 2);
+
+    if (clickedIndex > activeIndex) {
+        rotateRight();
+    } else if (clickedIndex < activeIndex) {
+        rotateLeft();
+    }
+});
 
 function createDots() {
+    if (!dotsWrap) return;
     dotsWrap.innerHTML = '';
-    Array.from(track.children).forEach((_, i) => {
+    initialCards.forEach((card, i) => {
         const dot = document.createElement('button');
         dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
-        dot.addEventListener('click', () => { currentIndex = i; updateCarousel(); });
+        dot.dataset.title = card.querySelector('.project-title')?.textContent.trim() || '';
+        
+        dot.addEventListener('click', () => {
+            if (isAnimating) return;
+            const currentCards = Array.from(track.querySelectorAll('.project-card'));
+            const targetCard = currentCards.find(c => c.querySelector('.project-title')?.textContent.trim() === dot.dataset.title);
+            const targetIndex = currentCards.indexOf(targetCard);
+            const activeIndex = Math.floor(currentCards.length / 2);
+            
+            const diff = targetIndex - activeIndex;
+            if (diff > 0) {
+                rotateRight();
+            } else if (diff < 0) {
+                rotateLeft();
+            }
+        });
         dotsWrap.appendChild(dot);
     });
 }
 
-window.addEventListener('resize', () => updateCarousel());
-createDots();
-updateCarousel();
+function updateDots(activeCard) {
+    if (!dotsWrap) return;
+    const activeTitle = activeCard.querySelector('.project-title')?.textContent.trim();
+    dotsWrap.querySelectorAll('.carousel-dot').forEach(dot => {
+        dot.classList.toggle('active', dot.dataset.title === activeTitle);
+    });
+}
 
+window.addEventListener('resize', () => updateCarousel(false));
+createDots();
+
+if (initialCards.length > 2) {
+    track.insertBefore(track.lastElementChild, track.firstElementChild);
+}
+updateCarousel(false);
+
+/* ────────────────────────────────────────────────────────────
+   B3.1 · CARROSSEL DE EVENTOS (MOVIMENTAÇÃO SIMPLES)
+   ──────────────────────────────────────────────────────────── */
+const eventsTrack = document.getElementById('eventsTrack');
+const eventsContainer = document.querySelector('.events-track-container');
+const eventsDotsWrap = document.getElementById('eventsDots');
+const eventsPrevBtn = document.getElementById('eventsPrevBtn');
+const eventsNextBtn = document.getElementById('eventsNextBtn');
+
+let currentEventIndex = 0;
+
+function updateEventsCarousel() {
+    if (!eventsTrack) return;
+    const cards = Array.from(eventsTrack.querySelectorAll('.event-card-vertical'));
+    if (cards.length === 0) return;
+
+    // Limita o índice entre 0 e a quantidade de cards
+    currentEventIndex = Math.max(0, Math.min(currentEventIndex, cards.length - 1));
+
+    const card = cards[0];
+    const cardWidth = card.offsetWidth;
+    const gap = parseFloat(window.getComputedStyle(eventsTrack).gap) || 32;
+    
+    // Desloca para o card selecionado de forma direta e limpa
+    const offset = -(currentEventIndex * (cardWidth + gap));
+    eventsTrack.style.transform = `translateX(${offset}px)`;
+
+    // Atualiza os dots
+    if (eventsDotsWrap) {
+        const dots = eventsDotsWrap.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === currentEventIndex);
+        });
+    }
+
+    // Desabilita os botões nas extremidades
+    if (eventsPrevBtn) eventsPrevBtn.disabled = currentEventIndex === 0;
+    if (eventsNextBtn) eventsNextBtn.disabled = currentEventIndex === cards.length - 1;
+}
+
+eventsNextBtn?.addEventListener('click', () => {
+    currentEventIndex++;
+    updateEventsCarousel();
+});
+
+eventsPrevBtn?.addEventListener('click', () => {
+    currentEventIndex--;
+    updateEventsCarousel();
+});
+
+function createEventsDots() {
+    if (!eventsDotsWrap || !eventsTrack) return;
+    eventsDotsWrap.innerHTML = '';
+    const cards = Array.from(eventsTrack.querySelectorAll('.event-card-vertical'));
+    
+    cards.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+        dot.addEventListener('click', () => {
+            currentEventIndex = i;
+            updateEventsCarousel();
+        });
+        eventsDotsWrap.appendChild(dot);
+    });
+}
+
+createEventsDots();
+window.addEventListener('resize', updateEventsCarousel);
+updateEventsCarousel();
 
 /* ────────────────────────────────────────────────────────────
    B4 · MODAL DE PERFIL INDIVIDUAL (#member-modal)
@@ -1267,69 +1471,75 @@ teamOverviewModal.addEventListener('click', e => {
 })();
 
 /* ────────────────────────────────────────────────────────────
-   B6 · MODAL DE EVENTOS
+   B6 · MODAL DE EVENTOS (COM RENDERIZAÇÃO DINÂMICA DE PALESTRANTES)
    ──────────────────────────────────────────────────────────── */
 const eventModal = document.getElementById('event-modal');
 const eventClose = document.getElementById('event-modal-close');
 
-/* ── B6a · Injeta coluna de data em todos os eventos ──────
-   Lê data-data (vigente) e, se existir data-data-original,
-   monta o badge de alteração. Manutenção: só editar os
-   atributos no HTML — o JS cuida da renderização.
-   ──────────────────────────────────────────────────────────── */
-document.querySelectorAll('.eventos1, .eventos2').forEach(ev => {
-    const dataVigente  = ev.dataset.data         || '';
-    const dataOriginal = ev.dataset.dataOriginal || '';
+function renderEventSpeakers(speakersData) {
+    const listEl = document.getElementById('event-modal-speakers-list');
+    if (!listEl) return;
 
-    const dateEl = document.createElement('p');
+    listEl.innerHTML = '';
 
-    if (dataOriginal && dataOriginal !== dataVigente) {
-        /* Data foi alterada → badge vermelho com riscado */
-        dateEl.className = 'evento-data-col';
-        dateEl.innerHTML = `
-            <span class="evento-data-riscada">${dataOriginal}</span>
-            <span class="evento-badge-alterada">Data Alterada</span>
-            <strong class="evento-data-nova">${dataVigente}</strong>
-        `;
-    } else {
-        /* Data normal → texto simples (mesmo estilo do p:last-child) */
-        dateEl.textContent = dataVigente;
+    if (!speakersData || speakersData.length === 0) {
+        document.querySelector('.event-modal-speakers')?.style.setProperty('display', 'none');
+        return;
     }
 
-    ev.appendChild(dateEl);
-});
+    document.querySelector('.event-modal-speakers')?.style.setProperty('display', 'block');
 
-/* ── B6b · Abre modal de evento ───────────────────────────── */
+    speakersData.forEach(speaker => {
+        const speakerDiv = document.createElement('div');
+        speakerDiv.className = 'event-modal-speaker';
+
+        speakerDiv.innerHTML = `
+            <img class="event-modal-speaker-photo" src="${speaker.photo}" alt="${speaker.name}" onerror="this.src='assets/imagens/logos/leslogowithouttext.png'">
+            <span class="event-modal-speaker-name">${speaker.name}</span>
+        `;
+
+        listEl.appendChild(speakerDiv);
+    });
+}
+
 function openEventModal(el) {
-    const titulo       = el.dataset.titulo       || '';
-    const dataVigente  = el.dataset.data         || '';
-    const dataOriginal = el.dataset.dataOriginal || '';
-    const tipo         = el.dataset.tipo         || 'evento';
-    const desc         = el.dataset.descricao    || '';
-    const imgSrc       = el.querySelector('img')?.src || '';
-    const imgAlt       = el.querySelector('img')?.alt || '';
+    const titulo = el.dataset.titulo || '';
+    const tipo   = el.dataset.tipo || 'evento';
+    const desc   = el.dataset.descricao || '';
+    const data   = el.dataset.data || 'xx/xx/xxxx';
+    const local  = el.dataset.local || 'IFPE Campus Recife';
+    
+    // Prioriza a imagem definida no data-img-modal; se não houver, pega a imagem da visão geral
+    const imgSrc = el.dataset.imgModal || el.querySelector('.event-card-img')?.src || el.querySelector('img')?.src || '';
+    const imgAlt = el.querySelector('.event-card-img')?.alt || el.querySelector('img')?.alt || '';
 
+    let palestrantes = [];
+    try {
+        palestrantes = JSON.parse(el.dataset.palestrantes || '[]');
+    } catch (e) {
+        console.error('Erro ao converter JSON de palestrantes:', e);
+    }
+
+    // Preenche a imagem do modal expandido com a nova foto definida
     document.getElementById('event-modal-img').src = imgSrc;
     document.getElementById('event-modal-img').alt = imgAlt;
     document.getElementById('event-modal-title').textContent = titulo;
 
-    /* Data no modal: riscada + nova se foi alterada */
     const dateEl = document.getElementById('event-modal-date');
-    if (dataOriginal && dataOriginal !== dataVigente) {
-        dateEl.innerHTML = `
-            <span style="text-decoration:line-through;color:var(--gray-lt);margin-right:0.5rem">${dataOriginal}</span>
-            <span style="color:var(--red)">→</span>
-            <span style="color:var(--green);margin-left:0.5rem">${dataVigente}</span>
-        `;
-    } else {
-        dateEl.textContent = dataVigente;
-    }
+    if (dateEl) dateEl.textContent = data;
+
+    const locationEl = document.getElementById('event-modal-location');
+    if (locationEl) locationEl.textContent = local;
 
     document.getElementById('event-modal-desc').textContent = desc;
 
     const typeEl = document.getElementById('event-modal-type');
-    typeEl.textContent = tipo.toUpperCase();
-    typeEl.className = 'event-modal-type' + (tipo === 'evento' ? ' tipo-evento' : '');
+    if (typeEl) {
+        typeEl.textContent = tipo.toUpperCase();
+        typeEl.className = 'event-modal-type' + (tipo === 'evento' || tipo === 'curso' ? ' tipo-evento' : '');
+    }
+
+    renderEventSpeakers(palestrantes);
 
     eventModal.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -1340,13 +1550,13 @@ function closeEventModal() {
     document.body.style.overflow = '';
 }
 
-document.querySelectorAll('.eventos1, .eventos2').forEach(ev => {
+/* Associa o clique apenas aos cards que possuem atributos de evento */
+document.querySelectorAll('.event-card-vertical[data-titulo], .eventos1, .eventos2').forEach(ev => {
     ev.addEventListener('click', () => openEventModal(ev));
 });
 
-eventClose.addEventListener('click', closeEventModal);
-eventModal.addEventListener('click', e => { if (e.target === eventModal) closeEventModal(); });
-
+eventClose?.addEventListener('click', closeEventModal);
+eventModal?.addEventListener('click', e => { if (e.target === eventModal) closeEventModal(); });
 const galeriaAlbunsWrap = document.getElementById('galeriaAlbunsWrap');
 
 const galeriaAlbumModal      = document.getElementById('galeria-album-modal');
@@ -1639,14 +1849,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tag.textContent = title;
         el.insertBefore(tag, el.firstChild);
     });
-
-
-    /* 6. Destaque accent no H1 do Hero */
-    const h1 = document.querySelector('.LIGA h1');
-    if (h1) {
-        const text = h1.textContent;
-        h1.innerHTML = text.replace('LIGA', '<span class="accent">LIGA</span>');
-    }
 
 
     /* 7. Smooth scroll nos links do menu */

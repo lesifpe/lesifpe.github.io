@@ -11,7 +11,7 @@
     <meta property="og:url" content="https://lesifpe.com.br">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <title>LES-IFPE | Liga de Engenharia de Software</title>
+    <title>LES - IFPE | Liga de Engenharia de Software</title>
     <link rel="icon" href="assets/imagens/logos/leslogowithouttext.png" type="image/png">
     <link rel="stylesheet" href="css/style.css">
 
@@ -81,178 +81,136 @@
         <!-- ══ PROJETOS — CARROSSEL ════════════════════════════ -->
         <section id="projetos">
             <h2>Projetos</h2>
-            <p>Soluções tecnológicas com impacto real desenvolvidas pela equipe LES.</p>
 
             <div class="projects-carousel-wrap">
-                <div class="projects-track" id="projectsTrack">
+                <!-- Botão Anterior (Esquerda) -->
+                <button class="carousel-btn carousel-btn-prev" id="prevBtn" aria-label="Anterior">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                </button>
 
-                    <div class="project-card project-featured">
-                        <div class="project-img-wrap">
-                            <img src="assets/imagens/capa/CAPA5.jpeg" alt="Projeto Principal LES" class="project-img">
-                            <div class="project-badge">EM ANDAMENTO</div>
-                        </div>
-                        <div class="project-body">
-                            <span class="project-tag">Projeto </span>
-                            <h3 class="project-title">AkiContrata</h3>
-                            <p class="project-desc">
-                                AkiContrata é uma plataforma desenvolvida pela Liga Acadêmica de Engenharia de Software
-                                (LES) com o objetivo de aproximar estudantes e empresas, facilitando a descoberta de
-                                talentos acadêmicos e a conexão com oportunidades profissionais. A solução permite que
-                                estudantes criem perfis com suas competências, experiências, projetos e currículos,
-                                enquanto empresas podem buscar candidatos de forma inteligente e alinhada às suas
-                                necessidades. Ao fortalecer a integração entre a academia e o mercado de trabalho, o
-                                AkiContrata contribui para aumentar a visibilidade dos estudantes, ampliar oportunidades
-                                de inserção profissional e apoiar organizações na identificação de novos talentos
-                                qualificados.
+                <div class="projects-track-container">
+                    <div class="projects-track" id="projectsTrack">
 
-                            </p>                
-                            <a href="https://github.com/lesifpe/AkiContrata" class="project-link" target="_blank">
-                                Ver no GitHub
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- ── PROJETO 1 ── -->
-                    <div class="project-card project-featured">
-                        <div class="project-img-wrap">
-                            <img src="assets/imagens/capa/CAPA4.jpg" alt="Projeto Principal LES" class="project-img">
-                            <div class="project-badge">EM ANDAMENTO</div>
-                        </div>
-                        <div class="project-body">
-                            <span class="project-tag">Projeto </span>
-                            <h3 class="project-title">IABadie</h3>
-                            <p class="project-desc">
-                                O IAbadie é um sistema de perguntas e respostas que utiliza busca semântica para ajudar
-                                estudantes Levantando requisitdos. e Desenvolvimento de Sistemas (ADS). Ele permite que o usuário
-                                faça perguntas em linguagem natural e encontra respostas relevantes no FAQ, mesmo sem
-                                correspondência exata de palavras. A aplicação roda 100% localmente, garantindo
-                                privacidade dos dados, e utiliza tecnologias como embeddings, FAISS e uma interface em
-                                Streamlit para oferecer uma experiência rápida e eficiente.
-
-                            </p>
-                            <div class="project-stack">
-                                <span>Python</span>
-                                <span>Streamlit</span>
-                                <span>Machine Learning</span>
-                                <span>FAISS</span>
+                        <!-- ── PROJETO 1 ── -->
+                        <div class="project-card project-featured">
+                            <div class="project-img-wrap">
+                                <img src="assets/imagens/capa/CAPA5.jpeg" alt="AkiContrata" class="project-img">
+                                <div class="project-badge">EM ANDAMENTO</div>
                             </div>
-                            <a href="https://github.com/lesifpe/iabadie" class="project-link" target="_blank">
-                                Ver no GitHub
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-
-                    <!-- ── PROJETO 2 ── -->
-                    <div class="project-card project-featured">
-                        <div class="project-img-wrap">
-                            <img src="assets/imagens/capa/ESP32.jpg" alt="Dashboard IoT com ESP32 e Firebase"
-                                class="project-img">
-                            <div class="project-badge">EM ANDAMENTO</div>
-                        </div>
-
-                        <div class="project-body">
-                            <span class="project-tag">IoT + Vue</span>
-
-                            <h3 class="project-title">
-                                Weather Dashboard
-                            </h3>
-
-                            <p class="project-desc">
-                                Sistema de monitoramento ambiental desenvolvido em parceria com o mestrado de
-                                Sustentabilidade Urbana do IFPE.
-                                O ESP32 coleta dados de sensores (chuva e temperatura) e envia em tempo real para o
-                                Firebase Realtime Database.
-                                A aplicação web é construída com Vue e TypeScript, consumindo esses dados para
-                                exibição em dashboards dinâmicos
-                                para 4 equipes, permitindo validaçãoLevantando requisitdos. dos experimentos.
-                            </p>
-
-                            <div class="project-stack">
-                                <span>ESP32</span>
-                                <span>Firebase</span>
-                                <span>Vue</span>
-                                <span>TypeScript</span>
-                                <span>Javascript</span>
-                                <span>HTML</span>
-                                <span>CSS</span>
+                            <div class="project-body">
+                                <h3 class="project-title">AkiContrata</h3>
+                                <p class="project-desc">
+                                    O AkiContrata é uma plataforma criada pela Liga para aproximar estudantes e empresas no mercado de tecnologia. A solução permite a construção de perfis profissionais completos com projetos e currículos, simplificando a busca de talentos pelas organizações. O sistema fortalece a integração acadêmica e amplia as oportunidades de carreira para os alunos.
+                                </p>        
+                                <a href="https://github.com/lesifpe/AkiContrata" class="project-link" target="_blank">
+                                    Ver no GitHub
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </a>
                             </div>
-
-                            <a href="https://github.com/lesifpe/mestrado-sensor-dashboard/tree/main"
-                                class="project-link" target="_blank">
-                                Ver no GitHub
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
-                            </a>
                         </div>
-                    </div>
 
-                    <!-- ── PROJETO 3 ── -->
-                    <div class="project-card project-featured">
-                        <div class="project-img-wrap">
-                            <img src="assets/imagens/capa/CAPA1.jpg" alt="Projeto Principal LES" class="project-img">
-                            <div class="project-badge">CONCLUÍDO</div>
-                        </div>
-                        <div class="project-body">
-                            <span class="project-tag">Projeto Principal</span>
-                            <h3 class="project-title">Portal LES-IFPE</h3>
-                            <p class="project-desc">
-                                Desenvolvimento do portal oficial da Liga de Engenharia de Software do IFPE Campus
-                                Recife,
-                                integrando divulgação institucional, gestão de membros e vitrine de projetos da liga.
-                            </p>
-                            <div class="project-stack">
-                                <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                        <!-- ── PROJETO 2 ── -->
+                        <div class="project-card project-featured">
+                            <div class="project-img-wrap">
+                                <img src="assets/imagens/capa/CAPA4.jpg" alt="IABadie" class="project-img">
+                                <div class="project-badge">EM ANDAMENTO</div>
                             </div>
-                            <a href="https://github.com/lesifpe/lesifpe.github.io" class="project-link" target="_blank">
-                                Ver no GitHub
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
-                            </a>
+                            <div class="project-body">
+                                <h3 class="project-title">IABadie</h3>
+                                <p class="project-desc">
+                                    O IAbadie é um sistema inteligente de perguntas e respostas desenvolvido para auxiliar estudantes do curso de Análise e Desenvolvimento de Sistemas. A aplicação utiliza busca semântica para localizar conteúdos relevantes no FAQ em linguagem natural. Rodando localmente para garantir a privacidade dos dados, a ferramenta combina IA, embeddings e Streamlit.
+                                </p>
+                                <div class="project-stack">
+                                    <span>Python</span>
+                                    <span>Streamlit</span>
+                                    <span>Machine Learning</span>
+                                    <span>FAISS</span>
+                                </div>
+                                <a href="https://github.com/lesifpe/iabadie" class="project-link" target="_blank">
+                                    Ver no GitHub
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
-                    </div>
 
-
-                    <!-- ── PLACEHOLDER ── -->
-                    <div class="project-card project-placeholder">
-                        <div class="project-placeholder-inner">
-                            <div class="placeholder-icon">+</div>
-                            <p>Próximo projeto em breve</p>
+                        <!-- ── PROJETO 3 ── -->
+                        <div class="project-card project-featured">
+                            <div class="project-img-wrap">
+                                <img src="assets/imagens/capa/ESP32.jpg" alt="Data Insights" class="project-img">
+                                <div class="project-badge">EM ANDAMENTO</div>
+                            </div>
+                            <div class="project-body">
+                                <h3 class="project-title">Data Insights</h3>
+                                <p class="project-desc">
+                                    O Data Insights é uma plataforma web para análise e visualização de dados de projetos institucionais por meio de dashboards interativos e recursos avançados como filtragem temporal. Atualmente, o sistema centraliza dados de duas soluções principais: o WeatherDashboard, voltado para monitoramento meteorológico, e o AIOTADS, focado na análise do fluxo de pessoas nas instalações do IFPE Recife.
+                                </p>
+                                <div class="project-stack">
+                                    <span>IOT</span>
+                                    <span>Data</span>
+                                    <span>ESP32</span>
+                                    <span>Firebase</span>
+                                    <span>Vue</span>
+                                    <span>TypeScript</span>
+                                    <span>Javascript</span>
+                                </div>
+                                <a href="https://github.com/lesifpe/mestrado-sensor-dashboard/tree/main" class="project-link" target="_blank">
+                                    Ver no GitHub
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
-                    </div>
 
+                        <!-- ── PROJETO 4 ── -->
+                        <div class="project-card project-featured">
+                            <div class="project-img-wrap">
+                                <img src="assets/imagens/capa/CAPA1.jpg" alt="Portal LES - IFPE" class="project-img">
+                                <div class="project-badge">CONCLUÍDO</div>
+                            </div>
+                            <div class="project-body">
+                                <h3 class="project-title">Portal LES - IFPE</h3>
+                                <p class="project-desc">
+                                    Desenvolvimento do portal oficial da Liga de Engenharia de Software do IFPE Campus Recife, integrando divulgação institucional, gestão de membros e vitrine de projetos da liga.
+                                </p>
+                                <div class="project-stack">
+                                    <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                                </div>
+                                <a href="https://github.com/lesifpe/lesifpe.github.io" class="project-link" target="_blank">
+                                    Ver no GitHub
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+
+                <!-- Botão Próximo (Direita) -->
+                <button class="carousel-btn carousel-btn-next" id="nextBtn" aria-label="Próximo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </button>
             </div>
 
-            <!-- Controles do carrossel -->
+            <!-- Indicadores (Dots) na parte inferior -->
             <div class="carousel-controls">
                 <div class="carousel-dots" id="carouselDots"></div>
-                <div class="carousel-arrows">
-                    <button class="carousel-btn" id="prevBtn" aria-label="Anterior">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 12H5M12 19l-7-7 7-7" />
-                        </svg>
-                    </button>
-                    <button class="carousel-btn" id="nextBtn" aria-label="Próximo">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </button>
-                </div>
             </div>
         </section>
 
@@ -261,18 +219,125 @@
         <section id="calendario_atividades">
             <h1>Calendário de Atividades</h1>
 
-            <div class="eventos1" data-titulo="Workshop de Inserção no Mercado de Tecnologia" data-data="09/05/2026"
-                data-data-original="04/06/2026" data-tipo="workshop" data-descricao="O Workshop de Inserção no Mercado de Tecnologia é um evento prático voltado para estudantes de TIC que desejam se preparar para os desafios reais do processo seletivo na área.
+            <div class="events-carousel-wrap">
+                <!-- Botão Anterior (Esquerda) -->
+                <button class="carousel-btn carousel-btn-prev" id="eventsPrevBtn" aria-label="Anterior">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                </button>
 
-Durante o encontro, os participantes irão aprender como construir um portfólio relevante no GitHub, estruturar um currículo eficiente, otimizar o perfil no LinkedIn e se destacar em entrevistas técnicas e com o RH. O conteúdo será apresentado de forma dinâmica, combinando teoria com atividades práticas, exercícios rápidos e simulações.
+                <div class="events-track-container">
+                    <div class="events-track" id="eventsTrack">
 
-Além disso, o workshop contará com um painel com membros da LES que já atuam no mercado, compartilhando experiências reais sobre como conquistaram suas primeiras oportunidades, erros que cometeram e estratégias que fizeram diferença em suas trajetórias.
+                        <!-- ── CARD VERTICAL 1 (WORKSHOP) ── -->
+                        <article class="event-card-vertical eventos1" 
+                            data-titulo="Workshop de Inserção no Mercado de Tecnologia" 
+                            data-data="09/05/2026"
+                            data-tipo="workshop" 
+                            data-local="Auditório do Centro de Pesquisa - IFPE Campus Recife"
+                            data-descricao="O Workshop de Inserção no Mercado de Tecnologia foi o primeiro evento presencial feito pela LES, o evento foi uma imersão prática em posicionamento e preparação para recrutamentos em TI. Durante o workshop, os participantes puderam receber orientações sobre otimização de GitHub, LinkedIn e currículos no padrão ATS, além de estratégias para entrevistas técnicas e comportamentais. O encontro contou ainda com um painel de membros da LES compartilhando experiências sobre a entrada no mercado de trabalho."
+                            data-img-modal="assets/imagens/calendario/workshop-image.jpg"
+                            data-palestrantes='[{"name": "Eduarda Rocha", "photo": "assets/imagens/membros/eduarda.jpeg"}, {"name": "Yuri Oliveira", "photo": "assets/imagens/membros/yuri.jpeg"}, {"name": "Victor Montes", "photo": "assets/imagens/membros/victormontes.jpeg"}]'>
+                            
+                            <div class="event-card-img-wrap">
+                                <img src="assets/imagens/galeria/workshop-insercao.jpg" alt="Workshop Inserção" class="event-card-img">
+                                <div class="event-card-gradient"></div>
+                            </div>
 
-Ao final, os participantes sairão com orientações claras e aplicáveis imediatamente, incluindo melhorias no LinkedIn, ideias de projetos para portfólio e maior segurança para participar de processos seletivos na área de tecnologia.
-">
-                <img src="assets/imagens/icones/incessão.png" alt="Workshop Inserção">
-                <p>Workshop de Inserção no Mercado de Tecnologia</p>
-                <!-- coluna de data injetada via JS — não editar aqui -->
+                            <div class="event-card-content">
+                                <div class="event-card-badges">
+                                    <span class="event-card-badge badge-type">WORKSHOP</span>
+                                    <span class="event-card-badge badge-status">FINALIZADO</span>
+                                </div>
+
+                                <h3 class="event-card-title">Workshop de Inserção no Mercado de Tecnologia</h3>
+
+                                <button class="event-card-btn" type="button">
+                                    <span>Saiba Mais</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- ── CARD VERTICAL 2 (CURSO DE FÉRIAS) ── -->
+                        <article class="event-card-vertical eventos2" 
+                            data-titulo="Curso de Férias: Java e Github" 
+                            data-data="xx/xx/xxxx"
+                            data-tipo="curso" 
+                            data-local="Evento Online"
+                            data-descricao="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                            data-img-modal="assets/imagens/capa/CAPA3.jpeg"
+                            data-palestrantes='[{"name": "Ilian Solano", "photo": "assets/imagens/membros/ilian.jpeg"}, {"name": "Yuri Oliveira", "photo": "assets/imagens/membros/yuri.jpeg"}]'>
+                            
+                            <div class="event-card-img-wrap">
+                                <img src="assets/imagens/capa/CAPA2.jpeg" alt="Curso de Férias: Java e Github" class="event-card-img">
+                                <div class="event-card-gradient"></div>
+                            </div>
+
+                            <div class="event-card-content">
+                                <div class="event-card-badges">
+                                    <span class="event-card-badge badge-type badge-type-curso">CURSO</span>
+                                    <span class="event-card-badge badge-status">FINALIZADO</span>
+                                </div>
+
+                                <h3 class="event-card-title">Curso de Férias: Java e Github</h3>
+
+                                <button class="event-card-btn" type="button">
+                                    <span>Saiba Mais</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- ── CARD VERTICAL 3 (PLACEHOLDER MAIS EVENTOS) ── -->
+                        <article class="event-card-vertical event-card-placeholder">
+                            <div class="event-card-img-wrap">
+                                <div class="event-card-placeholder-bg"></div>
+                                <div class="event-card-gradient"></div>
+                            </div>
+
+                            <div class="event-card-content event-card-placeholder-content">
+                                <div class="event-card-placeholder-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                        <line x1="12" y1="14" x2="12" y2="18"></line>
+                                        <line x1="10" y1="16" x2="14" y2="16"></line>
+                                    </svg>
+                                </div>
+
+                                <div class="event-card-badges">
+                                    <span class="event-card-badge badge-type badge-type-embreve">EM BREVE</span>
+                                </div>
+
+                                <h3 class="event-card-title">Mais eventos em breve</h3>
+                                <p class="event-card-subtitle">Fique ligado nas nossas redes para não perder as próximas novidades!</p>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+
+                <!-- Botão Próximo (Direita) -->
+                <button class="carousel-btn carousel-btn-next" id="eventsNextBtn" aria-label="Próximo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Indicadores (Dots) -->
+            <div class="carousel-controls">
+                <div class="carousel-dots" id="eventsDots"></div>
             </div>
         </section>
 
@@ -285,7 +350,7 @@ Ao final, os participantes sairão com orientações claras e aplicáveis imedia
 
                     <p>
                         A Liga Acadêmica de Engenharia de Software (LES) surgiu a partir de um ciclo de
-                        palestras promovido pelo Centro de Informática (CIn), que apresentou aos estudantes
+                        palestras promovidas pelo Centro de Informática (CIn), que apresentou aos estudantes
                         a estrutura e os fundamentos de ligas acadêmicas.
                     </p>
 
@@ -663,10 +728,33 @@ Ao final, os participantes sairão com orientações claras e aplicáveis imedia
             <img src="" alt="" class="event-modal-img" id="event-modal-img">
             <div class="event-modal-accent"></div>
             <div class="event-modal-body">
-                <span class="event-modal-type" id="event-modal-type">WORKSHOP</span>
+                <div class="event-modal-tags">
+                    <span class="event-modal-type" id="event-modal-type">WORKSHOP</span>
+                    <span class="event-modal-status">FINALIZADO</span>
+                </div>
                 <h2 class="event-modal-title" id="event-modal-title"></h2>
-                <p class="event-modal-date" id="event-modal-date"></p>
+                <div class="event-modal-meta">
+                    <p class="event-modal-date" id="event-modal-date"></p>
+                    <p class="event-modal-location" id="event-modal-location">Auditório do Centro de Pesquisa - IFPE Campus Recife</p>
+                </div>
                 <p class="event-modal-desc" id="event-modal-desc"></p>
+                <div class="event-modal-speakers">
+                    <h3 class="event-modal-speakers-title">Palestrantes</h3>
+                    <div class="event-modal-speakers-list speaker-list" id="event-modal-speakers-list">
+                        <div class="event-modal-speaker" data-name="Eduarda Rocha" data-photo="assets/imagens/membros/eduarda.jpeg">
+                            <img class="event-modal-speaker-photo" alt="Eduarda Rocha">
+                            <span class="event-modal-speaker-name">Eduarda Rocha</span>
+                        </div>
+                        <div class="event-modal-speaker" data-name="Yuri Oliveira" data-photo="assets/imagens/membros/yuri.jpeg">
+                            <img class="event-modal-speaker-photo" alt="Yuri Oliveira">
+                            <span class="event-modal-speaker-name">Yuri Oliveira</span>
+                        </div>
+                        <div class="event-modal-speaker" data-name="Victor Montes" data-photo="assets/imagens/membros/victormontes.jpeg">
+                            <img class="event-modal-speaker-photo" alt="Victor Montes">
+                            <span class="event-modal-speaker-name">Victor Montes</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
