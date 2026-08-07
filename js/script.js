@@ -383,6 +383,19 @@ const membersData = {
         },
     },
 
+    lucasfig: {
+        name: 'Lucas Figueiredo Cabral',
+        photo: 'assets/imagens/membros/lucasfig.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'LC',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/Lucasfcz',
+            linkedin: 'https://www.linkedin.com/in/lucasfcz-dev/',
+        },
+    },
+
     rafaelp: {
         name: 'Rafael Passos Araújo Lins de Queiroz',
         photo: 'assets/imagens/membros/rafaelp.jpeg',
