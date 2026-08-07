@@ -490,7 +490,7 @@ const GROUP_LABELS = {
     */
 };
 
-const GROUP_ORDER = ['diretoria', 'dev', 'design', 'colaborador', 'externo', 'ex_integrante'];
+const GROUP_ORDER = ['diretoria', 'dev', 'design', 'colaborador', 'externo'];
 
 const GROUP_COLORS = {
     diretoria: 'var(--green)',
@@ -498,7 +498,6 @@ const GROUP_COLORS = {
     design: '#a855f7',
     colaborador: 'var(--gray-lt)',
     externo: '#c09030',
-    ex_integrante: 'var(--red)',
 };
 
 
