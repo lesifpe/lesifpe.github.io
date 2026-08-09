@@ -181,6 +181,20 @@ const membersData = {
 
 
     /* ── Desenvolvedores ── */
+    renan: {
+        name: 'Renan Henrico Borges Pinto',
+        photo: 'assets/imagens/membros/renan.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'RH',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/Renansoader',
+            linkedin: 'https://www.linkedin.com/in/renanhenry/',
+        },
+        projeto: 'IABadie',
+    },
+
     christoph: {
         name: 'Christoph Soares Diehl',
         photo: 'assets/imagens/membros/christoph.jpeg',
@@ -191,6 +205,7 @@ const membersData = {
         links: {
             github: 'https://github.com/christoph-sd',
         },
+        projeto: 'IABadie',
     },
 
     guilherme: {
@@ -204,6 +219,7 @@ const membersData = {
             github: 'https://github.com/Guinfbm',
             linkedin: 'https://www.linkedin.com/in/guilherme-nascimento-f-b-moraes-1a70a8348/',
         },
+        projeto: 'AkiContrata',
     },
 
     paulo: {
@@ -217,6 +233,7 @@ const membersData = {
             github: 'https://github.com/Paulo-Novbr',
             linkedin: 'https://www.linkedin.com/in/paulo-ol%C3%ADmpio-a96156339/',
         },
+        projeto: 'IABadie',
     },
 
     bruno: {
@@ -230,6 +247,7 @@ const membersData = {
             github: 'https://github.com/Bruno-0706',
             linkedin: 'https://www.linkedin.com/in/bruno-luiz-b86792339/',
         },
+        projeto: 'AkiContrata',
     },
 
     adriano: {
@@ -243,6 +261,7 @@ const membersData = {
             github: 'https://github.com/AdrianoABR123',
             linkedin: 'https://www.linkedin.com/in/adriano-eloy-a703b4309/',
         },
+        projeto: 'AkiContrata',
     },
 
     victor: {
@@ -273,6 +292,7 @@ const membersData = {
             github: 'https://github.com/nicollasnunes04',
             linkedin: 'https://www.linkedin.com/in/nicollas-nunes-043b622a4?utm_source=share_via&utm_content=profile&utm_medium=member_android',
         },
+        projeto: 'IABadie',
     },
 
     miguel: {
@@ -286,6 +306,7 @@ const membersData = {
             github: 'https://github.com/miguelhlsantos-dev',
             linkedin: 'https://www.linkedin.com/in/miguelhlsantos/',
         },
+        projeto: 'AkiContrata',
     },
 
     leonardol: {
@@ -299,6 +320,7 @@ const membersData = {
             github: 'https://github.com/lemure17',
             linkedin: 'https://www.linkedin.com/in/leonardo-lemos-dos-santos/'
         },
+        projeto: 'AkiContrata',
     },
 
     victorsoares: {
@@ -368,6 +390,7 @@ const membersData = {
             github: 'https://github.com/gabrielsoarespebr',
             linkedin: 'https://www.linkedin.com/in/gabrielsoarespebr/',
         },
+        projeto: 'IABadie',
     },
 
     guilhermeb: {
@@ -394,6 +417,7 @@ const membersData = {
             github: 'https://github.com/Lucasfcz',
             linkedin: 'https://www.linkedin.com/in/lucasfcz-dev/',
         },
+        projeto: 'AkiContrata',
     },
 
     rafaelp: {
@@ -420,7 +444,7 @@ const membersData = {
             github: 'https://github.com/ianq1w1',
             linkedin: 'https://www.linkedin.com/in/ian-elton-dev/',
         },
-        projeto: 'Site LES',
+        projeto: 'Weather',
     },
 
     /* ══ COLABORADORES — adicione aqui ══════════════════════
