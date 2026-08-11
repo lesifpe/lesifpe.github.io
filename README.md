@@ -6,6 +6,9 @@ O **Portal da Liga Acadêmica de Engenharia de Software (LES)** é uma plataform
 
 A liga acadêmica é uma organização estudantil sem fins lucrativos que visa complementar a formação dos alunos por meio de atividades de ensino, pesquisa e extensão.
 
+### 🚧 Atualização (Agosto/26) 🚧
+Atualmente o Portal se encontra em processo de MANUTENÇÃO. Para maior manutenabilidade e escalabilidade, sua arquitetura irá ser reconstruída em React + Vue, juntamente com um novo design e novas páginas de navegação. 
+
 ---
 
 ## 🎯 Objetivos
@@ -33,6 +36,11 @@ A liga acadêmica é uma organização estudantil sem fins lucrativos que visa c
 * **HTML5** – estrutura da aplicação
 * **CSS3** – estilização e responsividade
 * **JavaScript (Vanilla)** – interatividade e manipulação do DOM
+
+### 🚧 Tecnologias a serem utilizadas no NOVO portal
+* **React;**
+* **Vue;**
+* **Integração com Firebase;**
 
 ---
 
@@ -69,7 +77,18 @@ A Liga Acadêmica de Engenharia de Software tem como missão integrar teoria e p
 
 ---
 
-## 👨‍💻 Desenvolvido por
+## 👨‍💻 Atual equipe de desenvolvimento
+
+* **Eduarda Rocha Fernandes de Sousa**
+  🔗 https://github.com/Yuriportf
+
+* **Victor Montes da Silva**
+  🔗 https://github.com/VmDevalt
+
+* **David Willyam Felipe Marques de Oliveira**
+  🔗 https://github.com/DavidOliveira2678
+
+## 👨‍💻 Antiga equipe de desenvolvimento
 
 * **Yuri Santos de Oliveira**
   🔗 https://github.com/Yuriportf
