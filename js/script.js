@@ -175,7 +175,7 @@ const membersData = {
             github: 'https://github.com/EduardaRFSousa',
             linkedin: 'https://www.linkedin.com/in/eduarda-rocha-full-stack-dev/',
         },
-        projeto: 'Site LES',
+        projeto: ['Site LES'],
     },
 
 
@@ -192,7 +192,7 @@ const membersData = {
             github: 'https://github.com/Renansoader',
             linkedin: 'https://www.linkedin.com/in/renanhenry/',
         },
-        projeto: 'IABadie',
+        projeto: ['IABadie'],
     },
 
     christoph: {
@@ -205,7 +205,7 @@ const membersData = {
         links: {
             github: 'https://github.com/christoph-sd',
         },
-        projeto: 'IABadie',
+        projeto: ['IABadie'],
     },
 
     guilherme: {
@@ -219,7 +219,7 @@ const membersData = {
             github: 'https://github.com/Guinfbm',
             linkedin: 'https://www.linkedin.com/in/guilherme-nascimento-f-b-moraes-1a70a8348/',
         },
-        projeto: 'AkiContrata',
+        projeto: ['AkiContrata'],
     },
 
     paulo: {
@@ -233,7 +233,7 @@ const membersData = {
             github: 'https://github.com/Paulo-Novbr',
             linkedin: 'https://www.linkedin.com/in/paulo-ol%C3%ADmpio-a96156339/',
         },
-        projeto: 'IABadie',
+        projeto: ['IABadie'],
     },
 
     bruno: {
@@ -247,7 +247,7 @@ const membersData = {
             github: 'https://github.com/Bruno-0706',
             linkedin: 'https://www.linkedin.com/in/bruno-luiz-b86792339/',
         },
-        projeto: 'AkiContrata',
+        projeto: ['AkiContrata'],
     },
 
     adriano: {
@@ -261,7 +261,7 @@ const membersData = {
             github: 'https://github.com/AdrianoABR123',
             linkedin: 'https://www.linkedin.com/in/adriano-eloy-a703b4309/',
         },
-        projeto: 'AkiContrata',
+        projeto: ['AkiContrata'],
     },
 
     victor: {
@@ -292,7 +292,7 @@ const membersData = {
             github: 'https://github.com/nicollasnunes04',
             linkedin: 'https://www.linkedin.com/in/nicollas-nunes-043b622a4?utm_source=share_via&utm_content=profile&utm_medium=member_android',
         },
-        projeto: 'IABadie',
+        projeto: ['IABadie'],
     },
 
     miguel: {
@@ -306,7 +306,7 @@ const membersData = {
             github: 'https://github.com/miguelhlsantos-dev',
             linkedin: 'https://www.linkedin.com/in/miguelhlsantos/',
         },
-        projeto: 'AkiContrata',
+        projeto: ['AkiContrata'],
     },
 
     leonardol: {
@@ -320,7 +320,7 @@ const membersData = {
             github: 'https://github.com/lemure17',
             linkedin: 'https://www.linkedin.com/in/leonardo-lemos-dos-santos/'
         },
-        projeto: 'AkiContrata',
+        projeto: ['AkiContrata'],
     },
 
     victorsoares: {
@@ -334,7 +334,7 @@ const membersData = {
             github: 'https://github.com/VictorSCDS',
             linkedin: 'https://www.linkedin.com/in/victor-soares-vscds/',
         },
-        projeto: 'Weather',
+        projeto: ['Weather'],
     },
 
     marcio: {
@@ -348,7 +348,7 @@ const membersData = {
             github: 'https://github.com/MarcioLuan',
             linkedin: 'https://www.linkedin.com/in/marciolfbarros/',
         },
-        projeto: 'Weather',
+        projeto: ['Weather'],
     },
 
     ingrid: {
@@ -362,7 +362,7 @@ const membersData = {
             github: 'https://github.com/vivif001',
             linkedin: 'https://www.linkedin.com/in/ingridvofranca/',
         },
-        projeto: 'Site LES',
+        projeto: ['Site LES'],
     },
 
     david: {
@@ -376,7 +376,7 @@ const membersData = {
             github: 'https://github.com/DavidOliveira2678',
             linkedin: 'https://www.linkedin.com/in/david-willyam-de-oliveira-9841ba31a/',
         },
-        projeto: 'Site LES',
+        projeto: ['Site LES'],
     },
 
     gabriel: {
@@ -390,7 +390,7 @@ const membersData = {
             github: 'https://github.com/gabrielsoarespebr',
             linkedin: 'https://www.linkedin.com/in/gabrielsoarespebr/',
         },
-        projeto: 'IABadie',
+        projeto: ['IABadie'],
     },
 
     guilhermeb: {
@@ -417,7 +417,7 @@ const membersData = {
             github: 'https://github.com/Lucasfcz',
             linkedin: 'https://www.linkedin.com/in/lucasfcz-dev/',
         },
-        projeto: 'AkiContrata',
+        projeto: ['AkiContrata'],
     },
 
     rafaelp: {
@@ -444,7 +444,7 @@ const membersData = {
             github: 'https://github.com/ianq1w1',
             linkedin: 'https://www.linkedin.com/in/ian-elton-dev/',
         },
-        projeto: 'Weather',
+        projeto: ['Weather'],
     },
 
     /* ══ COLABORADORES — adicione aqui ══════════════════════
@@ -942,7 +942,7 @@ const memberModal = document.getElementById('member-modal');
 const memberClose = document.getElementById('modal-close');
 
 function openMemberModal(id) {
-    const data = membersData[id];
+    const data = membersData[id];   
     if (!data) return;
 
     const modalAvatar = document.getElementById('modal-avatar');
@@ -1022,11 +1022,21 @@ function openMemberModal(id) {
         linksEl.appendChild(a);
     });
 
+    const projectsArea = document.getElementById('modal-project');
+    projectsArea.innerHTML = '';           
 
+    (data.projeto ?? []).forEach((project) => {
+        const span = document.createElement('span');
+        span.style.cssText = "margin-right: .2rem;";
+        span.className = 'equipe-tag equipe-tag--green';
+        span.textContent = `${project}`;
+        projectsArea.appendChild(span);
+    });
 
     memberModal.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
+
 function closeMemberModal() {
     memberModal.classList.remove('open');
     if (!teamOverviewModal.classList.contains('open')) {
