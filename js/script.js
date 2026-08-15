@@ -517,10 +517,10 @@ const GROUP_LABELS = {
 const GROUP_ORDER = ['diretoria', 'dev', 'design', 'colaborador', 'externo'];
 
 const GROUP_COLORS = {
-    diretoria: 'var(--green)',
-    dev: 'var(--green)',
+    diretoria: 'var(--neon-green)',
+    dev: 'var(--baby-blue)',
     design: '#a855f7',
-    colaborador: 'var(--gray-lt)',
+    colaborador: '#c09030',
     externo: '#c09030',
 };
 
@@ -975,7 +975,7 @@ function openMemberModal(id) {
                 border-radius: 6px;
                 background: rgba(0,166,81,0.06);
                 border: 1px solid rgba(0,166,81,0.2);
-                border-left: 3px solid var(--green);
+                border-left: 3px solid var(--neon-green);
             `;
             /* Insere antes da bio */
             const bio = document.getElementById('modal-bio');
@@ -991,7 +991,7 @@ function openMemberModal(id) {
                     font-weight:700;
                     letter-spacing:0.22em;
                     text-transform:uppercase;
-                    color:var(--green);
+                    color:var(--neon-green);
                     display:block;
                     margin-bottom:0.3rem;
                 ">Ligante Destaque · ${mesStr} ${ano}</span>
@@ -1028,7 +1028,7 @@ function openMemberModal(id) {
     (data.projeto ?? []).forEach((project) => {
         const span = document.createElement('span');
         span.style.cssText = "margin-right: .2rem;";
-        span.className = 'equipe-tag equipe-tag--green';
+        span.className = 'equipe-tag equipe-tag--blue';
         span.textContent = `${project}`;
         projectsArea.appendChild(span);
     });
@@ -1149,7 +1149,7 @@ function renderTeamOverviewGrid(groups, activeFilter = 'all') {
 
             header.style.setProperty(
                 '--group-color',
-                GROUP_COLORS[group] || 'var(--green)'
+                GROUP_COLORS[group] || 'var(--neon-green)'
             );
 
             header.textContent =
