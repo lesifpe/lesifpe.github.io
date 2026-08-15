@@ -810,6 +810,20 @@ main > section[id] > p {
     border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
+.ingresso-modal-msg-title {
+    font-family: var(--font-head);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+}
+
+.ingresso-modal-msg-text {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: rgba(245, 245, 240, 0.7);
+}
+
 .modal-links {
     display: flex;
     flex-wrap: wrap;
