@@ -1806,13 +1806,39 @@ document.addEventListener('keydown', e => {
     else if (galeriaAlbumModal.classList.contains('open')) closeGaleriaAlbumModal();
     else if (eventModal.classList.contains('open')) closeEventModal();
     else if (teamOverviewModal.classList.contains('open')) closeTeamOverviewModal();
+    else if (ingressoModal.classList.contains('open')) closeIngressoModal();
 });
 
 
 /* ────────────────────────────────────────────────────────────
    B10 · ABRIDOR DE FORMULÁRIO EXTERNO
    ──────────────────────────────────────────────────────────── */
+const ingressoModal = document.getElementById('ingresso-modal');
+const ingressoModalContent = document.getElementById('ingresso-modal-content');
+const ingressoModalClose = document.getElementById('ingresso-modal-close');
+
+function openIngressoModal() {
+    ingressoModalContent.innerHTML = `
+        <h2 class="ingresso-modal-msg-title">Inscrições ainda não abertas!!</h2>
+        <p class="ingresso-modal-msg-text">O Form de inscrição estará disponível ao iniciar o processo.</p>
+    `;
+    ingressoModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeIngressoModal() {
+    ingressoModal.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+ingressoModalClose?.addEventListener('click', closeIngressoModal);
+ingressoModal?.addEventListener('click', e => { if (e.target === ingressoModal) closeIngressoModal(); });
+
 function abrirFormulario() {
+    if (ingressoFaseAtual !== 2) {
+        openIngressoModal();
+        return;
+    }
     window.open(
         'https://docs.google.com/forms/d/e/1FAIpQLSfbTDmrQTLmwpWn_vNgo0tGHQ27Bfm2fE39ottHrm0671m9Mw/viewform?usp=publish-editor',
         '_blank'

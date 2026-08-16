@@ -851,6 +851,20 @@ main > section[id] > p {
     padding-bottom: 1.5rem;
 }
 
+.ingresso-modal-msg-title {
+    font-family: var(--font-head);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+}
+
+.ingresso-modal-msg-text {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: rgba(245, 245, 240, 0.7);
+}
+
 .modal-links {
     display: flex;
     flex-wrap: wrap;
