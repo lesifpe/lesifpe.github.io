@@ -119,7 +119,6 @@ const membersData = {
     },
 
 
-
     eduardo: {
         name: 'Prof. Eduardo Vasconcelos',
         photo: 'assets/imagens/membros/eduardo.jpeg',
@@ -131,6 +130,8 @@ const membersData = {
             email: 'eduardo.vasconcelos@recife.ifpe.edu.br',
         },
     },
+
+
 
     /* ── Diretoria ── */
     ilian: {
@@ -145,6 +146,7 @@ const membersData = {
             linkedin: 'https://www.linkedin.com/in/ilian-solano/',
         },
     },
+
 
     yuri: {
         name: 'Yuri Santos de Oliveira',
@@ -162,20 +164,6 @@ const membersData = {
     },
 
 
-    marcos: {
-        name: 'Marcos Aurélio Lopes de Araújo',
-        photo: 'assets/imagens/membros/marcos.jpeg',
-        role: 'Desenvolvedor',
-        initials: 'MA',
-        group: 'dev',
-        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga. ',
-        links: {
-            github: 'https://github.com/marcosaureliodevelop',
-            linkedin: 'https://www.linkedin.com/in/marcos-aurélio-4566a4237/',
-        },
-    },
-
-
     eduarda: {
         name: 'Eduarda Rocha Fernandes de Sousa',
         photo: 'assets/imagens/membros/eduarda.jpeg',
@@ -187,23 +175,26 @@ const membersData = {
             github: 'https://github.com/EduardaRFSousa',
             linkedin: 'https://www.linkedin.com/in/eduarda-rocha-full-stack-dev/',
         },
+        projeto: ['Site LES'],
     },
 
 
 
     /* ── Desenvolvedores ── */
-
-    alane: {
-        name: 'Maria Alane Oliveira de Arruda Camara',
-        photo: 'assets/imagens/membros/alane.jpeg',
-        role: 'Desenvolvedora Fundadora',
-        initials: 'MA',
+    renan: {
+        name: 'Renan Henrico Borges Pinto',
+        photo: 'assets/imagens/membros/renan.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'RH',
         group: 'dev',
-        bio: 'Diretora de Desenvolvimento da LES. Coordena as práticas técnicas, revisão de código e evolução das competências dos membros.',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
         links: {
-            github: 'https://github.com/AlaneOliveira',
+            github: 'https://github.com/Renansoader',
+            linkedin: 'https://www.linkedin.com/in/renanhenry/',
         },
+        projeto: ['IABadie'],
     },
+
     christoph: {
         name: 'Christoph Soares Diehl',
         photo: 'assets/imagens/membros/christoph.jpeg',
@@ -214,18 +205,7 @@ const membersData = {
         links: {
             github: 'https://github.com/christoph-sd',
         },
-    },
-
-    lucas: {
-        name: 'Lucas Furtado de Matos',
-        photo: 'assets/imagens/membros/lucas.jpeg',
-        role: 'Desenvolvedor',
-        initials: 'LF',
-        group: 'dev',
-        bio: 'Membro desenvolvedor da LES, atuando no desenvolvimento de projetos com impacto na comunidade acadêmica do IFPE.',
-        links: {
-            github: 'https://github.com/lfurtadomatos',
-        },
+        projeto: ['IABadie'],
     },
 
     guilherme: {
@@ -239,6 +219,7 @@ const membersData = {
             github: 'https://github.com/Guinfbm',
             linkedin: 'https://www.linkedin.com/in/guilherme-nascimento-f-b-moraes-1a70a8348/',
         },
+        projeto: ['AkiContrata'],
     },
 
     paulo: {
@@ -252,6 +233,7 @@ const membersData = {
             github: 'https://github.com/Paulo-Novbr',
             linkedin: 'https://www.linkedin.com/in/paulo-ol%C3%ADmpio-a96156339/',
         },
+        projeto: ['IABadie'],
     },
 
     bruno: {
@@ -265,8 +247,8 @@ const membersData = {
             github: 'https://github.com/Bruno-0706',
             linkedin: 'https://www.linkedin.com/in/bruno-luiz-b86792339/',
         },
+        projeto: ['AkiContrata'],
     },
-
 
     adriano: {
         name: 'Adriano Eloy Justino da Silva',
@@ -279,6 +261,7 @@ const membersData = {
             github: 'https://github.com/AdrianoABR123',
             linkedin: 'https://www.linkedin.com/in/adriano-eloy-a703b4309/',
         },
+        projeto: ['AkiContrata'],
     },
 
     victor: {
@@ -292,36 +275,11 @@ const membersData = {
             github: 'https://github.com/VmDevalt',
             linkedin: 'https://www.linkedin.com/in/victor-montes-97bbb51a3/',
         },
+        projeto: [
+            'Site LES',
+            'Weather',
+        ],
     },
-
-
-    matheus: {
-        name: 'Matheus da Silva Melo',
-        photo: 'assets/imagens/membros/matheus.jpeg',
-        role: 'Desenvolvedor',
-        initials: 'MM',
-        group: 'dev',
-        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico, network e entrega de valor nos projetos da liga.',
-        links: {
-            github: 'https://github.com/matheusbalcky',
-            linkedin: 'https://www.linkedin.com/in/matheusbalcky',
-        },
-    },
-
-
-    felipe: {
-        name: 'Luis Felipe da Silva de Oliveira',
-        photo: 'assets/imagens/membros/felipe.jpeg',
-        role: 'Ex Integrante',
-        initials: 'FO',
-        group: 'ex_integrante',
-        bio: 'Ex-membro desenvolvedor da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
-        links: {
-            github: 'https://github.com/lFelipe23',
-            linkedin: 'https://www.linkedin.com/in/luis-felipe-ads/',
-        },
-    },
-
 
     nicolas: {
         name: 'Nicollas Nunes Araújo',
@@ -334,20 +292,35 @@ const membersData = {
             github: 'https://github.com/nicollasnunes04',
             linkedin: 'https://www.linkedin.com/in/nicollas-nunes-043b622a4?utm_source=share_via&utm_content=profile&utm_medium=member_android',
         },
+        projeto: ['IABadie'],
     },
-
 
     miguel: {
-        name: 'Miguel Henrique Luz dos Santos', photo: 'assets/imagens/membros/miguel.jpeg', role: 'Desenvolvedor',
-        initials: 'MH', group: 'dev',
+        name: 'Miguel Henrique Luz dos Santos',
+        photo: 'assets/imagens/membros/miguel.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'MH',
+        group: 'dev',
         bio: 'Membro desenvolvedor da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
-        links: { github: 'https://github.com/miguelhlsantos-dev', linkedin: 'https://www.linkedin.com/in/miguelhlsantos/' }
+        links: { 
+            github: 'https://github.com/miguelhlsantos-dev',
+            linkedin: 'https://www.linkedin.com/in/miguelhlsantos/',
+        },
+        projeto: ['AkiContrata'],
     },
+
     leonardol: {
-        name: 'Leonardo lemos dos Santos', photo: 'assets/imagens/membros/leonardol.jpeg', role: 'Desenvolvedor',
-        initials: 'MH', group: 'dev',
+        name: 'Leonardo Lemos dos Santos',
+        photo: 'assets/imagens/membros/leonardol.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'MH',
+        group: 'dev',
         bio: 'Membro desenvolvedor da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
-        links: { github: 'https://github.com/lemure17', linkedin: 'https://www.linkedin.com/in/leonardo-lemos-dos-santos/' }
+        links: {
+            github: 'https://github.com/lemure17',
+            linkedin: 'https://www.linkedin.com/in/leonardo-lemos-dos-santos/'
+        },
+        projeto: ['AkiContrata'],
     },
 
     victorsoares: {
@@ -361,6 +334,7 @@ const membersData = {
             github: 'https://github.com/VictorSCDS',
             linkedin: 'https://www.linkedin.com/in/victor-soares-vscds/',
         },
+        projeto: ['Weather'],
     },
 
     marcio: {
@@ -374,12 +348,13 @@ const membersData = {
             github: 'https://github.com/MarcioLuan',
             linkedin: 'https://www.linkedin.com/in/marciolfbarros/',
         },
+        projeto: ['Weather'],
     },
 
     ingrid: {
         name: 'Ingrid Vitória Oliveira de França',
         photo: 'assets/imagens/membros/ingrid.jpeg',
-        role: 'Desenvolvedora',
+        role: ['Desenvolvedora', 'Designer'],
         initials: 'IV',
         group: 'dev',
         bio: 'Membro desenvolvedora da LES, focada em crescimento técnico e entrega de valor nos projetos da liga.',
@@ -387,6 +362,7 @@ const membersData = {
             github: 'https://github.com/vivif001',
             linkedin: 'https://www.linkedin.com/in/ingridvofranca/',
         },
+        projeto: ['Site LES'],
     },
 
     david: {
@@ -400,19 +376,7 @@ const membersData = {
             github: 'https://github.com/DavidOliveira2678',
             linkedin: 'https://www.linkedin.com/in/david-willyam-de-oliveira-9841ba31a/',
         },
-    },
-
-    emanuela: {
-        name: 'Emanuela Martins Da Silva',
-        photo: 'assets/imagens/membros/emanuela.jpeg',
-        role: 'Desenvolvedora',
-        initials: 'EM',
-        group: 'dev',
-        bio: 'Membro desenvolvedora da LES, focada em crescimento técnico e entrega de valor nos projetos da liga.',
-        links: {
-            github: 'https://github.com/Emanuelamds',
-            linkedin: 'https://www.linkedin.com/in/emanuela-martins-737445314/',
-        },
+        projeto: ['Site LES'],
     },
 
     gabriel: {
@@ -426,6 +390,7 @@ const membersData = {
             github: 'https://github.com/gabrielsoarespebr',
             linkedin: 'https://www.linkedin.com/in/gabrielsoarespebr/',
         },
+        projeto: ['IABadie'],
     },
 
     guilhermeb: {
@@ -452,6 +417,7 @@ const membersData = {
             github: 'https://github.com/Lucasfcz',
             linkedin: 'https://www.linkedin.com/in/lucasfcz-dev/',
         },
+        projeto: ['AkiContrata'],
     },
 
     rafaelp: {
@@ -467,14 +433,18 @@ const membersData = {
         },
     },
 
-    carolayne: {
-        name: 'Carolayne Maria Russel dos Santos',
-        photo: 'assets/imagens/membros/carolayne.jpeg',
-        role: 'Designer',
-        initials: 'CR',
-        group: 'design',
-        bio: 'Membro designer da LES, focada em crescimento técnico e entrega de valor nos projetos da liga.',
-        links: {},
+    ian: {
+        name: 'Ian Elton Pereira da Silva',
+        photo: 'assets/imagens/membros/',
+        role: 'Desenvolvedor',
+        initials: 'IP',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/ianq1w1',
+            linkedin: 'https://www.linkedin.com/in/ian-elton-dev/',
+        },
+        projeto: ['Weather'],
     },
 
     /* ══ COLABORADORES — adicione aqui ══════════════════════
@@ -496,145 +466,6 @@ const membersData = {
            links: { linkedin: 'https://...' },
        },
     ════════════════════════════════════════════════════════ */
-
-    /* ══ EX INTEGRANTES — adicione aqui ═════════════════════
-       Exemplo:
-       nomeEx: {
-           name: 'Nome Completo', role: 'Ex Integrante',
-           initials: 'NE', group: 'ex_integrante',
-           bio: 'Contribuições durante o período na liga.',
-           links: { linkedin: 'https://...' },
-       },
-    ════════════════════════════════════════════════════════ */
-    francisco: {
-        name: 'Francisco de Assis O. dos S. Correia',
-        role: 'ex_integrante',
-        initials: 'FA',
-        group: 'ex_integrante',
-        bio: 'Primeiro Diretor de Administração da Liga de Engenharia de Software (LES) e membro fundador.',
-        links: {
-            github: 'https://github.com/francisco-tal',
-            linkedin: 'https://www.linkedin.com/in/francisco-de-assis-53aaab3b2/',
-        },
-    },
-
-    cristiano: {
-        name: 'Cristiano Veras de Souza',
-        role: 'ex_integrante',
-        initials: 'CV',
-        group: 'ex_integrante',
-        bio: 'Ex-membro desenvolvedor da LES.',
-        links: {
-            github: 'https://github.com/',
-            linkedin: 'https://www.linkedin.com/in/cristianoveras/',
-        },
-    },
-
-    rafael: {
-        name: 'Prof. Dr. Rafael Roque Aschoff',
-        role: 'ex_integrante',
-        initials: 'RA',
-        group: 'ex_integrante',
-        bio: 'Professor e pesquisador do IFPE Campus Recife. Coordena a Liga de Engenharia de Software, promovendo a formação prática e o desenvolvimento de soluções tecnológicas com impacto real na comunidade.',
-        links: {
-            github: 'https://github.com/roque86',
-            email: 'mailto:rafael.aschoff@recife.ifpe.edu.br',
-        },
-    },
-
-    wallace: {
-        name: 'Wallace Gabriel da Silva', role: 'ex_integrante',
-        initials: 'WS', group: 'ex_integrante',
-        bio: 'Membro desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
-        links: {}
-    },
-
-    sabryna: {
-        name: 'Sabryna Santana da Silva',
-        role: 'Ex Integrante',
-        initials: 'SS',
-        group: 'ex_integrante',
-        bio: 'Ex-membro da LES, atuou nas áreas de desenvolvimento e comunicação, contribuindo com soluções criativas e fortalecimento dos projetos da liga.',
-        links: {
-            github: 'https://github.com/sabrynasantana',
-            linkedin: 'https://www.linkedin.com/in/sabryna-santana-8150201a1/',
-        },
-    },
-
-    alicy: {
-        name: 'Alicy Lucena Candido da Silva',
-        role: 'Ex Integrante',
-        initials: 'AL',
-        group: 'ex_integrante',
-        bio: 'Ex-membro desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
-        links: {
-            github: 'https://github.com/alicylucena?tab=projects',
-            linkedin: 'https://www.linkedin.com/in/alicy-lucena-candido-da-silva-336b86406',
-        },
-    },
-
-    lyzia: {
-        name: 'Lyzia Karollen Da Silva Gomes',
-        role: 'Ex Integrante',
-        initials: 'LK',
-        group: 'ex_integrante',
-        bio: 'Ex-membro desenvolvedora da LES, colaborando ativamente com os projetos e iniciativas técnicas da liga.',
-        links: {
-            github: 'https://github.com/LyziaGomes',
-            linkedin: 'https://www.linkedin.com/in/lyzia-gomes-288548378',
-        },
-    },
-
-    renan: {
-        name: 'Renan Henrico Borges Pinto',
-        photo: 'assets/imagens/membros/renan.jpeg',
-        role: 'Desenvolvedor',
-        initials: 'RH',
-        group: 'dev',
-        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
-        links: {
-            github: 'https://github.com/Renansoader',
-            linkedin: 'https://www.linkedin.com/in/renanhenry/',
-        },
-    },
-
-    kayllane: {
-        name: 'Kayllane Maria Dias Vasconcelos',
-        role: 'Ex Integrante',
-        initials: 'KA',
-        group: 'ex_integrante',
-        bio: 'Ex-membro desenvolvedora da LES, focada em crescimento técnico e entrega de valor nos projetos da liga.',
-        links: {
-            github: 'https://github.com/kayvsll',
-            linkedin: 'https://www.linkedin.com/in/kayvsll/',
-        },
-    },
-
-    ryan: {
-        name: 'Ryan Raiconny Nobre Nascimento',
-        role: 'Ex Integrante',
-        initials: 'RY',
-        group: 'ex_integrante',
-        bio: 'Ex-membro desenvolvedor da LES, focado em crescimento técnico, network e entrega de valor nos projetos da liga.',
-        links: {
-            github: 'https://github.com/ryan-star232',
-            linkedin: 'https://www.linkedin.com/in/ryan-nobre-56aa943a2/',
-        },
-    },
-
-    maria: {
-        name: 'Maria Carollina da Silva Monte',
-        role: 'Ex Integrante',
-        initials: 'MC',
-        group: 'ex_integrante',
-        bio: 'Ex-membro desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
-        links: {
-            github: 'https://github.com/mariacarollinamonte-spec',
-            linkedin: 'https://www.linkedin.com/in/mariacarollinamonte/',
-        },
-    },
-
-
 
 };
 
@@ -677,22 +508,20 @@ const GROUP_LABELS = {
     design: 'Design',
     colaborador: 'Colaboradores',
     externo: 'Colaboradores Externos',
-    ex_integrante: 'Ex Integrantes',
     /* Nova categoria:
        pesquisa: 'Pesquisadores',
        alumni:   'Alumni',
     */
 };
 
-const GROUP_ORDER = ['diretoria', 'dev', 'design', 'colaborador', 'externo', 'ex_integrante'];
+const GROUP_ORDER = ['diretoria', 'dev', 'design', 'colaborador', 'externo'];
 
 const GROUP_COLORS = {
-    diretoria: 'var(--green)',
-    dev: 'var(--green)',
+    diretoria: 'var(--neon-green)',
+    dev: 'var(--baby-blue)',
     design: '#a855f7',
-    colaborador: 'var(--gray-lt)',
+    colaborador: '#c09030',
     externo: '#c09030',
-    ex_integrante: 'var(--red)',
 };
 
 
@@ -1113,7 +942,7 @@ const memberModal = document.getElementById('member-modal');
 const memberClose = document.getElementById('modal-close');
 
 function openMemberModal(id) {
-    const data = membersData[id];
+    const data = membersData[id];   
     if (!data) return;
 
     const modalAvatar = document.getElementById('modal-avatar');
@@ -1146,7 +975,7 @@ function openMemberModal(id) {
                 border-radius: 6px;
                 background: rgba(0,166,81,0.06);
                 border: 1px solid rgba(0,166,81,0.2);
-                border-left: 3px solid var(--green);
+                border-left: 3px solid var(--neon-green);
             `;
             /* Insere antes da bio */
             const bio = document.getElementById('modal-bio');
@@ -1162,7 +991,7 @@ function openMemberModal(id) {
                     font-weight:700;
                     letter-spacing:0.22em;
                     text-transform:uppercase;
-                    color:var(--green);
+                    color:var(--neon-green);
                     display:block;
                     margin-bottom:0.3rem;
                 ">Ligante Destaque · ${mesStr} ${ano}</span>
@@ -1193,11 +1022,21 @@ function openMemberModal(id) {
         linksEl.appendChild(a);
     });
 
+    const projectsArea = document.getElementById('modal-project');
+    projectsArea.innerHTML = '';           
 
+    (data.projeto ?? []).forEach((project) => {
+        const span = document.createElement('span');
+        span.style.cssText = "margin-right: .2rem;";
+        span.className = 'equipe-tag equipe-tag--blue';
+        span.textContent = `${project}`;
+        projectsArea.appendChild(span);
+    });
 
     memberModal.classList.add('open');
     document.body.style.overflow = 'hidden';
 }
+
 function closeMemberModal() {
     memberModal.classList.remove('open');
     if (!teamOverviewModal.classList.contains('open')) {
@@ -1229,13 +1068,15 @@ function collectMembersByGroup() {
     const groups = {};
 
     document.querySelectorAll('.member-card[data-member]').forEach(card => {
-        const group = card.dataset.group || 'outros';
+        const groupList = card.dataset.group.split(' ');
         const member = card.dataset.member;
 
-        if (!groups[group]) groups[group] = [];
-        if (!groups[group].includes(member)) {
-            groups[group].push(member);
-        }
+        groupList.forEach(group => {
+            if (!groups[group]) groups[group] = [];
+            if (!groups[group].includes(member)) {
+                groups[group].push(member);
+            }
+        });
     });
 
     return groups;
@@ -1308,7 +1149,7 @@ function renderTeamOverviewGrid(groups, activeFilter = 'all') {
 
             header.style.setProperty(
                 '--group-color',
-                GROUP_COLORS[group] || 'var(--green)'
+                GROUP_COLORS[group] || 'var(--neon-green)'
             );
 
             header.textContent =
