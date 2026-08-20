@@ -49,7 +49,7 @@ const INGRESSO_CONFIG = {
     dataEncerramentoInscricoes: new Date(2026, 8, 22),   /* 22/09/2026 */
     textoFase1: 'Inscrições abrem em',
     textoFase2: 'Inscrições encerram em',
-    linkFormulario: 'https://forms.gle/j5fYk6yR4D4mCH9j7',
+    linkFormulario: 'https://forms.gle/Dut323YRdLXs2MBy7',
 };
 
 /* ────────────────────────────────────────────────────────────
@@ -1840,7 +1840,7 @@ function abrirFormulario() {
         return;
     }
     window.open(
-        'https://docs.google.com/forms/d/e/1FAIpQLSfbTDmrQTLmwpWn_vNgo0tGHQ27Bfm2fE39ottHrm0671m9Mw/viewform?usp=publish-editor',
+        `${INGRESSO_CONFIG.linkFormulario}`,
         '_blank'
     );
 }
