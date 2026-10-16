@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Entrar · LES-IFPE</title>
+    <link rel="icon" href="assets/imagens/logos/leslogowithouttext.png" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-shell">
+
+        <!-- ══ LADO ESQUERDO: BRANDING ═══════════════════════ -->
+        <aside class="auth-brand">
+            <div class="auth-brand-inner">
+                <img src="assets/imagens/logos/leslogowithtext.png"
+                     alt="LES-IFPE" class="auth-logo">
+
+                <h1>
+                    PORTAL<br>
+                    <span class="accent">INTERNO</span>
+                </h1>
+
+                <p>
+                    Gestão de membros, projetos, eventos, documentação e
+                    financeiro da Liga de Engenharia de Software do IFPE
+                    Campus Recife.
+                </p>
+
+                <div class="auth-brand-glow" aria-hidden="true"></div>
+            </div>
+        </aside>
+
+        <!-- ══ LADO DIREITO: FORMULÁRIO ══════════════════════ -->
+        <main class="auth-form-wrap">
+            <form class="auth-form" id="login-form" novalidate autocomplete="on">
+
+                <header class="auth-form-head">
+                    <span class="auth-eyebrow">— Acesso restrito</span>
+                    <h2>Bem-vindo de volta</h2>
+                    <p>Use seu e-mail institucional cadastrado.</p>
+                </header>
+
+                <!-- Área de alerta dinâmico (erros globais) -->
+                <div id="login-alert" role="alert" aria-live="polite"></div>
+
+                <!-- E-mail -->
+                <div class="form-field" id="field-email">
+                    <label for="email">E-mail</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        autocomplete="username"
+                        inputmode="email"
+                        placeholder="nome@recife.ifpe.edu.br">
+                    <span class="form-error" data-error="email"></span>
+                </div>
+
+                <!-- Senha -->
+                <div class="form-field" id="field-senha">
+                    <label for="senha">Senha</label>
+                    <div class="input-with-toggle">
+                        <input
+                            type="password"
+                            id="senha"
+                            name="senha"
+                            required
+                            autocomplete="current-password"
+                            placeholder="••••••••"
+                            minlength="6">
+                        <button type="button"
+                                class="input-toggle"
+                                id="toggle-senha"
+                                aria-label="Mostrar senha"
+                                tabindex="-1">👁</button>
+                    </div>
+                    <span class="form-error" data-error="senha"></span>
+                </div>
+
+                <!-- Linha: lembrar + esqueci -->
+                <div class="auth-row">
+                    <label class="checkbox">
+                        <input type="checkbox" name="lembrar" checked>
+                        <span>Manter conectado</span>
+                    </label>
+                    <a href="#" class="auth-forgot" id="link-esqueci">
+                        Esqueci a senha
+                    </a>
+                </div>
+
+                <!-- Botão -->
+                <button type="submit" class="btn-solid auth-submit" id="btn-submit">
+                    <span>Entrar</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.5"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </button>
+
+                <p class="auth-help">
+                    Não tem acesso?
+                    <a href="index.html#parte_nossa_equipe">
+                        Participe do processo seletivo
+                    </a>
+                </p>
+
+            </form>
+        </main>
+
+    </div>
+
+    <!-- ══ MODAL: ESQUECI A SENHA ═══════════════════════════ -->
+    <div id="modal-esqueci" class="les-modal-overlay" role="dialog" aria-modal="true"
+         aria-labelledby="modal-esqueci-title">
+        <div class="les-modal-box" style="max-width: 440px">
+
+            <button class="les-modal-close" aria-label="Fechar">&times;</button>
+
+            <h2 class="les-modal-title" id="modal-esqueci-title">
+                Recuperar senha
+            </h2>
+
+            <p style="font-size:0.9rem;color:var(--gray-lt);line-height:1.6;margin-bottom:1.25rem">
+                Informe o e-mail cadastrado. Se existir, enviaremos um link
+                para redefinir sua senha.
+            </p>
+
+            <form id="form-esqueci">
+                <div class="form-field">
+                    <label for="email-esqueci">E-mail</label>
+                    <input type="email" id="email-esqueci" required
+                           placeholder="nome@recife.ifpe.edu.br">
+                </div>
+
+                <button type="submit" class="btn-solid" style="width:100%;justify-content:center">
+                    <span>Enviar link</span>
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- ══ SCRIPTS ═══════════════════════════════════════════ -->
+    <script src="js/config.js"></script>
+    <script type="module" src="js/views/login.js"></script>
+
+</body>
+
+</html>
