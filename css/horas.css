@@ -1,0 +1,158 @@
+/* ============================================================
+   LES — Página de Horas
+   Depende de: tokens.css, components.css, app.css
+   ============================================================ */
+
+/* ── Resumo de KPIs ── */
+.horas-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+
+/* ── Filtros ── */
+.horas-filters {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+}
+
+.horas-filters select,
+.horas-filters input {
+    padding: 0.7rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    color: var(--white);
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.horas-filters select {
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+}
+
+/* ── Linha de registro ── */
+.hora-linha {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.5rem;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.hora-linha:hover {
+    border-color: rgba(53, 255, 118, 0.2);
+    background: rgba(53, 255, 118, 0.02);
+}
+
+.hora-linha-data {
+    font-family: var(--font-head);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-lt);
+    min-width: 90px;
+}
+
+.hora-linha-projeto {
+    font-size: 0.9rem;
+    color: var(--white);
+    font-weight: 500;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hora-linha-desc {
+    font-size: 0.82rem;
+    color: var(--gray-lt);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hora-linha-qtd {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: var(--neon-green);
+    line-height: 1;
+    min-width: 50px;
+    text-align: right;
+}
+
+.hora-linha-qtd span {
+    font-family: var(--font-head);
+    font-size: 0.7rem;
+    color: var(--gray-lt);
+    margin-left: 0.15rem;
+}
+
+.hora-linha-actions {
+    display: flex;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
+/* ── Barra de totais por projeto ── */
+.horas-por-projeto {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.horas-proj-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.horas-proj-nome {
+    font-size: 0.88rem;
+    color: var(--white);
+    min-width: 140px;
+}
+
+.horas-proj-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.horas-proj-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--deep-blue), var(--neon-green));
+    border-radius: 4px;
+    transition: width 0.6s var(--ease-smooth);
+}
+
+.horas-proj-valor {
+    font-family: var(--font-head);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--neon-green);
+    min-width: 55px;
+    text-align: right;
+}

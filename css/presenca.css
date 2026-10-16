@@ -1,0 +1,195 @@
+/* ============================================================
+   LES — Página de Presença
+   Depende de: tokens.css, components.css, app.css
+   ============================================================ */
+
+/* ── Cabeçalho de evento (contexto) ── */
+.presenca-evento-head {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    background: rgba(53, 255, 118, 0.04);
+    border: 1px solid rgba(53, 255, 118, 0.15);
+    border-left: 4px solid var(--neon-green);
+    border-radius: var(--radius-md);
+}
+
+.presenca-evento-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(53, 255, 118, 0.1);
+    border: 2px solid rgba(53, 255, 118, 0.3);
+    color: var(--neon-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.presenca-evento-info { flex: 1; min-width: 0; }
+
+.presenca-evento-titulo {
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.25rem;
+}
+
+.presenca-evento-meta {
+    font-size: 0.82rem;
+    color: var(--gray-lt);
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.presenca-evento-meta strong { color: var(--neon-green); }
+
+/* ── Barra de status rápido ── */
+.presenca-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.presenca-stat {
+    padding: 1rem 1.15rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.presenca-stat-value {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--white);
+    line-height: 1;
+}
+
+.presenca-stat-value.green { color: var(--neon-green); }
+.presenca-stat-value.red   { color: #ff7088; }
+.presenca-stat-value.gray  { color: var(--gray-lt); }
+
+.presenca-stat-label {
+    font-family: var(--font-head);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray-lt);
+    margin-top: 0.35rem;
+}
+
+/* ── Lista de membros para marcar presença ── */
+.presenca-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.presenca-linha {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.presenca-linha:hover {
+    border-color: rgba(53, 255, 118, 0.2);
+    background: rgba(53, 255, 118, 0.02);
+}
+
+.presenca-linha.presente {
+    border-color: rgba(53, 255, 118, 0.35);
+    background: rgba(53, 255, 118, 0.05);
+}
+
+.presenca-linha.ausente {
+    border-color: rgba(228, 64, 95, 0.25);
+    background: rgba(228, 64, 95, 0.03);
+}
+
+.presenca-linha-nome {
+    flex: 1;
+    font-size: 0.9rem;
+    color: var(--white);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.presenca-toggle {
+    display: flex;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
+.presenca-btn {
+    padding: 0.45rem 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    color: var(--gray-lt);
+    font-family: var(--font-head);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.presenca-btn:hover {
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.presenca-btn.presente.active {
+    background: var(--neon-green);
+    border-color: var(--neon-green);
+    color: var(--black);
+}
+
+.presenca-btn.ausente.active {
+    background: #e4405f;
+    border-color: #e4405f;
+    color: var(--white);
+}
+
+/* ── Barra de ações flutuante ── */
+.presenca-actions {
+    position: sticky;
+    bottom: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    padding: 1rem 1.25rem;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(53, 255, 118, 0.2);
+    border-radius: var(--radius-md);
+    margin-top: 1.5rem;
+    z-index: 50;
+}
+
+.presenca-actions-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--gray-lt);
+}
+
+.presenca-actions-info strong { color: var(--neon-green); margin: 0 .25rem; }
