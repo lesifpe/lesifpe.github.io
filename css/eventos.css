@@ -1,0 +1,309 @@
+/* ============================================================
+   LES — Página de Eventos
+   Depende de: tokens.css, components.css, app.css
+   ============================================================ */
+
+/* ── Filtros ── */
+.eventos-filters {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+}
+
+.eventos-filters input,
+.eventos-filters select {
+    padding: 0.7rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    color: var(--white);
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.eventos-filters input {
+    flex: 1;
+    min-width: 220px;
+    font-family: var(--font-body);
+}
+
+.eventos-filters select {
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+}
+
+/* ── Grid de eventos ── */
+.eventos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+}
+
+.evento-card {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.evento-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(53, 255, 118, 0.3);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.evento-card-cover {
+    height: 150px;
+    background: linear-gradient(135deg, var(--deep-blue), #001133);
+    position: relative;
+    overflow: hidden;
+}
+
+.evento-card-cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(53, 255, 118, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(53, 255, 118, 0.06) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+.evento-card-data {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--black);
+    border: 2px solid var(--neon-green);
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 0.75rem;
+    text-align: center;
+    z-index: 1;
+}
+
+.evento-card-data-dia {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--neon-green);
+    line-height: 1;
+}
+
+.evento-card-data-mes {
+    font-family: var(--font-head);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-lt);
+}
+
+.evento-card-tipo {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1;
+}
+
+.evento-card-body {
+    padding: 1.25rem 1.4rem 1.4rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.evento-card-titulo {
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+}
+
+.evento-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+    flex: 1;
+}
+
+.evento-card-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--gray-lt);
+}
+
+.evento-card-meta-item svg {
+    color: var(--neon-green);
+    flex-shrink: 0;
+    opacity: 0.75;
+}
+
+.evento-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.85rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.evento-card-vagas {
+    font-family: var(--font-head);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-lt);
+}
+
+.evento-card-vagas strong { color: var(--neon-green); }
+
+.evento-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.9rem;
+    font-family: var(--font-head);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--neon-green);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    text-decoration: none;
+}
+
+.evento-card-btn:hover {
+    background: var(--mint-green);
+    transform: translateY(-1px);
+}
+
+/* ── Modal de evento ── */
+.evento-detalhe-head {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.evento-detalhe-titulo {
+    font-family: var(--font-head);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+.evento-detalhe-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin-bottom: 0.85rem;
+}
+
+.evento-detalhe-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.85rem;
+    color: var(--gray-lt);
+}
+
+.evento-detalhe-meta-item svg {
+    color: var(--neon-green);
+    flex-shrink: 0;
+}
+
+.evento-detalhe-section {
+    margin-bottom: 1.25rem;
+}
+
+.evento-detalhe-section-title {
+    font-family: var(--font-head);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-lt);
+    margin-bottom: 0.5rem;
+}
+
+.evento-detalhe-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(245, 245, 240, 0.7);
+}
+
+/* ── Palestrantes ── */
+.palestrantes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.85rem;
+}
+
+.palestrante-card {
+    text-align: center;
+    padding: 1rem 0.75rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s;
+}
+
+.palestrante-card:hover { border-color: rgba(53, 255, 118, 0.25); }
+
+.palestrante-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    margin: 0 auto 0.6rem;
+    background: linear-gradient(135deg, var(--deep-blue), var(--neon-green));
+    color: var(--black);
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid rgba(53, 255, 118, 0.3);
+}
+
+.palestrante-avatar img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+}
+
+.palestrante-nome {
+    font-size: 0.85rem;
+    color: var(--white);
+    font-weight: 500;
+    margin-bottom: 0.15rem;
+}
+
+.palestrante-bio {
+    font-size: 0.72rem;
+    color: var(--gray-lt);
+    line-height: 1.4;
+}
