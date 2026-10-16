@@ -1,0 +1,71 @@
+/* ============================================================
+   LES — Design Tokens
+   Compartilhado entre landing pública e painel interno.
+   Carregado ANTES de components.css, app.css e auth.css.
+   ============================================================ */
+:root {
+    /* ── Azuis ── */
+    --deep-blue: #002472;
+    --darkest-blue: #000c26;
+    --baby-blue: #a6c3ff;
+    --light-blue: #ccdcff;
+
+    /* ── Verdes ── */
+    --neon-green: #35FF76;
+    --darkest-green: #082612;
+    --dark-green: #114d24;
+    --mint-green: #7dffa7;
+    --light-green: #d1ffe0;
+
+    /* ── Neutros ── */
+    --black: #000000;
+    --white: #f5f5f0;
+    --gray: #0b0b0b;
+    --gray-md: #141414;
+    --gray-lt: #a8b3d1;
+
+    /* ── Dourado (Ligante do Mês / Destaques) ── */
+    --gold-100: #fff9e6;
+    --gold-200: #ffe066;
+    --gold-300: #ffd84d;
+    --gold-400: #ffcc00;
+    --gold-500: #c8a000;
+
+    /* ── Tipografia ── */
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-head:    'Barlow Condensed', sans-serif;
+    --font-body:    'DM Sans', sans-serif;
+
+    /* ── Easings ── */
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* ── Timing ── */
+    --dur-fast:  0.22s;
+    --dur-base:  0.38s;
+    --dur-slow:  0.65s;
+
+    /* ── Raios ── */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+
+    /* ── Sombras ── */
+    --shadow-sm:   0 4px 12px rgba(0,0,0,0.25);
+    --shadow-card: 0 24px 64px rgba(0,0,0,0.55), 0 8px 24px rgba(0,0,0,0.4);
+    --shadow-hover: 0 36px 96px rgba(0,0,0,0.68), 0 12px 36px rgba(0,0,0,0.5);
+
+    /* ── Cores com opacidade (superfícies) ── */
+    --surface-00: rgba(10, 10, 10, 0.98);
+    --surface-01: rgba(16, 16, 16, 0.98);
+    --surface-02: rgba(22, 22, 22, 0.95);
+    --white-a04:  rgba(255, 255, 255, 0.04);
+    --white-a06:  rgba(255, 255, 255, 0.06);
+    --white-a08:  rgba(255, 255, 255, 0.08);
+    --white-a72:  rgba(255, 255, 255, 0.72);
+
+    /* ── Layout do app ── */
+    --sidebar-width: 260px;
+    --topbar-height: 64px;
+}
