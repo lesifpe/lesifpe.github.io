@@ -1,0 +1,149 @@
+/* ============================================================
+   LES — Página de Patrimônio
+   Depende de: tokens.css, components.css, app.css
+   ============================================================ */
+
+.patrimonio-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+
+.patrimonio-filters {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+}
+
+.patrimonio-filters input,
+.patrimonio-filters select {
+    padding: 0.7rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    color: var(--white);
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.patrimonio-filters input {
+    flex: 1;
+    min-width: 220px;
+    font-family: var(--font-body);
+}
+
+.patrimonio-filters select {
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+}
+
+/* ── Grid de itens ── */
+.patrimonio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.patrimonio-card {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-md);
+    padding: 1.1rem 1.25rem;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.patrimonio-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(53, 255, 118, 0.25);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.patrimonio-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.patrimonio-card-info { flex: 1; min-width: 0; }
+
+.patrimonio-card-nome {
+    font-family: var(--font-head);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 0.2rem;
+}
+
+.patrimonio-card-cat {
+    font-family: var(--font-head);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-lt);
+}
+
+.patrimonio-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.patrimonio-card-meta-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+}
+
+.patrimonio-card-meta-item span:first-child { color: var(--gray-lt); }
+.patrimonio-card-meta-item span:last-child  { color: var(--white); }
+
+.patrimonio-card-meta-item strong { color: var(--neon-green); }
+
+/* ── Movimentações (histórico) ── */
+.mov-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.mov-linha {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+}
+
+.mov-linha-data {
+    font-family: var(--font-head);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-lt);
+    min-width: 70px;
+}
+
+.mov-linha-desc { flex: 1; color: var(--white); }
+.mov-linha-autor { color: var(--gray-lt); font-size: 0.75rem; }

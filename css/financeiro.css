@@ -1,0 +1,160 @@
+/* ============================================================
+   LES — Página de Financeiro
+   Depende de: tokens.css, components.css, app.css
+   ============================================================ */
+
+.financeiro-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+
+.financeiro-filters {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+}
+
+.financeiro-filters select,
+.financeiro-filters input {
+    padding: 0.7rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    color: var(--white);
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.financeiro-filters select {
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+}
+
+/* ── Linha de lançamento ── */
+.fin-linha {
+    display: grid;
+    grid-template-columns: 100px 1fr auto auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.5rem;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.fin-linha:hover {
+    border-color: rgba(53, 255, 118, 0.2);
+    background: rgba(53, 255, 118, 0.02);
+}
+
+@media (max-width: 700px) {
+    .fin-linha { grid-template-columns: 1fr 1fr; }
+    .fin-linha-data,
+    .fin-linha-valor { grid-column: span 2; }
+}
+
+.fin-linha-data {
+    font-family: var(--font-head);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-lt);
+}
+
+.fin-linha-info { min-width: 0; }
+
+.fin-linha-desc {
+    font-size: 0.9rem;
+    color: var(--white);
+    font-weight: 500;
+    margin-bottom: 0.15rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fin-linha-cat {
+    font-family: var(--font-head);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-lt);
+}
+
+.fin-linha-valor {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    line-height: 1;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.fin-linha-valor.receita { color: var(--neon-green); }
+.fin-linha-valor.despesa { color: #ff7088; }
+
+.fin-linha-actions {
+    display: flex;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
+/* ── Resumo por categoria ── */
+.fin-categorias {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.fin-cat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.fin-cat-nome {
+    font-size: 0.85rem;
+    color: var(--white);
+    min-width: 130px;
+}
+
+.fin-cat-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.fin-cat-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s var(--ease-smooth);
+}
+
+.fin-cat-bar-fill.receita { background: linear-gradient(90deg, var(--dark-green), var(--neon-green)); }
+.fin-cat-bar-fill.despesa { background: linear-gradient(90deg, #7a1a2a, #e4405f); }
+
+.fin-cat-valor {
+    font-family: var(--font-head);
+    font-size: 0.85rem;
+    font-weight: 700;
+    min-width: 90px;
+    text-align: right;
+}
+.fin-cat-valor.receita { color: var(--neon-green); }
+.fin-cat-valor.despesa { color: #ff7088; }

@@ -1,0 +1,270 @@
+/* ============================================================
+   LES — Página de Feed interno
+   Depende de: tokens.css, components.css, app.css
+   ============================================================ */
+
+.feed-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+@media (max-width: 1000px) {
+    .feed-layout { grid-template-columns: 1fr; }
+    .feed-sidebar { display: none; }
+}
+
+/* ── Composer (caixa de novo post) ── */
+.feed-composer {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.25s;
+}
+
+.feed-composer:focus-within {
+    border-color: rgba(53, 255, 118, 0.35);
+}
+
+.feed-composer-top {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+}
+
+.feed-composer-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.feed-composer textarea {
+    width: 100%;
+    min-height: 70px;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+    padding: 0.5rem 0;
+}
+
+.feed-composer textarea::placeholder {
+    color: rgba(168, 179, 209, 0.45);
+}
+
+.feed-composer-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.85rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.feed-composer-tools {
+    display: flex;
+    gap: 0.4rem;
+}
+
+/* ── Post ── */
+.feed-post {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.4rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.25s;
+}
+
+.feed-post:hover {
+    border-color: rgba(53, 255, 118, 0.15);
+}
+
+.feed-post-head {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    margin-bottom: 0.85rem;
+}
+
+.feed-post-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.feed-post-autor {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.15rem;
+}
+
+.feed-post-cargo {
+    font-family: var(--font-head);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--neon-green);
+}
+
+.feed-post-hora {
+    font-size: 0.75rem;
+    color: var(--gray-lt);
+    white-space: nowrap;
+}
+
+.feed-post-body {
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: rgba(245, 245, 240, 0.85);
+    margin-bottom: 1rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.feed-post-actions {
+    display: flex;
+    gap: 1.5rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.feed-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--gray-lt);
+    font-family: var(--font-head);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0.25rem 0;
+    transition: color 0.2s;
+}
+
+.feed-action:hover { color: var(--white); }
+.feed-action.curtido { color: var(--neon-green); }
+.feed-action.curtido svg { fill: var(--neon-green); }
+
+.feed-post-comentarios {
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px dashed rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.feed-comentario {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+}
+
+.feed-comentario-body {
+    flex: 1;
+    min-width: 0;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-sm);
+    padding: 0.6rem 0.85rem;
+}
+
+.feed-comentario-autor {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.2rem;
+}
+
+.feed-comentario-texto {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: rgba(245, 245, 240, 0.75);
+}
+
+.feed-comentario-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.feed-comentario-form input {
+    flex: 1;
+    padding: 0.55rem 0.85rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-sm);
+    color: var(--white);
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.feed-comentario-form input:focus {
+    border-color: var(--neon-green);
+}
+
+/* ── Sidebar (aniversariantes, atalhos) ── */
+.feed-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: sticky;
+    top: calc(var(--topbar-height) + 1rem);
+}
+
+.feed-sidebar-card {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: var(--radius-md);
+    padding: 1.1rem 1.25rem;
+}
+
+.feed-sidebar-title {
+    font-family: var(--font-head);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--neon-green);
+    margin-bottom: 0.85rem;
+}
+
+.feed-sidebar-item {
+    display: flex;
+    gap: 0.65rem;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.feed-sidebar-item:last-child { border-bottom: none; }
+
+.feed-sidebar-item-info { flex: 1; min-width: 0; }
+
+.feed-sidebar-item-nome {
+    font-size: 0.85rem;
+    color: var(--white);
+    margin-bottom: 0.1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.feed-sidebar-item-meta {
+    font-size: 0.72rem;
+    color: var(--gray-lt);
+}
