@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Cargos · LES-IFPE</title>
+    <link rel="icon" href="../assets/imagens/logos/leslogowithouttext.png" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/cargos.css">
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <aside class="app-sidebar" data-sidebar></aside>
+        <header class="app-topbar" data-topbar></header>
+
+        <main class="app-content">
+
+            <div class="app-page-head">
+                <div>
+                    <h1 class="app-page-title">Cargos</h1>
+                    <p class="app-page-sub">Hierarquia de cargos e permissões da liga</p>
+                </div>
+                <div class="app-page-actions" data-perm="CARGO_GERENCIAR">
+                    <button class="btn-solid" id="btn-novo-cargo">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2.5"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Novo cargo
+                    </button>
+                </div>
+            </div>
+
+            <div class="cargos-tree" id="cargos-tree">
+                <div class="spinner"></div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script type="module" src="../js/views/cargos.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Membros · LES-IFPE</title>
+    <link rel="icon" href="../assets/imagens/logos/leslogowithouttext.png" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="../css/tokens.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/membros.css">
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <aside class="app-sidebar" data-sidebar></aside>
+        <header class="app-topbar" data-topbar></header>
+
+        <main class="app-content">
+
+            <div class="app-page-head">
+                <div>
+                    <h1 class="app-page-title">Membros</h1>
+                    <p class="app-page-sub">Todos os integrantes da liga</p>
+                </div>
+                <div class="app-page-actions" data-perm="MEMBRO_CRIAR">
+                    <button class="btn-solid" id="btn-novo-membro">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2.5"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Convidar membro
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filtros -->
+            <div class="membros-filters">
+                <div class="membros-search">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                    <input type="text" id="filtro-busca" placeholder="Buscar por nome ou e-mail...">
+                </div>
+
+                <select class="membros-select" id="filtro-cargo">
+                    <option value="">Todos os cargos</option>
+                </select>
+
+                <select class="membros-select" id="filtro-status">
+                    <option value="">Todos os status</option>
+                    <option value="ATIVO">Ativos</option>
+                    <option value="INATIVO">Inativos</option>
+                    <option value="EXPERIENCIA">Em experiência</option>
+                </select>
+            </div>
+
+            <!-- Grid de membros -->
+            <div id="membros-container">
+                <div class="spinner"></div>
+            </div>
+
+            <!-- Paginação -->
+            <div id="membros-paginacao" class="app-page-actions" style="margin-top:1.5rem;justify-content:center"></div>
+
+        </main>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script type="module" src="../js/views/membros.js"></script>
+
+</body>
+</html>

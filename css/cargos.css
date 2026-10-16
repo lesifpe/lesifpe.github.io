@@ -1,0 +1,141 @@
+/* ============================================================
+   LES — Página de Cargos
+   Depende de: tokens.css, components.css, app.css
+   ============================================================ */
+
+/* ── Árvore hierárquica ── */
+.cargos-tree {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.cargo-node {
+    position: relative;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-left: 3px solid var(--neon-green);
+    border-radius: var(--radius-md);
+    padding: 1.1rem 1.25rem;
+    transition: border-color 0.25s, background 0.25s, transform 0.25s;
+}
+
+.cargo-node:hover {
+    background: rgba(53, 255, 118, 0.03);
+    border-left-color: var(--mint-green);
+}
+
+.cargo-node-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.cargo-node-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.cargo-node-nivel {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--neon-green);
+    line-height: 1;
+    min-width: 48px;
+    text-align: center;
+    padding: 0.35rem 0.6rem;
+    border-radius: var(--radius-sm);
+    background: rgba(53, 255, 118, 0.08);
+    border: 1px solid rgba(53, 255, 118, 0.2);
+}
+
+.cargo-node-content { flex: 1; min-width: 0; }
+
+.cargo-node-name {
+    font-family: var(--font-head);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.2rem;
+}
+
+.cargo-node-meta {
+    font-size: 0.8rem;
+    color: var(--gray-lt);
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.cargo-node-meta strong { color: var(--neon-green); }
+
+.cargo-node-actions {
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+}
+
+/* ── Pílulas de permissões ── */
+.cargo-perms {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed rgba(255, 255, 255, 0.06);
+}
+
+.cargo-perm-pill {
+    font-family: var(--font-head);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    background: rgba(53, 255, 118, 0.08);
+    color: var(--neon-green);
+    border: 1px solid rgba(53, 255, 118, 0.15);
+}
+
+/* ── Permissões checkbox no modal ── */
+.perms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.perm-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    font-size: 0.82rem;
+    color: var(--gray-lt);
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.perm-check:hover {
+    border-color: rgba(53, 255, 118, 0.25);
+    background: rgba(53, 255, 118, 0.03);
+}
+
+.perm-check input {
+    accent-color: var(--neon-green);
+    cursor: pointer;
+}
+
+.perm-check input:checked + span {
+    color: var(--neon-green);
+    font-weight: 500;
+}
