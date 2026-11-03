@@ -1,0 +1,1851 @@
+/* ============================================================
+   LES – LIGA DE ENGENHARIA DE SOFTWARE | IFPE Recife
+   app.js — Script unificado
+
+   ÍNDICE:
+   ┌─────────────────────────────────────────────────────────┐
+   │  SEÇÃO A — DADOS E CONFIGURAÇÃO (edite aqui)            │
+   │    A1 · Configuração de Ingresso                        │
+   │    A2 · Imagens do Hero Slideshow                       │
+   │    A3 · Dados dos Membros                               │
+   │    A4 · Ícones e rótulos de links sociais               │
+   │    A5 · Grupos — rótulos, ordem e cores                 │
+   │    A6 · Dados da Galeria de Fotos                        │
+   ├─────────────────────────────────────────────────────────┤
+   │  SEÇÃO B — FUNÇÕES E LÓGICA (não é necessário editar)   │
+   │    B1 · Hamburger Menu                                  │
+   │    B2 · Hero Slideshow                                  │
+   │    B3 · Carrossel de Projetos                           │
+   │    B4 · Modal de Perfil Individual                      │
+   │    B5 · Modal de Visão Geral da Equipe                  │
+   │    B6 · Modal de Eventos + Galeria de Fotos              │
+   │    B7 · Contagem Regressiva do Ingresso + Modal         │
+   │    B8 · Animações e Efeitos (DOMContentLoaded)          │
+   │    B9 · Fechar Modais com ESC                           │
+   │   B10 · Abridor de formulário externo                   │
+   └─────────────────────────────────────────────────────────┘
+   ============================================================ */
+
+
+/* ════════════════════════════════════════════════════════════
+   SEÇÃO A — DADOS E CONFIGURAÇÃO
+   ════════════════════════════════════════════════════════════ */
+
+
+/* ────────────────────────────────────────────────────────────
+   A1 · CONFIGURAÇÃO DE INGRESSO
+   ────────────────────────────────────────────────────────────
+   Edite apenas este bloco para ajustar datas e textos.
+
+   FASES automáticas:
+     1 → Antes de dataAberturaInscricoes  → exibe contagem + modal informativo
+     2 → Entre abertura e encerramento    → exibe contagem + link do formulário
+     3 → Após dataEncerramentoInscricoes  → avisa que inscrições são semestrais
+
+   FORMATO DAS DATAS: new Date(ano, mês-1, dia)
+   ──────────────────────────────────────────────────────────── */
+const INGRESSO_CONFIG = {
+    dataAberturaInscricoes: new Date(2026, 7, 20),   /* 20/08/2026 */
+    dataEncerramentoInscricoes: new Date(2026, 8, 22),   /* 22/09/2026 */
+    textoFase1: 'Inscrições abrem em',
+    textoFase2: 'Inscrições encerram em',
+    linkFormulario: 'https://forms.gle/Dut323YRdLXs2MBy7',
+};
+
+/* ────────────────────────────────────────────────────────────
+   A2 · IMAGENS DO HERO SLIDESHOW
+   ────────────────────────────────────────────────────────────
+   Para adicionar slides: inclua objetos no array abaixo.
+   Formato: { src: 'caminho/imagem.jpg', alt: 'Descrição' }
+   ──────────────────────────────────────────────────────────── */
+const heroImages = [
+    { src: 'assets/imagens/capa/CAPA1.jpg', alt: 'IFPE Campus Recife — Fachada' },
+    { src: 'assets/imagens/capa/CAPA2.jpeg', alt: 'Workshop LES' },
+    { src: 'assets/imagens/capa/CAPA3.jpeg', alt: 'Workshop LES' },
+];
+
+
+/* ────────────────────────────────────────────────────────────
+   A3 · DADOS DOS MEMBROS
+   ────────────────────────────────────────────────────────────
+   COMO ADICIONAR UM MEMBRO:
+     1. Copie um bloco abaixo e preencha as chaves.
+     2. No HTML (index.html > .equipe-data-source), adicione:
+        <div class="member-card" data-member="CHAVE" data-group="GRUPO"></div>
+     3. Atualize o contador #equipe-member-count se necessário.
+
+   GRUPOS disponíveis:
+     "diretoria"    → Coordenação e Diretoria
+     "dev"          → Membros Desenvolvedores
+     "colaborador"  → Colaboradores
+     "externo"      → Colaboradores Externos
+     "ex_integrante"→ Ex Integrantes
+
+   PARA NOVA CATEGORIA:
+     1. Adicione a entrada em GROUP_LABELS (seção A5)
+     2. Adicione os dados aqui
+     3. Adicione card em .equipe-data-source no HTML
+     4. Adicione pílula .equipe-tag no HTML (opcional)
+   ──────────────────────────────────────────────────────────── */
+
+/* ────────────────────────────────────────────────────────────
+
+LIGANTE DO MÊS — configuração
+Troque membroKey e destaque todo mês. SÓ PREENCHER O MEMBROKEY A BAIXO
+
+──────────────────────────────────────────────────────────── */
+
+
+const LIGANTE_CONFIG = {
+    membroKey: null,
+    destaque: '',
+};
+
+
+const membersData = {
+
+    /* ── Coordenação ── */
+    hilson: {
+        name: 'Prof. Hilson Andrade',
+        photo: 'assets/imagens/membros/hilson.jpg',
+        role: 'Colaborador',
+        initials: 'HI',
+        group: 'diretoria',
+        bio: 'Professor e pesquisador do IFPE Campus Recife que, há mais de vinte anos, utiliza a ciência e a tecnologia para resolver problemas. Doutorando em Engenharia da Computação, Mestre em Ciências da Computação, Engenheiro Eletrônico e técnico em Eletrotécnica, coordena a Liga de Engenharia de Software, promovendo a formação prática e o desenvolvimento de soluções tecnológicas com impacto real na comunidade.',
+        links: {
+            linkedin: 'https://www.linkedin.com/in/hilson-andrade-36719344/',
+            email: 'hilsonvilar@recife.ifpe.edu.br',
+        },
+    },
+
+
+    eduardo: {
+        name: 'Prof. Eduardo Vasconcelos',
+        photo: 'assets/imagens/membros/eduardo.jpeg',
+        role: 'Coordenador do Projeto',
+        initials: 'EV',
+        group: 'diretoria',
+        bio: 'Atua como professor orientador colaborador da área técnica, contribuindo diretamente para a concepção, validação e evolução de soluções tecnológicas, além de apoiar o desenvolvimento de projetos com foco prático e impacto na comunidade.',
+        links: {
+            email: 'eduardo.vasconcelos@recife.ifpe.edu.br',
+        },
+    },
+
+
+
+    /* ── Diretoria ── */
+    ilian: {
+        name: 'Ilian Solano Bezerra da Silva',
+        photo: 'assets/imagens/membros/ilian.jpeg',
+        role: 'Presidente e fundador',
+        initials: 'IS',
+        group: 'diretoria',
+        bio: 'Presidente da LES-IFPE. Lidera a equipe com foco em inovação, gestão de pessoas e articulação institucional da liga.',
+        links: {
+            github: 'https://github.com/ilian42',
+            linkedin: 'https://www.linkedin.com/in/ilian-solano/',
+        },
+    },
+
+
+    yuri: {
+        name: 'Yuri Santos de Oliveira',
+        photo: 'assets/imagens/membros/yuri.jpeg',
+        role: 'Vice-presidente e fundador',
+        initials: 'YO',
+        group: 'diretoria',
+        bio: 'Vice-presidente da LES, responsável por apoiar a presidência na coordenação estratégica e operacional da liga.',
+        links: {
+            github: 'https://github.com/Yuriportf',
+            linkedin: 'https://www.linkedin.com/in/yuri-oliveira-aqui/',
+            instagram: 'https://www.instagram.com/_yurioliv_/',
+            email: 'mailto:yuriprodeveloper@gmail.com',
+        },
+    },
+
+
+
+
+    /* ── Desenvolvedores ── */
+    renan: {
+        name: 'Renan Henrico Borges Pinto',
+        photo: 'assets/imagens/membros/renan.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'RH',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/Renansoader',
+            linkedin: 'https://www.linkedin.com/in/renanhenry/',
+        },
+        projeto: ['IABadie'],
+    },
+
+    christoph: {
+        name: 'Christoph Soares Diehl',
+        photo: 'assets/imagens/membros/christoph.jpeg',
+        role: 'Desenvolvedor fundador',
+        initials: 'CD',
+        group: 'dev',
+        bio: 'Diretor de Projetos da LES. Gerencia o portfólio de projetos, garantindo alinhamento técnico e entrega de valor para a comunidade.',
+        links: {
+            github: 'https://github.com/christoph-sd',
+        },
+        projeto: ['IABadie'],
+    },
+
+    guilherme: {
+        name: 'Guilherme Nascimento F. de Barros Moraes',
+        photo: 'assets/imagens/membros/guilherme.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'GN',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, engajado no desenvolvimento de soluções tecnológicas e aprendizado contínuo.',
+        links: {
+            github: 'https://github.com/Guinfbm',
+            linkedin: 'https://www.linkedin.com/in/guilherme-nascimento-f-b-moraes-1a70a8348/',
+        },
+        projeto: ['AkiContrata'],
+    },
+
+    paulo: {
+        name: 'Paulo de Tarso Olímpio Gomes da Silva',
+        photo: 'assets/imagens/membros/paulo.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'PT',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, colaborando ativamente com os projetos e iniciativas técnicas da liga.',
+        links: {
+            github: 'https://github.com/Paulo-Novbr',
+            linkedin: 'https://www.linkedin.com/in/paulo-ol%C3%ADmpio-a96156339/',
+        },
+        projeto: ['IABadie'],
+    },
+
+    bruno: {
+        name: 'Bruno Luiz da Silva',
+        photo: 'assets/imagens/membros/bruno.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'BL',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/Bruno-0706',
+            linkedin: 'https://www.linkedin.com/in/bruno-luiz-b86792339/',
+        },
+        projeto: ['AkiContrata'],
+    },
+
+
+    victor: {
+        name: 'Victor Montes da Silva',
+        photo: 'assets/imagens/membros/victormontes.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'VM',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em iniciação científica e conhecimento acadêmico voltados a projetos da liga.',
+        links: {
+            github: 'https://github.com/VmDevalt',
+            linkedin: 'https://www.linkedin.com/in/victor-montes-97bbb51a3/',
+        },
+        projeto: [
+            'Site LES',
+            'Weather',
+        ],
+    },
+
+  
+    miguel: {
+        name: 'Miguel Henrique Luz dos Santos',
+        photo: 'assets/imagens/membros/miguel.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'MH',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
+        links: { 
+            github: 'https://github.com/miguelhlsantos-dev',
+            linkedin: 'https://www.linkedin.com/in/miguelhlsantos/',
+        },
+        projeto: ['AkiContrata'],
+    },
+
+    victorsoares: {
+        name: 'Victor Soares Couto da Silva',
+        photo: 'assets/imagens/membros/victorsoares.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'VS',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/VictorSCDS',
+            linkedin: 'https://www.linkedin.com/in/victor-soares-vscds/',
+        },
+        projeto: ['Weather'],
+    },
+
+    marcio: {
+        name: 'Márcio Luan Ferreira Barros',
+        photo: 'assets/imagens/membros/marcio.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'ML',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/MarcioLuan',
+            linkedin: 'https://www.linkedin.com/in/marciolfbarros/',
+        },
+        projeto: ['Weather'],
+    },
+
+    ingrid: {
+        name: 'Ingrid Vitória Oliveira de França',
+        photo: 'assets/imagens/membros/ingrid.jpeg',
+        role: ['Desenvolvedora', 'Designer'],
+        initials: 'IV',
+        group: 'dev',
+        bio: 'Membro desenvolvedora da LES, focada em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/vivif001',
+            linkedin: 'https://www.linkedin.com/in/ingridvofranca/',
+        },
+        projeto: ['Site LES'],
+    },
+
+    david: {
+        name: 'David Willyam Felipe Marques de Oliveira',
+        photo: 'assets/imagens/membros/david.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'DW',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/DavidOliveira2678',
+            linkedin: 'https://www.linkedin.com/in/david-willyam-de-oliveira-9841ba31a/',
+        },
+        projeto: ['Site LES'],
+    },
+
+    gabriel: {
+        name: 'Gabriel Soares Alves Bernardo da Silva',
+        photo: 'assets/imagens/membros/gabriel.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'GS',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/gabrielsoarespebr',
+            linkedin: 'https://www.linkedin.com/in/gabrielsoarespebr/',
+        },
+        projeto: ['IABadie'],
+    },
+
+    guilhermeb: {
+        name: 'Guilherme Bandeira Gama Mendes',
+        photo: 'assets/imagens/membros/guilhermeb.jpeg',
+        role: 'Designer',
+        initials: 'GB',
+        group: 'design',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/Gu1g0-Flag',
+            linkedin: 'https://www.linkedin.com/in/guilherme-mendes-aa8a63296/',
+        },
+    },
+
+    lucasfig: {
+        name: 'Lucas Figueiredo Cabral',
+        photo: 'assets/imagens/membros/lucasfig.jpeg',
+        role: 'Desenvolvedor',
+        initials: 'LC',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/Lucasfcz',
+            linkedin: 'https://www.linkedin.com/in/lucasfcz-dev/',
+        },
+        projeto: ['AkiContrata'],
+    },
+
+    rafaelp: {
+        name: 'Rafael Passos Araújo Lins de Queiroz',
+        photo: 'assets/imagens/membros/rafaelp.jpeg',
+        role: 'Designer',
+        initials: 'RP',
+        group: 'design',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/RPassos05',
+            linkedin: 'https://www.linkedin.com/in/rafael-passos-2b2752406/',
+        },
+
+    },
+
+    Deise: {
+        name: 'Deise Ellen Sousa dos Santos',
+        photo: 'assets/imagens/membros/',
+        role: 'Desenvolvedor',
+        initials: 'DE',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: 'https://github.com/DeiseEllen',
+            linkedin: '',
+        },
+        projeto: ['Portal'],
+    },
+
+
+      Emylly: {
+        name: 'Emylly Vitória Cardoso Freire ',
+        photo: 'assets/imagens/membros/',
+        role: 'Desenvolvedor',
+        initials: 'IP',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: '',
+            linkedin: '',
+        },
+        projeto: ['Portal'],
+    },
+
+     Kaua: {
+        name: 'Kauã Henrique Leandro Lins ',
+        photo: 'assets/imagens/membros/',
+        role: 'Desenvolvedor',
+        initials: 'KA',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: '',
+            linkedin: '',
+        },
+        projeto: ['IABADIE'],
+    },
+
+     Guilhermy : {
+        name: 'Guilhermy Lazaro Siqueira da Silva  ',
+        photo: 'assets/imagens/membros/',
+        role: 'Desenvolvedor',
+        initials: 'GU',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: '',
+            linkedin: '',
+        },
+        projeto: ['Portal'],
+    },
+
+      Pedro  : {
+        name: 'Pedro Gabriel da Silva  ',
+        photo: 'assets/imagens/membros/',
+        role: 'Desenvolvedor',
+        initials: 'PD',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: '',
+            linkedin: '',
+        },
+        projeto: ['IABADIE'],
+    },
+
+     
+    /* ══ COLABORADORES — adicione aqui ══════════════════════
+       Exemplo:
+       nomeColaborador: {
+           name: 'Nome Completo', role: 'Colaborador',
+           initials: 'NC', group: 'colaborador',
+           bio: 'Descrição da contribuição.',
+           links: { linkedin: 'https://...' },
+       },
+    ════════════════════════════════════════════════════════ */
+
+    /* ══ COLABORADORES EXTERNOS — adicione aqui ═════════════
+       Exemplo:
+       nomeProfessor: {
+           name: 'Nome Completo', role: 'Colaborador Externo',
+           initials: 'NP', group: 'externo',
+           bio: 'Descrição da contribuição.',
+           links: { linkedin: 'https://...' },
+       },
+    ════════════════════════════════════════════════════════ */
+
+};
+
+
+/* ────────────────────────────────────────────────────────────
+   A4 · ÍCONES E RÓTULOS DE LINKS SOCIAIS
+   Para adicionar nova rede: inclua o SVG em linkIcons e o
+   nome legível em linkLabels usando a mesma chave.
+   ──────────────────────────────────────────────────────────── */
+const linkIcons = {
+    github: `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>`,
+    linkedin: `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`,
+    instagram: `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>`,
+    email: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
+    discord: `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.08.113 18.1.131 18.115a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>`,
+};
+
+const linkLabels = {
+    github: 'GitHub',
+    linkedin: 'LinkedIn',
+    instagram: 'Instagram',
+    email: 'E-mail',
+    discord: 'Discord',
+};
+
+
+/* ────────────────────────────────────────────────────────────
+   A5 · GRUPOS — RÓTULOS, ORDEM E CORES
+   ────────────────────────────────────────────────────────────
+   GROUP_LABELS  → texto exibido como título de cada grupo.
+   GROUP_ORDER   → sequência de exibição no modal de equipe.
+   GROUP_COLORS  → cor do separador de cada grupo no modal.
+
+   Para nova categoria: adicione a chave nos três objetos e
+   siga as instruções em A3 e na seção HTML correspondente.
+   ──────────────────────────────────────────────────────────── */
+const GROUP_LABELS = {
+    diretoria: 'Coordenação e Diretoria',
+    dev: 'Membros Desenvolvedores',
+    design: 'Design',
+    colaborador: 'Colaboradores',
+    externo: 'Colaboradores Externos',
+    /* Nova categoria:
+       pesquisa: 'Pesquisadores',
+       alumni:   'Alumni',
+    */
+};
+
+const GROUP_ORDER = ['diretoria', 'dev', 'design', 'colaborador', 'externo'];
+
+const GROUP_COLORS = {
+    diretoria: 'var(--neon-green)',
+    dev: 'var(--baby-blue)',
+    design: '#a855f7',
+    colaborador: '#c09030',
+    externo: '#c09030',
+};
+
+
+/* desc galleria;
+
+   Cada álbum vira uma seção na página (título + grade de fotos).
+   Para adicionar um álbum novo, inclua um objeto na lista abaixo.
+   Para adicionar uma foto a um álbum existente, inclua um item
+   no array "fotos" dele. titulo da foto é opcional. */
+const galeriaAlbuns = [
+    {
+        titulo: 'Aulas',
+        fotos: [
+            {
+                src: 'assets/imagens/galeria/aulas-les-01.jpg',
+                alt: 'Membro da LES explicando operadores aritméticos no quadro durante aula de Introdução ao JavaScript',
+                titulo: 'Aula de Introdução ao JavaScript',
+            },
+            {
+                src: 'assets/imagens/galeria/aulas-les-02.jpg',
+                alt: 'Alunos acompanhando explicação durante aula de Introdução ao JavaScript no laboratório',
+                titulo: 'Aula de Introdução ao JavaScript',
+            },
+            {
+                src: 'assets/imagens/galeria/aulas-les-03.jpg',
+                alt: 'Membros da LES reunidos no laboratório de informática durante aula de Introdução ao JavaScript',
+                titulo: 'Turma da Aula de JavaScript',
+            },
+        ],
+    },
+    {
+        titulo: 'Workshop de Inserção no Mercado de Tecnologia',
+        fotos: [
+            {
+                src: 'assets/imagens/galeria/workshop-insercao.jpg',
+                alt: 'Participantes e organizadores reunidos após o Workshop de Inserção no Mercado de Tecnologia da LES',
+                titulo: 'Foto oficial do workshop',
+            },
+            {
+                src: 'assets/imagens/galeria/workshop-insercao-02.jpg',
+                alt: 'Painel de convidados discutindo erros comuns na carreira em tecnologia durante o Workshop de Inserção no Mercado',
+                titulo: 'Mesa de Discussão — Erros Comuns no Mercado de TI',
+            },
+            {
+                src: 'assets/imagens/galeria/workshop-insercao-03.jpg',
+                alt: 'Mesa de abertura do Workshop de Inserção no Mercado de Tecnologia com plateia acompanhando',
+                titulo: 'Abertura do Workshop',
+            },
+        ],
+    },
+];
+
+
+/* ════════════════════════════════════════════════════════════
+   SEÇÃO B — FUNÇÕES E LÓGICA
+   (não é necessário editar abaixo para manutenção de dados)
+   ════════════════════════════════════════════════════════════ */
+
+
+/* ────────────────────────────────────────────────────────────
+   B1 · HAMBURGER MENU
+   ──────────────────────────────────────────────────────────── */
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobile-nav');
+
+hamburger.addEventListener('click', () => {
+    const isOpen = hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+    mobileNav.setAttribute('aria-hidden', !isOpen);
+});
+
+document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+    });
+});
+
+window.addEventListener('resize', () => {
+    const isDesktop = window.innerWidth >= 992;
+
+    if (isDesktop && mobileNav.classList.contains('open')) {
+        mobileNav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
+    }
+});
+
+/* ────────────────────────────────────────────────────────────
+   B2 · HERO SLIDESHOW
+   ──────────────────────────────────────────────────────────── */
+const slideshowEl = document.getElementById('heroSlideshow');
+const slideDotsEl = document.getElementById('slideDots');
+let currentSlide = 0;
+let slideTimer = null;
+
+heroImages.forEach((img, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'hero-slide' + (i === 0 ? ' active' : '');
+    slide.innerHTML = `<img src="${img.src}" alt="${img.alt}">`;
+    slideshowEl.appendChild(slide);
+
+    const dot = document.createElement('button');
+    dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `Slide ${i + 1}`);
+    dot.addEventListener('click', () => goToSlide(i));
+    slideDotsEl.appendChild(dot);
+});
+
+function goToSlide(index) {
+    const slides = slideshowEl.querySelectorAll('.hero-slide');
+    const dots = slideDotsEl.querySelectorAll('.slide-dot');
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = (index + heroImages.length) % heroImages.length;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+    clearInterval(slideTimer);
+    slideTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
+}
+
+slideTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
+
+
+/* ────────────────────────────────────────────────────────────
+   B3 · CARROSSEL DE PROJETOS (TRANSIÇÃO DE ESTADOS FLUIDA)
+   ──────────────────────────────────────────────────────────── */
+const track = document.getElementById('projectsTrack');
+const container = document.querySelector('.projects-track-container');
+const dotsWrap = document.getElementById('carouselDots');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+const initialCards = Array.from(track.querySelectorAll('.project-card'));
+let isAnimating = false;
+
+function updateCarousel(smooth = true) {
+    const cards = Array.from(track.querySelectorAll('.project-card'));
+    if (cards.length === 0) return;
+
+    const containerWidth = container.getBoundingClientRect().width;
+    
+    // O card central (ativo) é sempre o do meio na fila visual
+    const activeIndex = Math.floor(cards.length / 2);
+    const activeCard = cards[activeIndex];
+
+    // Alterna os estados nos cards (ativo vs inativo)
+    cards.forEach((card, index) => {
+        card.classList.toggle('active', index === activeIndex);
+    });
+
+    const cardWidth = activeCard.offsetWidth;
+    const cardCenter = activeCard.offsetLeft + (cardWidth / 2);
+    const offset = (containerWidth / 2) - cardCenter;
+
+    // Controla a suavidade da transição de movimento horizontal
+    track.style.transition = smooth ? 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
+    track.style.transform = `translateX(${offset}px)`;
+
+    updateDots(activeCard);
+}
+
+function rotateRight() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    // 1. Desativa a transição temporariamente para preparar o layout
+    track.style.transition = 'none';
+
+    // 2. Transfere o elemento fisicamente no DOM
+    const firstCard = track.firstElementChild;
+    track.appendChild(firstCard);
+
+    // 3. Recalcula a posição física atual mantendo o visual no mesmo lugar exato
+    const cards = Array.from(track.querySelectorAll('.project-card'));
+    const containerWidth = container.getBoundingClientRect().width;
+    const activeIndex = Math.floor(cards.length / 2);
+    
+    // Calcula o offset do estado "anterior" (à direita)
+    const prevActiveCard = cards[activeIndex - 1];
+    const offsetStart = (containerWidth / 2) - (prevActiveCard.offsetLeft + (prevActiveCard.offsetWidth / 2));
+    
+    track.style.transform = `translateX(${offsetStart}px)`;
+
+    // Aplica os estados visuais nos cards
+    cards.forEach((card, index) => {
+        card.classList.toggle('active', index === activeIndex - 1);
+    });
+
+    // 4. No próximo frame, ativa a animação e desliza suavemente até o destino final
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            track.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
+            
+            cards.forEach((card, index) => {
+                card.classList.toggle('active', index === activeIndex);
+            });
+
+            const activeCard = cards[activeIndex];
+            const offsetEnd = (containerWidth / 2) - (activeCard.offsetLeft + (activeCard.offsetWidth / 2));
+            track.style.transform = `translateX(${offsetEnd}px)`;
+            updateDots(activeCard);
+
+            setTimeout(() => {
+                isAnimating = false;
+            }, 350);
+        });
+    });
+}
+
+function rotateLeft() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    track.style.transition = 'none';
+
+    const lastCard = track.lastElementChild;
+    track.insertBefore(lastCard, track.firstElementChild);
+
+    const cards = Array.from(track.querySelectorAll('.project-card'));
+    const containerWidth = container.getBoundingClientRect().width;
+    const activeIndex = Math.floor(cards.length / 2);
+
+    const nextActiveCard = cards[activeIndex + 1];
+    const offsetStart = (containerWidth / 2) - (nextActiveCard.offsetLeft + (nextActiveCard.offsetWidth / 2));
+    
+    track.style.transform = `translateX(${offsetStart}px)`;
+
+    cards.forEach((card, index) => {
+        card.classList.toggle('active', index === activeIndex + 1);
+    });
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            track.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)';
+            
+            cards.forEach((card, index) => {
+                card.classList.toggle('active', index === activeIndex);
+            });
+
+            const activeCard = cards[activeIndex];
+            const offsetEnd = (containerWidth / 2) - (activeCard.offsetLeft + (activeCard.offsetWidth / 2));
+            track.style.transform = `translateX(${offsetEnd}px)`;
+            updateDots(activeCard);
+
+            setTimeout(() => {
+                isAnimating = false;
+            }, 350);
+        });
+    });
+}
+
+// Ouvintes de evento das setas
+nextBtn?.addEventListener('click', rotateRight);
+prevBtn?.addEventListener('click', rotateLeft);
+
+// Gestos Touch / Arraste
+let startX = 0;
+let isDragging = false;
+
+function onTouchStart(e) {
+    if (isAnimating) return;
+    isDragging = true;
+    startX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+}
+
+function onTouchEnd(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    const endX = e.type.includes('mouse') ? e.clientX : e.changedTouches[0].clientX;
+    const movedBy = endX - startX;
+
+    if (movedBy < -40) {
+        rotateRight();
+    } else if (movedBy > 40) {
+        rotateLeft();
+    }
+}
+
+track.addEventListener('touchstart', onTouchStart, { passive: true });
+track.addEventListener('touchend', onTouchEnd);
+track.addEventListener('mousedown', onTouchStart);
+track.addEventListener('mouseup', onTouchEnd);
+
+track.addEventListener('click', (e) => {
+    const cardClicked = e.target.closest('.project-card');
+    if (!cardClicked || cardClicked.classList.contains('active') || isAnimating) return;
+
+    const cards = Array.from(track.querySelectorAll('.project-card'));
+    const clickedIndex = cards.indexOf(cardClicked);
+    const activeIndex = Math.floor(cards.length / 2);
+
+    if (clickedIndex > activeIndex) {
+        rotateRight();
+    } else if (clickedIndex < activeIndex) {
+        rotateLeft();
+    }
+});
+
+function createDots() {
+    if (!dotsWrap) return;
+    dotsWrap.innerHTML = '';
+    initialCards.forEach((card, i) => {
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+        dot.dataset.title = card.querySelector('.project-title')?.textContent.trim() || '';
+        
+        dot.addEventListener('click', () => {
+            if (isAnimating) return;
+            const currentCards = Array.from(track.querySelectorAll('.project-card'));
+            const targetCard = currentCards.find(c => c.querySelector('.project-title')?.textContent.trim() === dot.dataset.title);
+            const targetIndex = currentCards.indexOf(targetCard);
+            const activeIndex = Math.floor(currentCards.length / 2);
+            
+            const diff = targetIndex - activeIndex;
+            if (diff > 0) {
+                rotateRight();
+            } else if (diff < 0) {
+                rotateLeft();
+            }
+        });
+        dotsWrap.appendChild(dot);
+    });
+}
+
+function updateDots(activeCard) {
+    if (!dotsWrap) return;
+    const activeTitle = activeCard.querySelector('.project-title')?.textContent.trim();
+    dotsWrap.querySelectorAll('.carousel-dot').forEach(dot => {
+        dot.classList.toggle('active', dot.dataset.title === activeTitle);
+    });
+}
+
+window.addEventListener('resize', () => updateCarousel(false));
+createDots();
+
+if (initialCards.length > 2) {
+    track.insertBefore(track.lastElementChild, track.firstElementChild);
+}
+updateCarousel(false);
+
+/* ────────────────────────────────────────────────────────────
+   B3.1 · CARROSSEL DE EVENTOS (MOVIMENTAÇÃO SIMPLES)
+   ──────────────────────────────────────────────────────────── */
+const eventsTrack = document.getElementById('eventsTrack');
+const eventsContainer = document.querySelector('.events-track-container');
+const eventsDotsWrap = document.getElementById('eventsDots');
+const eventsPrevBtn = document.getElementById('eventsPrevBtn');
+const eventsNextBtn = document.getElementById('eventsNextBtn');
+
+let currentEventIndex = 0;
+
+function updateEventsCarousel() {
+    if (!eventsTrack) return;
+    const cards = Array.from(eventsTrack.querySelectorAll('.event-card-vertical'));
+    if (cards.length === 0) return;
+
+    // Limita o índice entre 0 e a quantidade de cards
+    currentEventIndex = Math.max(0, Math.min(currentEventIndex, cards.length - 1));
+
+    const card = cards[0];
+    const cardWidth = card.offsetWidth;
+    const gap = parseFloat(window.getComputedStyle(eventsTrack).gap) || 32;
+    
+    // Desloca para o card selecionado de forma direta e limpa
+    const offset = -(currentEventIndex * (cardWidth + gap));
+    eventsTrack.style.transform = `translateX(${offset}px)`;
+
+    // Atualiza os dots
+    if (eventsDotsWrap) {
+        const dots = eventsDotsWrap.querySelectorAll('.carousel-dot');
+        dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === currentEventIndex);
+        });
+    }
+
+    // Desabilita os botões nas extremidades
+    if (eventsPrevBtn) eventsPrevBtn.disabled = currentEventIndex === 0;
+    if (eventsNextBtn) eventsNextBtn.disabled = currentEventIndex === cards.length - 1;
+}
+
+eventsNextBtn?.addEventListener('click', () => {
+    currentEventIndex++;
+    updateEventsCarousel();
+});
+
+eventsPrevBtn?.addEventListener('click', () => {
+    currentEventIndex--;
+    updateEventsCarousel();
+});
+
+function createEventsDots() {
+    if (!eventsDotsWrap || !eventsTrack) return;
+    eventsDotsWrap.innerHTML = '';
+    const cards = Array.from(eventsTrack.querySelectorAll('.event-card-vertical'));
+    
+    cards.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+        dot.addEventListener('click', () => {
+            currentEventIndex = i;
+            updateEventsCarousel();
+        });
+        eventsDotsWrap.appendChild(dot);
+    });
+}
+
+createEventsDots();
+window.addEventListener('resize', updateEventsCarousel);
+updateEventsCarousel();
+
+/* ────────────────────────────────────────────────────────────
+   B4 · MODAL DE PERFIL INDIVIDUAL (#member-modal)
+   ──────────────────────────────────────────────────────────── */
+const memberModal = document.getElementById('member-modal');
+const memberClose = document.getElementById('modal-close');
+
+function openMemberModal(id) {
+    const data = membersData[id];   
+    if (!data) return;
+
+    const modalAvatar = document.getElementById('modal-avatar');
+    if (data.photo) {
+        modalAvatar.innerHTML = `<img src="${data.photo}" alt="${data.name}" onerror="this.parentElement.textContent='${data.initials}'">`;
+    } else {
+        modalAvatar.textContent = data.initials;
+    }
+    document.getElementById('modal-role').textContent = data.role;
+    document.getElementById('modal-name').textContent = data.name;
+    document.getElementById('modal-bio').textContent = data.bio;
+
+    /* Badge de ligante do mês */
+    let liganteBadge = document.getElementById('modal-ligante-badge');
+    if (id === LIGANTE_CONFIG.membroKey) {
+        const now = new Date();
+        const mes = now.toLocaleString('pt-BR', { month: 'long' });
+        const mesStr = mes.charAt(0).toUpperCase() + mes.slice(1);
+        const ano = now.getFullYear();
+
+        if (!liganteBadge) {
+            liganteBadge = document.createElement('div');
+            liganteBadge.id = 'modal-ligante-badge';
+            liganteBadge.style.cssText = `
+                display: flex;
+                align-items: flex-start;
+                gap: 0.75rem;
+                padding: 0.9rem 1.1rem;
+                margin-bottom: 1.25rem;
+                border-radius: 6px;
+                background: rgba(0,166,81,0.06);
+                border: 1px solid rgba(0,166,81,0.2);
+                border-left: 3px solid var(--neon-green);
+            `;
+            /* Insere antes da bio */
+            const bio = document.getElementById('modal-bio');
+            bio.parentNode.insertBefore(liganteBadge, bio);
+        }
+
+        liganteBadge.innerHTML = `
+            <span style="font-size:1.3rem;line-height:1;filter:drop-shadow(0 0 6px rgba(255,200,0,0.6))">★</span>
+            <div>
+                <span style="
+                    font-family:var(--font-head);
+                    font-size:0.68rem;
+                    font-weight:700;
+                    letter-spacing:0.22em;
+                    text-transform:uppercase;
+                    color:var(--neon-green);
+                    display:block;
+                    margin-bottom:0.3rem;
+                ">Ligante Destaque · ${mesStr} ${ano}</span>
+                <span style="
+                    font-family:var(--font-head);
+                    font-size:0.88rem;
+                    font-style:italic;
+                    color:rgba(245,245,240,0.75);
+                    line-height:1.55;
+                ">${LIGANTE_CONFIG.destaque}</span>
+            </div>
+        `;
+        liganteBadge.style.display = 'flex';
+
+    } else if (liganteBadge) {
+        liganteBadge.style.display = 'none';
+    }
+
+    const linksEl = document.getElementById('modal-links');
+    linksEl.innerHTML = '';
+    Object.entries(data.links).forEach(([key, url]) => {
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.className = `modal-link modal-link-${key}`;
+        a.innerHTML = `${linkIcons[key] || ''}<span>${linkLabels[key] || key}</span>`;
+        linksEl.appendChild(a);
+    });
+
+    const projectsArea = document.getElementById('modal-project');
+    projectsArea.innerHTML = '';           
+
+    (data.projeto ?? []).forEach((project) => {
+        const span = document.createElement('span');
+        span.style.cssText = "margin-right: .2rem;";
+        span.className = 'equipe-tag equipe-tag--blue';
+        span.textContent = `${project}`;
+        projectsArea.appendChild(span);
+    });
+
+    memberModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeMemberModal() {
+    memberModal.classList.remove('open');
+    if (!teamOverviewModal.classList.contains('open')) {
+        document.body.style.overflow = '';
+    }
+}
+
+/* Delega cliques em qualquer .member-card com data-member */
+document.addEventListener('click', e => {
+    const card = e.target.closest('.member-card[data-member]');
+    if (card && card.dataset.member) openMemberModal(card.dataset.member);
+});
+
+memberClose.addEventListener('click', closeMemberModal);
+memberModal.addEventListener('click', e => { if (e.target === memberModal) closeMemberModal(); });
+
+
+/* ────────────────────────────────────────────────────────────
+   B5 · MODAL DE VISÃO GERAL DA EQUIPE (#team-overview-modal)
+   ──────────────────────────────────────────────────────────── */
+const teamOverviewModal = document.getElementById('team-overview-modal');
+const teamOverviewClose = document.getElementById('team-overview-close');
+const teamOverviewFilters = document.getElementById('team-overview-filters');
+const teamOverviewGrid = document.getElementById('team-overview-grid');
+const btnTeamOverview = document.getElementById('btn-team-overview');
+
+/** Coleta membros do DOM organizados por grupo */
+function collectMembersByGroup() {
+    const groups = {};
+
+    document.querySelectorAll('.member-card[data-member]').forEach(card => {
+        const groupList = card.dataset.group.split(' ');
+        const member = card.dataset.member;
+
+        groupList.forEach(group => {
+            if (!groups[group]) groups[group] = [];
+            if (!groups[group].includes(member)) {
+                groups[group].push(member);
+            }
+        });
+    });
+
+    return groups;
+}
+
+/** Renderiza os botões de filtro */
+function renderTeamOverviewFilters(groups, activeFilter) {
+    teamOverviewFilters.innerHTML = '';
+
+    const allBtn = document.createElement('button');
+
+    allBtn.className =
+        `team-filter-btn ${activeFilter === 'all' ? 'active' : ''}`;
+
+    allBtn.textContent = 'Todos';
+
+    allBtn.addEventListener('click', () => {
+        renderTeamOverviewGrid(groups, 'all');
+    });
+
+    teamOverviewFilters.appendChild(allBtn);
+
+    GROUP_ORDER.forEach(group => {
+        const label = GROUP_LABELS[group] || group;
+        const count = (groups[group] || []).length;
+
+        const btn = document.createElement('button');
+
+        btn.className =
+            `team-filter-btn ${activeFilter === group ? 'active' : ''} ${count === 0 ? 'empty' : ''}`;
+
+        btn.innerHTML =
+            `${label} <span class="filter-count">${count}</span>`;
+
+        btn.addEventListener('click', () => {
+            renderTeamOverviewGrid(groups, group);
+        });
+
+        teamOverviewFilters.appendChild(btn);
+    });
+}
+
+/** Renderiza a grade de membros com animação stagger */
+function renderTeamOverviewGrid(groups, activeFilter = 'all') {
+
+    teamOverviewGrid.innerHTML = '';
+
+    renderTeamOverviewFilters(groups, activeFilter);
+
+    const groupsToRender =
+        activeFilter === 'all'
+            ? GROUP_ORDER
+            : [activeFilter];
+
+    let globalIndex = 0;
+
+    groupsToRender.forEach(group => {
+
+        const members = groups[group] || [];
+
+        /* Cabeçalho do grupo */
+        if (activeFilter === 'all') {
+
+            const header = document.createElement('div');
+
+            header.className =
+                'team-overview-group-header animated';
+
+            header.style.setProperty('--i', globalIndex++);
+
+            header.style.setProperty(
+                '--group-color',
+                GROUP_COLORS[group] || 'var(--neon-green)'
+            );
+
+            header.textContent =
+                GROUP_LABELS[group] || group;
+
+            teamOverviewGrid.appendChild(header);
+        }
+
+        /* Grupo vazio */
+        if (members.length === 0) {
+
+            const empty = document.createElement('div');
+
+            empty.className =
+                'team-overview-empty animated';
+
+            empty.style.setProperty('--i', globalIndex++);
+
+            empty.innerHTML = `
+                <span class="team-overview-empty-icon">—</span>
+                <span>Nenhum membro neste grupo ainda.</span>
+            `;
+
+            teamOverviewGrid.appendChild(empty);
+
+            return;
+        }
+
+        /* Cards dos membros */
+        members.forEach(memberId => {
+
+            const data = membersData[memberId];
+
+            if (!data) return;
+
+            const avatarClass =
+                group === 'dev'
+                    ? 'member-avatar dev-avatar'
+                    : group === 'colaborador'
+                        ? 'member-avatar colaborador-avatar'
+                        : group === 'externo'
+                            ? 'member-avatar externo-avatar'
+                            : group === 'ex_integrante'
+                                ? 'member-avatar ex-avatar'
+                                : 'member-avatar';
+
+            const roleClass =
+                group === 'dev'
+                    ? 'team-role dev-role'
+                    : group === 'colaborador'
+                        ? 'team-role colaborador-role'
+                        : group === 'externo'
+                            ? 'team-role externo-role'
+                            : group === 'ex_integrante'
+                                ? 'team-role ex-role'
+                                : 'team-role';
+
+            const card = document.createElement('div');
+
+            card.className = 'member-card animated';
+
+            card.style.setProperty('--i', globalIndex++);
+
+            card.dataset.member = memberId;
+            card.dataset.group = group;
+
+            /* Destaque visual do ligante */
+            if (memberId === LIGANTE_CONFIG.membroKey) {
+                card.classList.add('ligante-card-destaque');
+            }
+
+            card.innerHTML = `
+                <div class="${avatarClass}">
+                    ${data.photo
+                        ? `<img src="${data.photo}" alt="${data.name}" onerror="this.parentElement.textContent='${data.initials}'">`
+                        : data.initials}
+                </div>
+
+                <div class="member-info">
+                    <span class="${roleClass}">
+                        ${data.role}
+                    </span>
+
+                    <strong>
+                        ${data.name}
+                    </strong>
+                </div>
+
+                <svg class="member-arrow"
+                     width="16"
+                     height="16"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2.5"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            `;
+
+            teamOverviewGrid.appendChild(card);
+        });
+    });
+}
+
+function openTeamOverviewModal() {
+
+    renderTeamOverviewGrid(
+        collectMembersByGroup(),
+        'all'
+    );
+
+    teamOverviewModal.classList.add('open');
+
+    document.body.style.overflow = 'hidden';
+}
+
+function closeTeamOverviewModal() {
+
+    teamOverviewModal.classList.remove('open');
+
+    if (!memberModal.classList.contains('open')) {
+        document.body.style.overflow = '';
+    }
+}
+
+btnTeamOverview.addEventListener(
+    'click',
+    openTeamOverviewModal
+);
+
+teamOverviewClose.addEventListener(
+    'click',
+    closeTeamOverviewModal
+);
+
+teamOverviewModal.addEventListener('click', e => {
+    if (e.target === teamOverviewModal) {
+        closeTeamOverviewModal();
+    }
+});
+
+/* Atualiza o contador de membros na seção */
+(function updateMemberCount() {
+
+    const total =
+        Object.values(membersData)
+            .filter(m => m.group !== 'ex_integrante')
+            .length;
+
+    const el =
+        document.getElementById('equipe-member-count');
+
+    if (el) {
+        el.textContent = total;
+    }
+
+})();
+
+/* ────────────────────────────────────────────────────────────
+   B6 · MODAL DE EVENTOS (COM RENDERIZAÇÃO DINÂMICA DE PALESTRANTES)
+   ──────────────────────────────────────────────────────────── */
+const eventModal = document.getElementById('event-modal');
+const eventClose = document.getElementById('event-modal-close');
+
+function renderEventSpeakers(speakersData) {
+    const listEl = document.getElementById('event-modal-speakers-list');
+    if (!listEl) return;
+
+    listEl.innerHTML = '';
+
+    if (!speakersData || speakersData.length === 0) {
+        document.querySelector('.event-modal-speakers')?.style.setProperty('display', 'none');
+        return;
+    }
+
+    document.querySelector('.event-modal-speakers')?.style.setProperty('display', 'block');
+
+    speakersData.forEach(speaker => {
+        const speakerDiv = document.createElement('div');
+        speakerDiv.className = 'event-modal-speaker';
+
+        speakerDiv.innerHTML = `
+            <img class="event-modal-speaker-photo" src="${speaker.photo}" alt="${speaker.name}" onerror="this.src='assets/imagens/logos/leslogowithouttext.png'">
+            <span class="event-modal-speaker-name">${speaker.name}</span>
+        `;
+
+        listEl.appendChild(speakerDiv);
+    });
+}
+
+function openEventModal(el) {
+    const titulo = el.dataset.titulo || '';
+    const tipo   = el.dataset.tipo || 'evento';
+    const desc   = el.dataset.descricao || '';
+    const data   = el.dataset.data || 'xx/xx/xxxx';
+    const local  = el.dataset.local || 'IFPE Campus Recife';
+    
+    // Prioriza a imagem definida no data-img-modal; se não houver, pega a imagem da visão geral
+    const imgSrc = el.dataset.imgModal || el.querySelector('.event-card-img')?.src || el.querySelector('img')?.src || '';
+    const imgAlt = el.querySelector('.event-card-img')?.alt || el.querySelector('img')?.alt || '';
+
+    let palestrantes = [];
+    try {
+        palestrantes = JSON.parse(el.dataset.palestrantes || '[]');
+    } catch (e) {
+        console.error('Erro ao converter JSON de palestrantes:', e);
+    }
+
+    // Preenche a imagem do modal expandido com a nova foto definida
+    document.getElementById('event-modal-img').src = imgSrc;
+    document.getElementById('event-modal-img').alt = imgAlt;
+    document.getElementById('event-modal-title').textContent = titulo;
+
+    const dateEl = document.getElementById('event-modal-date');
+    if (dateEl) dateEl.textContent = data;
+
+    const locationEl = document.getElementById('event-modal-location');
+    if (locationEl) locationEl.textContent = local;
+
+    document.getElementById('event-modal-desc').textContent = desc;
+
+    const typeEl = document.getElementById('event-modal-type');
+    if (typeEl) {
+        typeEl.textContent = tipo.toUpperCase();
+        typeEl.className = 'event-modal-type' + (tipo === 'evento' || tipo === 'curso' ? ' tipo-evento' : '');
+    }
+
+    renderEventSpeakers(palestrantes);
+
+    eventModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeEventModal() {
+    eventModal.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+/* Associa o clique apenas aos cards que possuem atributos de evento */
+document.querySelectorAll('.event-card-vertical[data-titulo], .eventos1, .eventos2').forEach(ev => {
+    ev.addEventListener('click', () => openEventModal(ev));
+});
+
+eventClose?.addEventListener('click', closeEventModal);
+eventModal?.addEventListener('click', e => { if (e.target === eventModal) closeEventModal(); });
+const galeriaAlbunsWrap = document.getElementById('galeriaAlbunsWrap');
+
+const galeriaAlbumModal      = document.getElementById('galeria-album-modal');
+const galeriaAlbumModalTitle = document.getElementById('galeria-album-modal-title');
+const galeriaAlbumModalGrid  = document.getElementById('galeria-album-modal-grid');
+const galeriaAlbumModalClose = document.getElementById('galeria-album-modal-close');
+
+const galeriaLightbox       = document.getElementById('galeria-lightbox');
+const galeriaLightboxImg    = document.getElementById('galeria-lightbox-img');
+const galeriaLightboxClose  = document.getElementById('galeria-lightbox-close');
+const galeriaLightboxPrev   = document.getElementById('galeria-lightbox-prev');
+const galeriaLightboxNext   = document.getElementById('galeria-lightbox-next');
+
+let galeriaFotosAtivas = [];
+let galeriaIndiceAtual = 0;
+
+function renderGaleriaAlbunsCapas() {
+    if (!galeriaAlbunsWrap) return;
+    galeriaAlbunsWrap.innerHTML = '';
+
+    galeriaAlbuns.forEach((album, i) => {
+        const capa = album.fotos[0];
+
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'galeria-album-card';
+        card.innerHTML = `
+            <img src="${capa.src}" alt="${capa.alt}" loading="lazy">
+            <div class="galeria-album-card-overlay">
+                <h3 class="galeria-album-card-titulo">${album.titulo}</h3>
+                <span class="galeria-album-card-count">${album.fotos.length} fotos</span>
+            </div>
+        `;
+        card.addEventListener('click', () => openGaleriaAlbumModal(i));
+        galeriaAlbunsWrap.appendChild(card);
+    });
+}
+renderGaleriaAlbunsCapas();
+
+function openGaleriaAlbumModal(albumIndex) {
+    const album = galeriaAlbuns[albumIndex];
+    if (!album) return;
+
+    galeriaAlbumModalTitle.textContent = album.titulo;
+    galeriaAlbumModalGrid.innerHTML = '';
+
+    album.fotos.forEach((foto, i) => {
+        const fig = document.createElement('figure');
+        fig.className = 'galeria-item';
+        fig.innerHTML = `<img src="${foto.src}" alt="${foto.alt}" loading="lazy">`;
+        fig.addEventListener('click', () => abrirGaleriaLightbox(album.fotos, i));
+        galeriaAlbumModalGrid.appendChild(fig);
+    });
+
+    galeriaAlbumModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeGaleriaAlbumModal() {
+    galeriaAlbumModal.classList.remove('open');
+    if (!galeriaLightbox.classList.contains('open')) document.body.style.overflow = '';
+}
+
+galeriaAlbumModalClose?.addEventListener('click', closeGaleriaAlbumModal);
+galeriaAlbumModal?.addEventListener('click', e => { if (e.target === galeriaAlbumModal) closeGaleriaAlbumModal(); });
+
+function abrirGaleriaLightbox(fotos, indice) {
+    galeriaFotosAtivas = fotos;
+    galeriaIndiceAtual = indice;
+
+    renderGaleriaLightbox();
+    galeriaLightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function renderGaleriaLightbox() {
+    const foto = galeriaFotosAtivas[galeriaIndiceAtual];
+    if (!foto) return;
+
+    galeriaLightboxImg.src = foto.src;
+    galeriaLightboxImg.alt = foto.alt;
+}
+
+function closeGaleriaLightbox() {
+    galeriaLightbox.classList.remove('open');
+    if (!galeriaAlbumModal.classList.contains('open')) document.body.style.overflow = '';
+}
+
+function galeriaLightboxAvancar(delta) {
+    if (!galeriaFotosAtivas.length) return;
+    galeriaIndiceAtual = (galeriaIndiceAtual + delta + galeriaFotosAtivas.length) % galeriaFotosAtivas.length;
+    renderGaleriaLightbox();
+}
+
+galeriaLightboxClose?.addEventListener('click', closeGaleriaLightbox);
+galeriaLightboxPrev?.addEventListener('click', () => galeriaLightboxAvancar(-1));
+galeriaLightboxNext?.addEventListener('click', () => galeriaLightboxAvancar(1));
+galeriaLightbox?.addEventListener('click', e => { if (e.target === galeriaLightbox) closeGaleriaLightbox(); });
+
+document.addEventListener('keydown', e => {
+    if (!galeriaLightbox?.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') galeriaLightboxAvancar(-1);
+    if (e.key === 'ArrowRight') galeriaLightboxAvancar(1);
+});
+
+/* ────────────────────────────────────────────────────────────
+   B7 · CONTAGEM REGRESSIVA DO INGRESSO + MODAL DE FASES
+   ──────────────────────────────────────────────────────────── */
+
+/* Elementos do DOM */
+const $ctaBtn = document.getElementById('ingresso-cta-btn');
+const $countdownBlock = document.getElementById('ingresso-countdown-block');
+const $countdownLabel = document.getElementById('ingresso-countdown-label');
+const $semestralBlock = document.getElementById('ingresso-semestral-block');
+const $cdDays = document.getElementById('cd-days');
+const $cdHours = document.getElementById('cd-hours');
+const $cdMins = document.getElementById('cd-mins');
+const $cdSecs = document.getElementById('cd-secs');
+
+/* Utilitários da contagem */
+let ingressoFaseAtual = null;
+
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function calcDiff(target) {
+    const diff = Math.max(0, target - Date.now());
+    return {
+        days: Math.floor(diff / 86400000),
+        hours: Math.floor((diff % 86400000) / 3600000),
+        mins: Math.floor((diff % 3600000) / 60000),
+        secs: Math.floor((diff % 60000) / 1000),
+    };
+}
+
+let lastSec = -1;
+function tickPulse(sec) {
+    if (sec !== lastSec) {
+        lastSec = sec;
+        $cdSecs.classList.remove('tick');
+        void $cdSecs.offsetWidth;
+        $cdSecs.classList.add('tick');
+        setTimeout(() => $cdSecs.classList.remove('tick'), 200);
+    }
+}
+
+function updateIngressoCountdown() {
+    const cfg = INGRESSO_CONFIG;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const diaAposEnc = new Date(cfg.dataEncerramentoInscricoes);
+    diaAposEnc.setDate(diaAposEnc.getDate() + 1);
+
+    /* Fase 4 — inscrições encerradas */
+    if (today >= diaAposEnc) {
+        if (ingressoFaseAtual !== 4) {
+            ingressoFaseAtual = 4;
+            $countdownBlock.style.display = 'none';
+            $semestralBlock.style.display = 'flex';
+            $ctaBtn.style.display = 'none';
+            clearInterval(ingressoTimer);
+        }
+        return;
+    }
+
+    /* Fase 2 — inscrições abertas */
+    if (today >= cfg.dataAberturaInscricoes) {
+        ingressoFaseAtual = 2;
+        $countdownBlock.style.display = 'flex';
+        $semestralBlock.style.display = 'none';
+        $ctaBtn.style.display = '';
+        $countdownBlock.dataset.fase = '2';
+        $countdownLabel.textContent = cfg.textoFase2;
+
+        const target = new Date(cfg.dataEncerramentoInscricoes);
+        target.setHours(23, 59, 59, 999);
+        const d = calcDiff(target);
+        $cdDays.textContent = pad(d.days);
+        $cdHours.textContent = pad(d.hours);
+        $cdMins.textContent = pad(d.mins);
+        $cdSecs.textContent = pad(d.secs);
+        tickPulse(d.secs);
+        return;
+    }
+
+    /* Fase 1 — antes das inscrições */
+    ingressoFaseAtual = 1;
+    $countdownBlock.style.display = 'flex';
+    $semestralBlock.style.display = 'none';
+    $ctaBtn.style.display = '';
+    $countdownBlock.dataset.fase = '1';
+    $countdownLabel.textContent = cfg.textoFase1;
+
+    const d = calcDiff(cfg.dataAberturaInscricoes);
+    $cdDays.textContent = pad(d.days);
+    $cdHours.textContent = pad(d.hours);
+    $cdMins.textContent = pad(d.mins);
+    $cdSecs.textContent = pad(d.secs);
+    tickPulse(d.secs);
+}
+
+updateIngressoCountdown();
+const ingressoTimer = setInterval(updateIngressoCountdown, 1000);
+
+
+/* ────────────────────────────────────────────────────────────
+   B8 · ANIMAÇÕES E EFEITOS (executados após carregamento do DOM)
+   ──────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* 1. Marca body como carregado (dispara transições CSS de entrada) */
+    requestAnimationFrame(() => document.body.classList.add('loaded'));
+
+
+    /* 2. Scroll Reveal via IntersectionObserver */
+    const revealObserver = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+    );
+
+    const revealTargets = [
+        { selector: '#equipe .team-section', cls: 'reveal' },
+        { selector: '.team-list li', cls: 'reveal' },
+        { selector: '.timeline-item', cls: 'reveal-left' },
+        { selector: '.historia-texto p', cls: 'reveal' },
+        { selector: '#TransformaçãoDigital', cls: 'reveal' },
+        { selector: '#MetodologiasAgeis', cls: 'reveal' },
+        { selector: '#ImpactoSocial', cls: 'reveal' },
+        { selector: '.eventos1, .eventos2', cls: 'reveal' },
+        { selector: '#parte_nossa_equipe H2', cls: 'reveal' },
+        { selector: '#parte_nossa_equipe h3', cls: 'reveal' },
+        { selector: '#parte_nossa_equipe .cta-btn', cls: 'reveal' },
+        { selector: '#parte_nossa_equipe .cta-sub', cls: 'reveal' },
+        { selector: 'main > section h2', cls: 'reveal' },
+        { selector: 'main > section > p', cls: 'reveal' },
+        { selector: '.historia h2', cls: 'reveal' },
+        { selector: '.project-card', cls: 'reveal' },
+    ];
+
+    revealTargets.forEach(({ selector, cls }) => {
+        document.querySelectorAll(selector).forEach((el, i) => {
+            el.classList.add(cls);
+            if (i > 0) el.style.transitionDelay = `${Math.min(i * 0.08, 0.5)}s`;
+            revealObserver.observe(el);
+        });
+    });
+
+
+    /* 3. Parallax suave no Hero */
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (y < window.innerHeight) {
+            document.querySelectorAll('.hero-slide.active img').forEach(img => {
+                img.style.transform = `scale(1) translateY(${y * 0.25}px)`;
+            });
+        }
+    }, { passive: true });
+
+
+    /* 4. Scroll Hint (injetado na primeira seção) */
+    const firstSection = document.querySelector('.main > section:first-child');
+    if (firstSection) {
+        const hint = document.createElement('div');
+        hint.className = 'scroll-hint';
+        hint.innerHTML = `<span>Scroll</span><div class="arrow"></div>`;
+        firstSection.appendChild(hint);
+        window.addEventListener('scroll', () => {
+            hint.style.opacity = window.scrollY > 80 ? '0' : '';
+        }, { passive: true });
+    }
+
+
+    /* 5. Títulos dos Pilares (injetados via JS para facilitar manutenção) */
+    const pilarData = {
+        'TransformaçãoDigital': 'Transformação Digital',
+        'MetodologiasAgeis': 'Metodologias Ágeis',
+        'ImpactoSocial': 'Impacto Social',
+    };
+    Object.entries(pilarData).forEach(([id, title]) => {
+        const el = document.getElementById(id);
+        if (!el || el.querySelector('h3')) return;
+        const tag = document.createElement('h3');
+        tag.textContent = title;
+        el.insertBefore(tag, el.firstChild);
+    });
+
+
+    /* 7. Smooth scroll nos links do menu */
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (!target) return;
+            e.preventDefault();
+            const top = target.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top, behavior: 'smooth' });
+        });
+    });
+
+
+    /* 8. Cursor Glow sutil */
+    const glow = document.createElement('div');
+    glow.style.cssText = `
+        position: fixed;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(0,166,81,0.07) 0%, transparent 70%);
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: left 0.12s ease, top 0.12s ease;
+    `;
+    document.body.appendChild(glow);
+    document.addEventListener('mousemove', e => {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+    });
+
+
+    /* 9. Contadores animados no Hero */
+    function animateCounter(el, target, duration = 1800) {
+        let start = null;
+        const step = ts => {
+            if (!start) start = ts;
+            const progress = Math.min((ts - start) / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 4);
+            el.textContent = Math.floor(ease * target);
+            if (progress < 1) requestAnimationFrame(step);
+            else el.textContent = target;
+        };
+        requestAnimationFrame(step);
+    }
+
+    const ligaDiv = document.querySelector('.LIGA');
+    if (ligaDiv) {
+        /* Calcula o total de membros ativos diretamente de membersData */
+        const totalMembros = Object.values(membersData)
+            .filter(m => m.group !== 'ex_integrante').length;
+
+        const stats = document.createElement('div');
+        stats.style.cssText = `
+            display: flex; gap: 2.5rem; margin-top: 2.5rem;
+            opacity: 0; animation: fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) 1.1s forwards;
+        `;
+        stats.innerHTML = `
+            <div style="text-align:center">
+                <div class="stat-num" data-target="${totalMembros}" style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:#00a651;line-height:1">0</div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#888">Membros</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
+            <div style="text-align:center">
+                <div class="stat-num" data-target="3" style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:#00a651;line-height:1">0</div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#888">Projetos</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
+            <div style="text-align:center">
+                <div class="stat-num" data-target="2026" style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:#cc0000;line-height:1">0</div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#888">Fundada</div>
+            </div>
+        `;
+        ligaDiv.appendChild(stats);
+
+        const counterObs = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.querySelectorAll('.stat-num').forEach(el => {
+                    animateCounter(el, parseInt(el.dataset.target));
+                });
+                counterObs.unobserve(entry.target);
+            });
+        }, { threshold: 0.5 });
+
+        counterObs.observe(stats);
+    }
+
+
+    /* 10. Efeito Glitch no H1 do Hero ao passar o mouse */
+    const heroH1 = document.querySelector('.LIGA h1');
+    if (heroH1) {
+        heroH1.addEventListener('mouseenter', () => {
+            heroH1.style.textShadow = '2px 0 #cc0000, -2px 0 #00a651';
+            setTimeout(() => {
+                heroH1.style.textShadow = '1px 0 #cc0000, -1px 0 #00a651';
+                setTimeout(() => { heroH1.style.textShadow = ''; }, 100);
+            }, 80);
+        });
+    }
+
+}); /* fim DOMContentLoaded */
+
+
+/* ────────────────────────────────────────────────────────────
+   B9 · FECHAR MODAIS COM ESC (do mais interno para o mais externo)
+   ──────────────────────────────────────────────────────────── */
+document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    if (memberModal.classList.contains('open')) closeMemberModal();
+    else if (galeriaLightbox.classList.contains('open')) closeGaleriaLightbox();
+    else if (galeriaAlbumModal.classList.contains('open')) closeGaleriaAlbumModal();
+    else if (eventModal.classList.contains('open')) closeEventModal();
+    else if (teamOverviewModal.classList.contains('open')) closeTeamOverviewModal();
+    else if (ingressoModal.classList.contains('open')) closeIngressoModal();
+});
+
+
+/* ────────────────────────────────────────────────────────────
+   B10 · ABRIDOR DE FORMULÁRIO EXTERNO
+   ──────────────────────────────────────────────────────────── */
+const ingressoModal = document.getElementById('ingresso-modal');
+const ingressoModalContent = document.getElementById('ingresso-modal-content');
+const ingressoModalClose = document.getElementById('ingresso-modal-close');
+
+function openIngressoModal() {
+    ingressoModalContent.innerHTML = `
+        <h2 class="ingresso-modal-msg-title">Inscrições ainda não abertas!!</h2>
+        <p class="ingresso-modal-msg-text">O Form de inscrição estará disponível ao iniciar o processo.</p>
+    `;
+    ingressoModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeIngressoModal() {
+    ingressoModal.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+ingressoModalClose?.addEventListener('click', closeIngressoModal);
+ingressoModal?.addEventListener('click', e => { if (e.target === ingressoModal) closeIngressoModal(); });
+
+function abrirFormulario() {
+    if (ingressoFaseAtual !== 2) {
+        openIngressoModal();
+        return;
+    }
+    window.open(
+        `${INGRESSO_CONFIG.linkFormulario}`,
+        '_blank'
+    );
+}

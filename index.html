@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Liga de Engenharia de Software - LES">
+    <meta property="og:description"
+        content="Formação prática em desenvolvimento de software com projetos reais e impacto na comunidade.">
+    <meta property="og:image" content="https://lesifpe.com.br/arquivos/preview.jpg">
+    <meta property="og:url" content="https://lesifpe.com.br">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>LES - IFPE | Liga de Engenharia de Software</title>
+    <link rel="icon" href="assets/imagens/logos/leslogowithouttext.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+    <header class="header">
+        <div>
+            <img src="assets/imagens/logos/leslogowithtext.png" alt="LES IFPE LOGO">
+        </div>
+
+        <nav>
+            <ul class="menu">
+                <li><a href="#" class="menu-link">Início</a></li>
+                <li><a href="#projetos" class="menu-link">Projetos</a></li>
+                <li><a href="#calendario_atividades" class="menu-link">Calendário</a></li>
+                <li><a href="#historia" class="menu-link">História</a></li>
+                <li><a href="#galeria" class="menu-link">Galeria</a></li>
+                <li><a href="#pilares" class="menu-link">Nossos Pilares</a></li>
+                <li><a href="#equipe" class="menu-link">Nossa Equipe</a></li>
+                <li><a href="#parte_nossa_equipe" class="menu-link">Ingresso</a></li>
+            </ul>
+        </nav>
+
+        <!-- Hamburger button (mobile) -->
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Mobile nav overlay -->
+    <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+        <ul class="mobile-menu">
+            <li><a href="#" class="mobile-link">Início</a></li>
+            <li><a href="#projetos" class="mobile-link">Projetos</a></li>
+            <li><a href="#calendario_atividades" class="mobile-link">Calendário</a></li>
+            <li><a href="#historia" class="mobile-link">História</a></li>
+            <li><a href="#galeria" class="mobile-link">Galeria</a></li>
+            <li><a href="#pilares" class="mobile-link">Nossos Pilares</a></li>
+            <li><a href="#equipe" class="mobile-link">Nossa Equipe</a></li>
+            <li><a href="#parte_nossa_equipe" class="mobile-link">Ingresso</a></li>
+        </ul>
+    </div>
+
+    <main class="main">
+
+        <!-- ══ HERO COM SLIDESHOW ══════════════════════════════ -->
+        <section class="section-hero">
+            <div class="LIGA">
+                <h1>LIGA DE ENGENHARIA DE SOFTWARE</h1>
+                <p>
+                    Formação prática em desenvolvimento de software com projetos reais, metodologias ágeis e impacto na
+                    comunidade.
+                </p>
+            </div>
+
+            <div class="ifpe_img" id="heroSlideshow">
+                <!-- Os slides são injetados via JS (scriptpage.js) -->
+            </div>
+
+            <!-- Dots de navegação do slideshow -->
+            <div class="slide-dots" id="slideDots"></div>
+        </section>
+
+
+        <!-- ══ PROJETOS — CARROSSEL ════════════════════════════ -->
+        <section id="projetos">
+            <h2>Projetos</h2>
+
+            <div class="projects-carousel-wrap">
+                <!-- Botão Anterior (Esquerda) -->
+                <button class="carousel-btn carousel-btn-prev" id="prevBtn" aria-label="Anterior">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <div class="projects-track-container">
+                    <div class="projects-track" id="projectsTrack">
+
+                        <!-- ── PROJETO 1 ── -->
+                        <div class="project-card project-featured">
+                            <div class="project-img-wrap">
+                                <img src="assets/imagens/capa/CAPA5.jpeg" alt="Capa do projeto AkiContrata" class="project-img">
+                                <div class="project-badge">EM ANDAMENTO</div>
+                            </div>
+                            <div class="project-body">
+                                <h3 class="project-title">AkiContrata</h3>
+                                <p class="project-desc">
+                                    O AkiContrata é uma plataforma criada pela Liga para aproximar estudantes e empresas no mercado de tecnologia. A solução permite a construção de perfis profissionais completos com projetos e currículos, simplificando a busca de talentos pelas organizações. O sistema fortalece a integração acadêmica e amplia as oportunidades de carreira para os alunos.
+                                </p>        
+                                <a href="https://github.com/lesifpe/AkiContrata" class="project-link" target="_blank">
+                                    Ver no GitHub
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- ── PROJETO 2 ── -->
+                        <div class="project-card project-featured">
+                            <div class="project-img-wrap">
+                                <img src="assets/imagens/capa/CAPA4.jpg" alt="Capa do projeto IABadie" class="project-img">
+                                <div class="project-badge">EM ANDAMENTO</div>
+                            </div>
+                            <div class="project-body">
+                                <h3 class="project-title">IABadie</h3>
+                                <p class="project-desc">
+                                    O IAbadie é um sistema inteligente de perguntas e respostas desenvolvido para auxiliar estudantes do curso de Análise e Desenvolvimento de Sistemas. A aplicação utiliza busca semântica para localizar conteúdos relevantes no FAQ em linguagem natural. Rodando localmente para garantir a privacidade dos dados, a ferramenta combina IA, embeddings e Streamlit.
+                                </p>
+                                <div class="project-stack">
+                                    <span>Python</span>
+                                    <span>Streamlit</span>
+                                    <span>Machine Learning</span>
+                                    <span>FAISS</span>
+                                </div>
+                                <a href="https://github.com/lesifpe/iabadie" class="project-link" target="_blank">
+                                    Ver no GitHub
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- ── PROJETO 3 ── -->
+                        <div class="project-card project-featured">
+                            <div class="project-img-wrap">
+                                <img src="assets/imagens/capa/ESP32.jpg" alt="Capa do projeto Data Insights" class="project-img">
+                                <div class="project-badge">EM ANDAMENTO</div>
+                            </div>
+                            <div class="project-body">
+                                <h3 class="project-title">Data Insights</h3>
+                                <p class="project-desc">
+                                    O Data Insights é uma plataforma web para análise e visualização de dados de projetos institucionais por meio de dashboards interativos e recursos avançados como filtragem temporal. Atualmente, o sistema centraliza dados de duas soluções principais: o WeatherDashboard, voltado para monitoramento meteorológico, e o AIOTADS, focado na análise do fluxo de pessoas nas instalações do IFPE Recife.
+                                </p>
+                                <div class="project-stack">
+                                    <span>IOT</span>
+                                    <span>Data</span>
+                                    <span>ESP32</span>
+                                    <span>Firebase</span>
+                                    <span>Vue</span>
+                                    <span>TypeScript</span>
+                                    <span>Javascript</span>
+                                </div>
+                                <a href="https://github.com/lesifpe/mestrado-sensor-dashboard/tree/main" class="project-link" target="_blank">
+                                    Ver no GitHub
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- ── PROJETO 4 ── -->
+                        <div class="project-card project-featured">
+                            <div class="project-img-wrap">
+                                <img src="assets/imagens/capa/CAPA1.jpg" alt="Capa do projeto Portal LES-IFPE" class="project-img">
+                                <div class="project-badge">CONCLUÍDO</div>
+                            </div>
+                            <div class="project-body">
+                                <h3 class="project-title">Portal LES - IFPE</h3>
+                                <p class="project-desc">
+                                    Desenvolvimento do portal oficial da Liga de Engenharia de Software do IFPE Campus Recife, integrando divulgação institucional, gestão de membros e vitrine de projetos da liga.
+                                </p>
+                                <div class="project-stack">
+                                    <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                                </div>
+                                <a href="https://github.com/lesifpe/lesifpe.github.io" class="project-link" target="_blank">
+                                    Ver no GitHub
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Botão Próximo (Direita) -->
+                <button class="carousel-btn carousel-btn-next" id="nextBtn" aria-label="Próximo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Indicadores (Dots) na parte inferior -->
+            <div class="carousel-controls">
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+        </section>
+
+
+        <!-- ══ CALENDÁRIO ══════════════════════════════════════ -->
+        <section id="calendario_atividades">
+            <h1>Calendário de Atividades</h1>
+
+            <div class="events-carousel-wrap">
+                <!-- Botão Anterior (Esquerda) -->
+                <button class="carousel-btn carousel-btn-prev" id="eventsPrevBtn" aria-label="Anterior">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <div class="events-track-container">
+                    <div class="events-track" id="eventsTrack">
+
+                        <!-- ── CARD VERTICAL 1 (WORKSHOP) ── -->
+                        <article class="event-card-vertical eventos1" 
+                            data-titulo="Workshop de Inserção no Mercado de Tecnologia" 
+                            data-data="09/05/2026"
+                            data-tipo="workshop" 
+                            data-local="Auditório do Centro de Pesquisa - IFPE Campus Recife"
+                            data-descricao="O Workshop de Inserção no Mercado de Tecnologia foi o primeiro evento presencial feito pela LES, o evento foi uma imersão prática em posicionamento e preparação para recrutamentos em TI. Durante o workshop, os participantes puderam receber orientações sobre otimização de GitHub, LinkedIn e currículos no padrão ATS, além de estratégias para entrevistas técnicas e comportamentais. O encontro contou ainda com um painel de membros da LES compartilhando experiências sobre a entrada no mercado de trabalho."
+                            data-img-modal="assets/imagens/calendario/workshop-image.jpg"
+                            data-palestrantes='[{"name": "Eduarda Rocha", "photo": "assets/imagens/membros/eduarda.jpeg"}, {"name": "Yuri Oliveira", "photo": "assets/imagens/membros/yuri.jpeg"}, {"name": "Victor Montes", "photo": "assets/imagens/membros/victormontes.jpeg"}]'>
+                            
+                            <div class="event-card-img-wrap">
+                                <img src="assets/imagens/galeria/workshop-insercao.jpg" alt="Workshop Inserção" class="event-card-img">
+                                <div class="event-card-gradient"></div>
+                            </div>
+
+                            <div class="event-card-content">
+                                <div class="event-card-badges">
+                                    <span class="event-card-badge badge-type">WORKSHOP</span>
+                                    <span class="event-card-badge badge-status">FINALIZADO</span>
+                                </div>
+
+                                <h3 class="event-card-title">Workshop de Inserção no Mercado de Tecnologia</h3>
+
+                                <button class="event-card-btn" type="button">
+                                    <span>Saiba Mais</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- ── CARD VERTICAL 2 (CURSO DE FÉRIAS) ── -->
+                        <article class="event-card-vertical eventos2" 
+                            data-titulo="Curso de Férias: Java e Github" 
+                            data-data="12, 13 e 14/01/2026"
+                            data-tipo="curso" 
+                            data-local="Evento Online"
+                            data-descricao="A Oficina de Java e Programação Orientada a Objetos foi um evento realizado pela LES com o objetivo de introduzir os participantes aos fundamentos do desenvolvimento Java e aos pilares da POO. Durante as duas aulas teóricas, foram abordados conceitos essenciais como classes, atributos, métodos, objetos, além dos quatro pilares, sempre acompanhados de exemplos práticos e exercícios de fixação. Os participantes também tiveram contato com ferramentas fundamentais para o desenvolvimento moderno, como Eclipse, Git e GitHub. Na etapa final, os estudantes consolidaram a experiência aplicando todo o conhecimento adquirido na construção de um projeto com tema livre."
+                            data-img-modal="assets/imagens/calendario/oficina-image.png"
+                            data-palestrantes='[{"name": "Ilian Solano", "photo": "assets/imagens/membros/ilian.jpeg"}, {"name": "Yuri Oliveira", "photo": "assets/imagens/membros/yuri.jpeg"}]'>
+                            
+                            <div class="event-card-img-wrap">
+                                <img src="assets/imagens/calendario/oficina-image.png" alt="Curso de Férias: Java e Github" class="event-card-img">
+                                <div class="event-card-gradient"></div>
+                            </div>
+
+                            <div class="event-card-content">
+                                <div class="event-card-badges">
+                                    <span class="event-card-badge badge-type badge-type-curso">CURSO</span>
+                                    <span class="event-card-badge badge-status">FINALIZADO</span>
+                                </div>
+
+                                <h3 class="event-card-title">Curso de Férias: Java e Github</h3>
+
+                                <button class="event-card-btn" type="button">
+                                    <span>Saiba Mais</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- ── CARD VERTICAL 3 (PLACEHOLDER MAIS EVENTOS) ── -->
+                        <article class="event-card-vertical event-card-placeholder">
+                            <div class="event-card-img-wrap">
+                                <div class="event-card-placeholder-bg"></div>
+                                <div class="event-card-gradient"></div>
+                            </div>
+
+                            <div class="event-card-content event-card-placeholder-content">
+                                <div class="event-card-placeholder-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                        <line x1="12" y1="14" x2="12" y2="18"></line>
+                                        <line x1="10" y1="16" x2="14" y2="16"></line>
+                                    </svg>
+                                </div>
+
+                                <div class="event-card-badges">
+                                    <span class="event-card-badge badge-type badge-type-embreve">EM BREVE</span>
+                                </div>
+
+                                <h3 class="event-card-title">Mais eventos em breve</h3>
+                                <p class="event-card-subtitle">Fique ligado nas nossas redes para não perder as próximas novidades!</p>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+
+                <!-- Botão Próximo (Direita) -->
+                <button class="carousel-btn carousel-btn-next" id="eventsNextBtn" aria-label="Próximo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Indicadores (Dots) -->
+            <div class="carousel-controls">
+                <div class="carousel-dots" id="eventsDots"></div>
+            </div>
+        </section>
+
+        <!-- ══ HISTÓRIA ════════════════════════════════════════ -->
+        <section id="historia" class="historia">
+            <div class="container">
+
+                <div class="historia-texto">
+                    <h2>História da Liga</h2>
+
+                    <p>
+                        A Liga Acadêmica de Engenharia de Software (LES) surgiu a partir de um ciclo de
+                        palestras promovidas pelo Centro de Informática (CIn), que apresentou aos estudantes
+                        a estrutura e os fundamentos de ligas acadêmicas.
+                    </p>
+
+                    <p>
+                        A partir dessa iniciativa, estudantes do IFPE – Campus Recife se mobilizaram para
+                        estruturar a liga, realizando processos seletivos e formando uma equipe alinhada
+                        com o propósito de desenvolver soluções tecnológicas com impacto real.
+                    </p>
+                    <p>
+                        Atualmente, a LES encontra-se em processo de consolidação institucional, com
+                        atividades em andamento focadas na formação prática, desenvolvimento de projetos
+                        e integração com o mercado e a comunidade.
+                    </p>
+
+                    <h3>Importância da Liga para o IFPE</h3>
+                    <p>
+                        As ligas acadêmicas desempenham um papel estratégico no cenário científico das
+                        instituições de ensino superior, atuando como espaços de integração entre ensino,
+                        pesquisa e extensão. Elas promovem o protagonismo estudantil, estimulam a produção
+                        científica e fortalecem a formação prática dos alunos por meio de projetos reais e
+                        colaborativos. No contexto do IFPE – Campus Recife, a LES se destaca por ser a
+                        primeira liga acadêmica estruturada na área de tecnologia, consolidando-se como um
+                        importante projeto de extensão. Sua atuação contribui diretamente para a aproximação
+                        entre a academia e o mercado, além de fomentar inovação, desenvolvimento tecnológico
+                        e impacto social dentro e fora da instituição.
+                    </p>
+                </div>
+
+                <div class="historia-timeline">
+                    <div class="timeline-item">
+                        <span>Outubro 2025</span>
+                        <h3>Mobilização</h3>
+                        <p>Início da ideia a partir de palestras e mentorias do CIn.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span>Novembro 2025</span>
+                        <h3>Processo Seletivo</h3>
+                        <p>Formação da equipe inicial e triagem de membros.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span>2026</span>
+                        <h3>Formalização</h3>
+                        <p>Estruturação oficial da liga no IFPE.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Necessario pensar em alternativa de escalamento de imagens para não consumir 
+         tanto espaço no projeto  -->
+        <section id="galeria">
+            <h2>Galeria</h2>
+            <p>Aulas e eventos que mostram a LES em ação.</p>
+
+            <div class="galeria-albuns-grid" id="galeriaAlbunsWrap">
+            </div>
+        </section>
+
+
+        <!-- ══ PILARES ═════════════════════════════════════════ -->
+        <section id="pilares">
+            <div class="pilares-header">
+                <h2>Nossos Pilares</h2>
+                <p>Os valores que guiam cada projeto e decisão da liga.</p>
+            </div>
+
+            <div class="pilares-grid">
+                <div class="pilar-card" id="TransformaçãoDigital">
+                    <div class="pilar-number">01</div>
+                    <div class="pilar-icon"></div>
+                    <h3>Transformação Digital</h3>
+                    <p>
+                        Aceleramos a adoção de tecnologia na comunidade acadêmica e local, traduzindo
+                        conhecimento técnico em soluções acessíveis que geram mudança real no cotidiano
+                        das pessoas e instituições.
+                    </p>
+                    <div class="pilar-line"></div>
+                </div>
+
+                <div class="pilar-card" id="MetodologiasAgeis">
+                    <div class="pilar-number">02</div>
+                    <div class="pilar-icon"></div>
+                    <h3>Metodologias Ágeis</h3>
+                    <p>
+                        Aplicamos frameworks como Scrum e Kanban no dia a dia dos projetos, desenvolvendo
+                        nos membros a capacidade de entregar valor de forma iterativa, colaborativa e
+                        alinhada às demandas do mercado.
+                    </p>
+                    <div class="pilar-line"></div>
+                </div>
+
+                <div class="pilar-card" id="ImpactoSocial">
+                    <div class="pilar-number">03</div>
+                    <div class="pilar-icon"></div>
+                    <h3>Impacto Social</h3>
+                    <p>
+                        Cada projeto nasce com propósito. Priorizamos soluções que beneficiem diretamente
+                        a comunidade do IFPE e seu entorno, conectando a formação técnica dos membros
+                        com responsabilidade social e cidadania.
+                    </p>
+                    <div class="pilar-line"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ══ EQUIPE ══════════════════════════════════════════ -->
+        <section id="equipe">
+            <h2>Nossa Equipe</h2>
+            <p>Conheça as pessoas que impulsionam a tecnologia e a inovação na LES.</p>
+
+            <div class="equipe-hero">
+
+                <!-- Avatares flutuantes decorativos — animados via CSS -->
+                <div class="equipe-hero-avatars" aria-hidden="true">
+                    <div class="equipe-avatar-float equipe-avatar-float--1">HI</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--2">IS</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--3">YO</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--4">MA</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--5">LF</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--6">GN</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--7">BL</div>
+                    <div class="equipe-avatar-float equipe-avatar-float--8">PT</div>
+                </div>
+
+                <!-- Conteúdo central -->
+                <div class="equipe-hero-inner">
+                    <p class="equipe-hero-label">Liga de Engenharia de Software</p>
+                    <div class="equipe-hero-count">
+                        <span id="equipe-member-count">11</span>
+                        <span class="equipe-hero-count-label">pessoas constroem a LES</span>
+                    </div>
+
+                    <button class="equipe-hero-btn" id="btn-team-overview" aria-label="Ver todos os membros da equipe">
+                        <span class="equipe-hero-btn-text">Conheça nossa equipe</span>
+                        <span class="equipe-hero-btn-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </span>
+                    </button>
+
+                    <!-- Pílulas das categorias — decorativas -->
+                    <div class="equipe-hero-tags">
+                        <span class="equipe-tag equipe-tag--green">Coordenação</span>
+                        <span class="equipe-tag equipe-tag--blue">Desenvolvedores</span>
+                        <span class="equipe-tag equipe-tag--purple">Design</span>
+                        <span class="equipe-tag equipe-tag--gold">Colaboradores</span>
+                        <span class="equipe-tag equipe-tag--gold">Colab. Externo</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ══ DADOS DOS MEMBROS (hidden — lidos pelo JS para o modal) ══ -->
+            <div class="equipe-data-source" aria-hidden="true" style="display:none">
+
+                <!-- Coordenação e Diretoria -->
+                <div class="member-card" data-member="ilian" data-group="diretoria"></div>
+                <div class="member-card" data-member="yuri" data-group="diretoria"></div>
+                <div class="member-card" data-member="eduarda" data-group="diretoria"></div>
+
+
+
+                <!-- Membros Desenvolvedores -->
+                <div class="member-card" data-member="renan" data-group="dev"></div>
+                <div class="member-card" data-member="christoph" data-group="dev"></div>
+                <div class="member-card" data-member="paulo" data-group="dev"></div>
+                <div class="member-card" data-member="bruno" data-group="dev"></div>
+                <div class="member-card" data-member="victor" data-group="dev"></div>
+                <div class="member-card" data-member="victorsoares" data-group="dev"></div>
+                <div class="member-card" data-member="marcio" data-group="dev"></div>
+                <div class="member-card" data-member="ingrid" data-group="dev design"></div>
+                <div class="member-card" data-member="david" data-group="dev"></div>
+                <div class="member-card" data-member="gabriel" data-group="dev"></div>
+                <div class="member-card" data-member="lucasfig" data-group="dev"></div>
+                <div class="member-card" data-member="Deise" data-group="dev"></div>
+                <div class="member-card" data-member="Emylly" data-group="dev"></div>
+                <div class="member-card" data-member="carol" data-group="dev"></div>
+                <div class="member-card" data-member="Pedro" data-group="dev"></div>
+                <div class="member-card" data-member="Guilhermy" data-group="dev"></div>
+                <div class="member-card" data-member="Kaua" data-group="dev"></div>
+
+                <!-- Design -->
+                <div class="member-card" data-member="rafaelp" data-group="design"></div>
+                <div class="member-card" data-member="guilhermeb" data-group="design"></div>
+
+                <!-- Colaboradores -->
+                <div class="member-card" data-member="hilson" data-group="colaborador"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ══ INGRESSO ════════════════════════════════════════ -->
+        <section id="parte_nossa_equipe">
+            <h2>INGRESSO</h2>
+            <h3>Aos interessados em fazer parte da Liga</h3>
+            <div class="ingresso-explicacoes">
+                <p>A LES abriu inscrições para integração de novos membros de maneira semestral para que os alunos interessados possam colaborar dentro da Liga.</p>
+                <p>Nesse semestre o processo de ingresso terá 15 vagas, sendo 10 delas destinadas à discentes a partir do 2° período, e é composto por 4 etapas principais:</p>
+                <ol class="ingresso-etapas" id="ingresso-explicacoes-etapas">
+                    <li> 
+                        <p class="numero-etapa">1.</p>
+                        <div>
+                            <h4>Inscrição Niveladora</h4>
+                            <p>Preenchimento de um formulário de nivelamento que permite aos avaliadores conhecer o perfil e as expectativas em relação à LES, além de orientar o melhor direcionamento dentro dos projetos disponíveis <em>(etapa não eliminatória)</em>.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="numero-etapa">2.</p>
+                        <div>
+                            <h4>Projeto Prático</h4>
+                            <p>Desenvolvimento de um projeto prático para avaliar as competências técnicas. Os enunciados apresentam níveis variados de dificuldade, contemplando diferentes graus de experiência.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="numero-etapa">3.</p>
+                        <div>
+                            <h4>Entrevistas Presenciais</h4>
+                            <p>Uma conversa individual com os avaliadores para aprofundar a análise de competências interpessoais e alinhar expectativas sobre a atuação nos projetos.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <p class="numero-etapa">4.</p>
+                        <div>
+                            <h4>Período de Experiência</h4>
+                            <p>Ao final do processo, há um período de experiência de dois meses antes da integração oficial à LES. Essa fase verifica aspectos como disponibilidade e comprometimento, fundamentais para a rotina da liga.</p>
+                        </div>
+                    </li>
+                </ol>
+
+                <h4 id="ingresso-explicacoes-1-periodo">Vagas para o 1° período</h4>
+                <p>Os alunos do primeiro poderão participar do processo seletivo regular através de recomendações da liderança da LES. Com exceção desses casos, inscrições de discentes do 1° período serão desconsideradas.</p>
+            </div>
+
+            <!-- Bloco da contagem regressiva — preenchido via JS -->
+            <div id="ingresso-countdown-wrapper" class="ingresso-countdown-wrapper">
+
+                <!-- Fase 1 e 3: Contagem regressiva -->
+                <div id="ingresso-countdown-block" class="ingresso-countdown-block" style="display:none">
+                    <p id="ingresso-countdown-label" class="ingresso-countdown-label">Inscrições abrem em</p>
+                    <div class="ingresso-countdown-digits" id="ingresso-countdown-digits">
+                        <div class="countdown-unit">
+                            <span class="countdown-num" id="cd-days">00</span>
+                            <span class="countdown-lbl">Dias</span>
+                        </div>
+                        <span class="countdown-sep">:</span>
+                        <div class="countdown-unit">
+                            <span class="countdown-num" id="cd-hours">00</span>
+                            <span class="countdown-lbl">Horas</span>
+                        </div>
+                        <span class="countdown-sep">:</span>
+                        <div class="countdown-unit">
+                            <span class="countdown-num" id="cd-mins">00</span>
+                            <span class="countdown-lbl">Min</span>
+                        </div>
+                        <span class="countdown-sep">:</span>
+                        <div class="countdown-unit">
+                            <span class="countdown-num" id="cd-secs">00</span>
+                            <span class="countdown-lbl">Seg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fase 4: Informa processo semestral -->
+                <div id="ingresso-semestral-block" class="ingresso-semestral-block" style="display:none">
+                    <p class="ingresso-semestral-fallback-title">Processo Seletivo Semestral</p>
+                    <p class="ingresso-semestral-fallback-sub">
+                        O ingresso na LES ocorre a cada semestre.<br>
+                        Acompanhe nosso Instagram <strong>@les.ifpe</strong> para novidades.
+                    </p>
+                </div>
+
+                <!-- Botão de inscrição — visível/oculto conforme a fase (controlado via JS) -->
+                <div class="cta-group">
+                    <button class="cta-btn cta-primary" id="ingresso-cta-btn" onclick="abrirFormulario()">
+                        <span>Inscreva-se</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+                <span class="cta-sub">Seleção semestral · IFPE Campus Recife</span>
+
+            </div><!-- /#ingresso-countdown-wrapper -->
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <ul class="social-links">
+            <li><a href="https://www.instagram.com/les.ifpe/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </li>
+            <li><a href="https://discord.gg/EA9qZ62QSb" target="_blank" rel="noopener noreferrer">Discord</a></li>
+            <li><a href="https://github.com/orgs/lesifpe/repositories" target="_blank"
+                    rel="noopener noreferrer">Github</a></li>
+        </ul>
+
+        <ul class="footer-links">
+            <li><a href="mailto:lesifpe@gmail.com">Support</a></li>
+            <li><a href="mailto:rafael.aschoff@recife.ifpe.edu.br">Coordenação</a></li>
+        </ul>
+
+        <p class="copyright">
+            © 2026 LES-IFPE — Todos os direitos reservados.
+        </p>
+    </footer>
+
+
+    <!-- ══ MODAL: PERFIL INDIVIDUAL DO MEMBRO ══════════════════ -->
+    <div id="member-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Perfil do membro">
+        <div class="modal-box">
+            <button class="modal-close" id="modal-close" aria-label="Fechar">&times;</button>
+            <div class="modal-header">
+                <div class="modal-avatar" id="modal-avatar"></div>
+                <div>
+                    <span class="modal-role" id="modal-role"></span>
+                    <h2 class="modal-name" id="modal-name"></h2>
+                </div>
+            </div>
+            <div class="modal-project" id="modal-project"></div>
+            <p class="modal-bio" id="modal-bio"></p>
+            <div class="modal-links" id="modal-links"></div>
+        </div>
+    </div>
+
+    <!-- ══ MODAL: VISÃO GERAL DA EQUIPE ════════════════════════ -->
+    <div id="team-overview-modal" class="team-overview-overlay" role="dialog" aria-modal="true"
+        aria-label="Nossa equipe completa">
+        <div class="team-overview-modal-box">
+
+            <div class="team-overview-modal-header">
+                <div>
+                    <h2 class="team-overview-modal-title">Nossa Equipe</h2>
+                    <p class="team-overview-modal-subtitle">Conheça todos que constroem a LES-IFPE</p>
+                </div>
+                <button class="team-overview-close" id="team-overview-close" aria-label="Fechar">&times;</button>
+            </div>
+
+            <div class="team-overview-filters" id="team-overview-filters">
+                <!-- Preenchido via JS -->
+            </div>
+
+            <div class="team-overview-grid" id="team-overview-grid">
+                <!-- Preenchido via JS -->
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ══ MODAL EVENTO ═══════════════════════════════════════ -->
+    <div id="event-modal" class="event-modal-overlay" role="dialog" aria-modal="true" aria-label="Detalhes do evento">
+        <div class="event-modal-box">
+            <button class="event-modal-close" id="event-modal-close" aria-label="Fechar">&times;</button>
+            <img src="" alt="" class="event-modal-img" id="event-modal-img">
+            <div class="event-modal-accent"></div>
+            <div class="event-modal-body">
+                <div class="event-modal-tags">
+                    <span class="event-modal-type" id="event-modal-type">WORKSHOP</span>
+                    <span class="event-modal-status">FINALIZADO</span>
+                </div>
+                <h2 class="event-modal-title" id="event-modal-title"></h2>
+                <div class="event-modal-meta">
+                    <p class="event-modal-date" id="event-modal-date"></p>
+                    <p class="event-modal-location" id="event-modal-location">Auditório do Centro de Pesquisa - IFPE Campus Recife</p>
+                </div>
+                <p class="event-modal-desc" id="event-modal-desc"></p>
+                <div class="event-modal-speakers">
+                    <h3 class="event-modal-speakers-title">Palestrantes</h3>
+                    <div class="event-modal-speakers-list speaker-list" id="event-modal-speakers-list">
+                        <div class="event-modal-speaker" data-name="Eduarda Rocha" data-photo="assets/imagens/membros/eduarda.jpeg">
+                            <img class="event-modal-speaker-photo" alt="Eduarda Rocha">
+                            <span class="event-modal-speaker-name">Eduarda Rocha</span>
+                        </div>
+                        <div class="event-modal-speaker" data-name="Yuri Oliveira" data-photo="assets/imagens/membros/yuri.jpeg">
+                            <img class="event-modal-speaker-photo" alt="Yuri Oliveira">
+                            <span class="event-modal-speaker-name">Yuri Oliveira</span>
+                        </div>
+                        <div class="event-modal-speaker" data-name="Victor Montes" data-photo="assets/imagens/membros/victormontes.jpeg">
+                            <img class="event-modal-speaker-photo" alt="Victor Montes">
+                            <span class="event-modal-speaker-name">Victor Montes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="galeria-album-modal" class="galeria-album-overlay" role="dialog" aria-modal="true"
+        aria-label="Fotos do álbum">
+        <div class="galeria-album-modal-box">
+            <div class="galeria-album-modal-header">
+                <h2 class="galeria-album-modal-title" id="galeria-album-modal-title"></h2>
+                <button class="galeria-album-modal-close" id="galeria-album-modal-close"
+                    aria-label="Fechar">&times;</button>
+            </div>
+            <div class="galeria-grid" id="galeria-album-modal-grid">
+            </div>
+        </div>
+    </div>
+
+    <div id="galeria-lightbox" class="galeria-lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+        <button class="galeria-lightbox-close" id="galeria-lightbox-close" aria-label="Fechar">&times;</button>
+        <button class="galeria-lightbox-nav galeria-lightbox-prev" id="galeria-lightbox-prev"
+            aria-label="Foto anterior">&#8249;</button>
+        <figure class="galeria-lightbox-figure">
+            <img src="" alt="" id="galeria-lightbox-img">
+        </figure>
+        <button class="galeria-lightbox-nav galeria-lightbox-next" id="galeria-lightbox-next"
+            aria-label="Próxima foto">&#8250;</button>
+    </div>
+
+    <!-- ══ MODAL DE INGRESSO (fases 1, 2 e 3) ═══════════════════ -->
+    <div id="ingresso-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Processo Seletivo">
+        <div class="modal-box" style="max-width:560px">
+            <button class="modal-close" id="ingresso-modal-close" aria-label="Fechar">&times;</button>
+            <div id="ingresso-modal-content"></div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
