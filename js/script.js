@@ -380,7 +380,7 @@ const membersData = {
 
     },
 
-    Deise: {
+    deise: {
         name: 'Deise Ellen Sousa dos Santos',
         photo: 'assets/imagens/membros/',
         role: 'Desenvolvedor',
@@ -395,7 +395,7 @@ const membersData = {
     },
 
 
-      Emylly: {
+      emylly: {
         name: 'Emylly Vitória Cardoso Freire ',
         photo: 'assets/imagens/membros/',
         role: 'Desenvolvedor',
@@ -409,7 +409,7 @@ const membersData = {
         projeto: ['PORTAL'],
     },
 
-     Kaua: {
+     kaua: {
         name: 'Kauã Henrique Leandro Lins ',
         photo: 'assets/imagens/membros/',
         role: 'Desenvolvedor',
@@ -423,7 +423,7 @@ const membersData = {
         projeto: ['IABADIE'],
     },
 
-     Guilhermy : {
+     guilhermy : {
         name: 'Guilhermy Lazaro Siqueira da Silva  ',
         photo: 'assets/imagens/membros/',
         role: 'Desenvolvedor',
@@ -437,7 +437,7 @@ const membersData = {
         projeto: ['PORTAL'],
     },
 
-      Pedro  : {
+      pedro  : {
         name: 'Pedro Gabriel da Silva  ',
         photo: 'assets/imagens/membros/',
         role: 'Desenvolvedor',
