@@ -451,6 +451,20 @@ const membersData = {
         projeto: ['IABADIE'],
     },
 
+     carol : {
+        name: 'Ana Carolina Vitória da Silva   ',
+        photo: 'assets/imagens/membros/',
+        role: 'Desenvolvedor',
+        initials: 'AC',
+        group: 'dev',
+        bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
+        links: {
+            github: '',
+            linkedin: '',
+        },
+        projeto: ['IABADIE'],
+    },
+
      
     /* ══ COLABORADORES — adicione aqui ══════════════════════
        Exemplo:
