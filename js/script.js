@@ -164,23 +164,6 @@ const membersData = {
     },
 
 
-<<<<<<< HEAD
-=======
-    eduarda: {
-        name: 'Eduarda Rocha Fernandes de Sousa',
-        photo: 'assets/imagens/membros/eduarda.jpeg',
-        role: 'Diretora de Ensino',
-        initials: 'ES',
-        group: 'diretoria',
-        bio: 'Membro desenvolvedora da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
-        links: {
-            github: 'https://github.com/EduardaRFSousa',
-            linkedin: 'https://www.linkedin.com/in/eduarda-rocha-full-stack-dev/',
-        },
-        projeto: ['Site LES'],
-    },
-
->>>>>>> 1f76835d68509a4e501adc3b90a376850aa551e4
 
 
     /* ── Desenvolvedores ── */
@@ -253,22 +236,6 @@ const membersData = {
         projeto: ['AkiContrata'],
     },
 
-<<<<<<< HEAD
-=======
-    adriano: {
-        name: 'Adriano Eloy Justino da Silva',
-        photo: 'assets/imagens/membros/adriano.jpeg',
-        role: 'Desenvolvedor',
-        initials: 'AD',
-        group: 'dev',
-        bio: 'Movido por desafios, aprendizado contínuo e pela vontade de transformar ideias em soluções reais através da tecnologia.',
-        links: {
-            github: 'https://github.com/AdrianoABR123',
-            linkedin: 'https://www.linkedin.com/in/adriano-eloy-a703b4309/',
-        },
-        projeto: ['AkiContrata'],
-    },
->>>>>>> 1f76835d68509a4e501adc3b90a376850aa551e4
 
     victor: {
         name: 'Victor Montes da Silva',
@@ -287,24 +254,7 @@ const membersData = {
         ],
     },
 
-<<<<<<< HEAD
   
-=======
-    nicolas: {
-        name: 'Nicollas Nunes Araújo',
-        photo: 'assets/imagens/membros/nicolas.jpeg',
-        role: 'Desenvolvedor',
-        initials: 'NN',
-        group: 'dev',
-        bio: 'Membro desenvolvedor da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
-        links: {
-            github: 'https://github.com/nicollasnunes04',
-            linkedin: 'https://www.linkedin.com/in/nicollas-nunes-043b622a4?utm_source=share_via&utm_content=profile&utm_medium=member_android',
-        },
-        projeto: ['IABadie'],
-    },
-
->>>>>>> 1f76835d68509a4e501adc3b90a376850aa551e4
     miguel: {
         name: 'Miguel Henrique Luz dos Santos',
         photo: 'assets/imagens/membros/miguel.jpeg',
@@ -319,23 +269,6 @@ const membersData = {
         projeto: ['AkiContrata'],
     },
 
-<<<<<<< HEAD
-=======
-    leonardol: {
-        name: 'Leonardo Lemos dos Santos',
-        photo: 'assets/imagens/membros/leonardol.jpeg',
-        role: 'Desenvolvedor',
-        initials: 'MH',
-        group: 'dev',
-        bio: 'Membro desenvolvedor da LES, com foco em evolução técnica contínua e na entrega de valor real aos projetos.',
-        links: {
-            github: 'https://github.com/lemure17',
-            linkedin: 'https://www.linkedin.com/in/leonardo-lemos-dos-santos/'
-        },
-        projeto: ['AkiContrata'],
-    },
-
->>>>>>> 1f76835d68509a4e501adc3b90a376850aa551e4
     victorsoares: {
         name: 'Victor Soares Couto da Silva',
         photo: 'assets/imagens/membros/victorsoares.jpeg',
@@ -444,7 +377,6 @@ const membersData = {
             github: 'https://github.com/RPassos05',
             linkedin: 'https://www.linkedin.com/in/rafael-passos-2b2752406/',
         },
-<<<<<<< HEAD
 
     },
 
@@ -459,29 +391,22 @@ const membersData = {
             github: 'https://github.com/DeiseEllen',
             linkedin: '',
         },
-        projeto: ['Portal'],
+        projeto: ['PORTAL'],
     },
 
 
       Emylly: {
         name: 'Emylly Vitória Cardoso Freire ',
-=======
-    },
-
-    ian: {
-        name: 'Ian Elton Pereira da Silva',
->>>>>>> 1f76835d68509a4e501adc3b90a376850aa551e4
         photo: 'assets/imagens/membros/',
         role: 'Desenvolvedor',
         initials: 'IP',
         group: 'dev',
         bio: 'Membro desenvolvedor da LES, focado em crescimento técnico e entrega de valor nos projetos da liga.',
         links: {
-<<<<<<< HEAD
             github: '',
             linkedin: '',
         },
-        projeto: ['Portal'],
+        projeto: ['PORTAL'],
     },
 
      Kaua: {
@@ -509,7 +434,7 @@ const membersData = {
             github: '',
             linkedin: '',
         },
-        projeto: ['Portal'],
+        projeto: ['PORTAL'],
     },
 
       Pedro  : {
@@ -527,14 +452,6 @@ const membersData = {
     },
 
      
-=======
-            github: 'https://github.com/ianq1w1',
-            linkedin: 'https://www.linkedin.com/in/ian-elton-dev/',
-        },
-        projeto: ['Weather'],
-    },
-
->>>>>>> 1f76835d68509a4e501adc3b90a376850aa551e4
     /* ══ COLABORADORES — adicione aqui ══════════════════════
        Exemplo:
        nomeColaborador: {
